@@ -54,12 +54,15 @@ public class Employee extends Person implements choosePreference {
 				profit = (1.2 * currentHourChange) + (1 * (8 - currentHourChange));
 				break;
 			case HOME:
-				profit = 1.1 * 8;
+				if (this.role.getWorkFromHome())
+					profit = 1.1 * 8;
+				else
+					profit = 8;
 				break;
 			case REGULAR_START:
 				profit = 8;
 				break;
-		
+
 			}
 		} else
 			profit = 8;
@@ -83,10 +86,12 @@ public class Employee extends Person implements choosePreference {
 		if (this.canChoosePreference()) {
 			if (p.getPreferenceType() == PreferenceType.HOME) {
 				if (this.preference.getPreferenceType() == PreferenceType.HOME)
-					profit = 8 * 1.1;
+					if (this.role.getWorkFromHome())
+						profit = 8 * 1.1;
+					else
+						profit = 8;
 				else
 					profit = 8 * 1;
-				return profit;
 			}
 			int employeeEnd, employeeStart, end, start;
 			start = p.getStartHour();
@@ -157,6 +162,12 @@ public class Employee extends Person implements choosePreference {
 				+ "\nrole: " + this.role.getjobTitle() + "\ncan choose preference? : " + this.changePreference
 				+ "\nday's hours in value: " + this.currentHourProfitForDay + "\nday's hours in money value: "
 				+ this.currentMoneyProfitForDay);
+	}
+
+	public String getSimulationResults() {
+		StringBuffer str = new StringBuffer(this.name + ": \n" + "hour profit for day: " + this.currentHourProfitForDay
+				+ "\nmoney profit for day: " + this.currentMoneyProfitForDay + "\n");
+		return str.toString();
 	}
 
 }

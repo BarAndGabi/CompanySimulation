@@ -2,11 +2,15 @@ package application.model;
 
 import java.util.ArrayList;
 
+import application.controller.CompanySimulationController;
+import application.listeners.modelListener;
+
 public class Company implements CompanyInterface {
 	private ArrayList<Department> departments;
 	private ArrayList<Simulation> SimulationsArchive;
 	protected double currentMoneyProfitForDay;
 	protected double currentHourProfitForDay;
+	private ArrayList<modelListener> listeners;
 
 	public Company() throws Exception {
 		this.SimulationsArchive = new ArrayList<Simulation>();
@@ -14,6 +18,8 @@ public class Company implements CompanyInterface {
 		this.addHardCoded();
 		this.currentHourProfitForDay = 0;
 		this.currentMoneyProfitForDay = 0;
+		this.listeners = new ArrayList<modelListener>();
+
 	}
 
 	private void addHardCoded() throws Exception {
@@ -31,8 +37,8 @@ public class Company implements CompanyInterface {
 		Role harryPotter = this.addRole(450.3, "harryPotter", false, wizards, p4, true, true);
 		EmployeeGlobaly yossi = new EmployeeGlobaly("yossi", 2002, p3, 7500, fileOrganizer, true);
 		EmployeeGlobaly bar = new EmployeeGlobaly("bar", 1996, p1, 11000, cleaner, true);
-		EmployeeGlobalyPlus itay = new EmployeeGlobalyPlus("itay", 2000, p1, harryPotter, 23000, false);
-		EmployeeGlobalyPlus ofir = new EmployeeGlobalyPlus("ofir", 1983, p4, fileOrganizer, 16000, true);
+		EmployeeGlobalyPlus itay = new EmployeeGlobalyPlus("itay", 2000, p1, 23000, harryPotter, false);
+		EmployeeGlobalyPlus ofir = new EmployeeGlobalyPlus("ofir", 1983, p4, 16000, fileOrganizer, true);
 		EmployeeHourly mor = new EmployeeHourly("mor", 2002, p2, 55, carSalesMan, true);
 		EmployeeHourly yotam = new EmployeeHourly("yotam", 2002, p2, 31, harryPotter, false);
 		this.addEmployeeToDepartment(yossi);
@@ -54,11 +60,28 @@ public class Company implements CompanyInterface {
 	public void addEmployeeGlobaly(String name, int yearOfBirth, Preference preference, int salaryPerMonth, Role role,
 			boolean cP) throws Exception {
 		this.addEmployeeToDepartment(new EmployeeGlobaly(name, yearOfBirth, preference, salaryPerMonth, role, cP));
+
+	}
+
+	@Override
+	public void addEmployeeGlobalyPlus(String name, int yearOfBirth, Preference preference, int salaryPerMonth,
+			Role role, boolean cP) throws Exception {
+
+		this.addEmployeeToDepartment(new EmployeeGlobalyPlus(name, yearOfBirth, preference, salaryPerMonth, role, cP));
 	}
 
 	public void addEmployeeToDepartment(Employee a) {
 		int index = this.findDepartment(a.getDepartment());
 		this.departments.get(index).addEmployee(a);
+		this.fireAddEmployeeEvent(a);
+		this.runSimulation();
+
+	}
+
+	private void fireAddEmployeeEvent(Employee e) {
+		for (modelListener m : this.listeners) {
+			m.createAddEmployeeEvent(e);
+		}
 	}
 
 	private int findDepartment(Department d) {
@@ -75,7 +98,15 @@ public class Company implements CompanyInterface {
 				throw new alreadyExistException();
 		}
 		this.departments.add(d);
+		this.fireAddDepartmentEvent(d);
+		this.runSimulation();
 		return d;
+	}
+
+	private void fireAddDepartmentEvent(Department d) {
+		for (modelListener m : this.listeners) {
+			m.createAddDepartmentEvent(d);
+		}
 	}
 
 	@Override
@@ -84,17 +115,55 @@ public class Company implements CompanyInterface {
 		Role r = new Role(ProfitPerHour, jobTitle, sync, d, preference, workFromHome, b);
 		int index = this.findDepartment(d);
 		this.departments.get(index).addRole(r);
+		this.fireAddRoleEvent(r);
+		this.runSimulation();
 		return r;
 
 	}
 
+	private void fireAddRoleEvent(Role r) {
+		for (modelListener m : this.listeners) {
+			m.createAddRoleEvent(r);
+		}
+	}
+
 	@Override
 	public void runSimulation() {
+		for (int i = 0; i < this.departments.size(); i++) {
+			this.currentHourProfitForDay = 0;
+			this.currentMoneyProfitForDay = 0;
+			this.departments.get(i).calcProfit();
+			this.currentHourProfitForDay += this.departments.get(i).getCurrentHourProfitForDay();
+			this.currentMoneyProfitForDay += this.departments.get(i).getCurrentMoneyProfitForDay();
+		}
 	}
 
 	@Override
 	public String toString() {
-		StringBuffer str = new StringBuffer();
+		this.runSimulation();
+		StringBuffer str = new StringBuffer(this.getClass().getSimpleName() + "info : \n" + "hour profit for day: "
+				+ this.currentHourProfitForDay + "\nmoney profit for day: " + this.currentMoneyProfitForDay + "\n");
+		for (int i = 0; i < this.departments.size(); i++) {
+			str.append("########-" + (i + 1) + "-########\n" + this.departments.get(i).toString());
+		}
+		return str.toString();
+	}
+
+	@Override
+	public void registerListener(modelListener x) {
+		this.listeners.add(x);
+	}
+
+	@Override
+	public String getSimulationResults() {
+		this.runSimulation();
+
+		StringBuffer str = new StringBuffer(this.getClass().getSimpleName() + "simulation results: \n"
+				+ "hour profit for day: " + this.currentHourProfitForDay + "\nmoney profit for day: "
+				+ this.currentMoneyProfitForDay + "\n");
+		for (int i = 0; i < this.departments.size(); i++) {
+			str.append("########-" + (i + 1) + "-########\n" + this.departments.get(i).getSimulationResults());
+		}
 		return str.toString();
 	}
 

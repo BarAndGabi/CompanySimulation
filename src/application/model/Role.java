@@ -79,13 +79,6 @@ public class Role implements syncAble, choosePreference {
 		return this.changePreference;
 	}
 
-	/*
-	 * public String returnStringResult() { StringBuffer str = new
-	 * StringBuffer(this.jobTitle + " :\n"); double moneyProfit=0; double
-	 * hourProfit=0; if(this) for(int i =0 ; i<this.Employees.size();i++) { Employee
-	 * currentE = this.Employees.get(i); moneyProfit=moneyProfit+currentE. } }
-	 */
-
 	@Override
 	public String toString() {
 		StringBuffer str = new StringBuffer(this.getClass().getSimpleName() + " " + this.jobTitle + " info:" + "\n"
@@ -101,6 +94,54 @@ public class Role implements syncAble, choosePreference {
 
 		return str.toString();
 
+	}
+
+	public void calcProfit() {
+		if (this.sync)
+			this.calcProfitWithPreference();
+		else
+			this.calcProfitNoPreference();
+
+	}
+
+	private void calcProfitNoPreference() {
+		this.currentHourProfitForDay = 0;
+		this.currentMoneyProfitForDay = 0;
+		for (int i = 0; i < this.Employees.size(); i++) {
+			this.currentHourProfitForDay += this.Employees.get(i).calcHoursProfit();
+			this.currentMoneyProfitForDay += this.Employees.get(i).calcMoueyProfit();
+		}
+	}
+
+	private void calcProfitWithPreference() {
+		this.currentHourProfitForDay = 0;
+		this.currentMoneyProfitForDay = 0;
+		for (int i = 0; i < this.Employees.size(); i++) {
+			this.currentHourProfitForDay += this.Employees.get(i).calcHoursProfit(this.preference);
+			this.currentMoneyProfitForDay += this.Employees.get(i).calcMoueyProfit(this.preference);
+		}
+	}
+
+	public void calcProfit(Preference p) {
+		this.currentHourProfitForDay = 0;
+		this.currentMoneyProfitForDay = 0;
+		for (int i = 0; i < this.Employees.size(); i++) {
+			this.currentHourProfitForDay += this.Employees.get(i).calcHoursProfit(p);
+			this.currentMoneyProfitForDay += this.Employees.get(i).calcMoueyProfit(p);
+		}
+	}
+
+	public String getSimulationResults() {
+		StringBuffer str = new StringBuffer(this.jobTitle + ": \n" + "hour profit for day: "
+				+ this.currentHourProfitForDay + "\nmoney profit for day: " + this.currentMoneyProfitForDay + "\n");
+		for (int i = 0; i < this.Employees.size(); i++) {
+			str.append((i + 1) + ") " + this.Employees.get(i).getSimulationResults());
+		}
+		return str.toString();
+	}
+
+	public boolean getWorkFromHome() {
+		return this.workFromHome;
 	}
 
 }

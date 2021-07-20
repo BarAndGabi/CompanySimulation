@@ -8,8 +8,8 @@ public class Department implements syncAble, choosePreference {
 	private String name;
 	private boolean changePreference;
 	private Preference preference;
-	protected double currentMoneyProfitForDay;
-	protected double currentHourProfitForDay;
+	private double currentMoneyProfitForDay;
+	private double currentHourProfitForDay;
 
 	public Department(String name, boolean sync, PreferenceType p, int hourChange, boolean changePreference) {
 		this.sync = sync;
@@ -83,13 +83,22 @@ public class Department implements syncAble, choosePreference {
 	}
 
 	private void calcProfitWithPreference() {
-		// TODO Auto-generated method stub
-
+		this.currentHourProfitForDay = 0;
+		this.currentMoneyProfitForDay = 0;
+		for (int i = 0; i < this.roles.size(); i++) {
+			this.roles.get(i).calcProfit(this.preference);
+			this.currentHourProfitForDay += this.roles.get(i).currentHourProfitForDay;
+			this.currentMoneyProfitForDay += this.roles.get(i).currentMoneyProfitForDay;
+		}
 	}
 
 	private void calcProfitNoPreference() {
+		this.currentHourProfitForDay = 0;
+		this.currentMoneyProfitForDay = 0;
 		for (int i = 0; i < this.roles.size(); i++) {
-
+			this.roles.get(i).calcProfit();
+			this.currentHourProfitForDay += this.roles.get(i).currentHourProfitForDay;
+			this.currentMoneyProfitForDay += this.roles.get(i).currentMoneyProfitForDay;
 		}
 	}
 
@@ -107,4 +116,23 @@ public class Department implements syncAble, choosePreference {
 		return str.toString();
 
 	}
+
+	public double getCurrentHourProfitForDay() {
+		return this.currentHourProfitForDay;
+	}
+
+	public double getCurrentMoneyProfitForDay() {
+		return this.currentMoneyProfitForDay;
+	}
+
+	public String getSimulationResults() {
+		StringBuffer str = new StringBuffer(this.name + ": \n" + "hour profit for day: " + this.currentHourProfitForDay
+				+ "\nmoney profit for day: " + this.currentMoneyProfitForDay + "\n");
+		for (int i = 0; i < this.roles.size(); i++) {
+			str.append((i + 1) + ") " + this.roles.get(i).getSimulationResults());
+		}
+		return str.toString();
+
+	}
+
 }
