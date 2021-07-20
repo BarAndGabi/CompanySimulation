@@ -15,10 +15,10 @@ public class Company implements CompanyInterface {
 	public Company() throws Exception {
 		this.SimulationsArchive = new ArrayList<Simulation>();
 		this.departments = new ArrayList<Department>();
-		this.addHardCoded();
 		this.currentHourProfitForDay = 0;
 		this.currentMoneyProfitForDay = 0;
 		this.listeners = new ArrayList<modelListener>();
+		this.addHardCoded();
 
 	}
 
@@ -104,8 +104,8 @@ public class Company implements CompanyInterface {
 	}
 
 	private void fireAddDepartmentEvent(Department d) {
-		for (modelListener m : this.listeners) {
-			m.createAddDepartmentEvent(d);
+		for (int i = 0; i < this.listeners.size(); i++) {
+			this.listeners.get(i).createAddDepartmentEvent(d);
 		}
 	}
 

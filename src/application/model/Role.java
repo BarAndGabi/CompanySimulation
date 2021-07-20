@@ -22,14 +22,11 @@ public class Role implements syncAble, choosePreference {
 		this.profitPerHour = ProfitPerHour;
 		this.sync = sync;
 		this.changePreference = changePreference;
-		if (this.changePreference)
-			this.preference = preference;
-		else
-			this.preference = null;
-
+		this.preference = preference;
 		this.workFromHome = workFromHome;
 		this.currentHourProfitForDay = 0;
 		this.currentMoneyProfitForDay = 0;
+		this.Employees = new ArrayList<Employee>();
 	}
 
 	public boolean addEmployee(Employee a) {

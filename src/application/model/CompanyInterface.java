@@ -1,6 +1,5 @@
 package application.model;
 
-import application.controller.CompanySimulationController;
 import application.listeners.modelListener;
 
 public interface CompanyInterface {

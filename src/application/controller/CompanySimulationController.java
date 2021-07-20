@@ -10,30 +10,33 @@ import application.view.AbstractView;
 import application.view.View;
 
 public class CompanySimulationController implements modelListener, UIEventListener {
-	private CompanyInterface eModel;
-	private AbstractView eView;
+	private CompanyInterface Model;
+	private AbstractView View;
 	private int currentIndex;
+
 	public CompanySimulationController(CompanyInterface model, View view) {
-		this.eModel = model;
-		this.eView = view;
+		this.Model = model;
+		this.View = view;
 		this.currentIndex = 0;
-		eModel.registerListener(this);
-		eView.registerListener(this);
+		Model.registerListener(this);
+		View.registerListener(this);
 	}
+
 	@Override
 	public void createAddDepartmentEvent(Department d) {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
 	public void createAddRoleEvent(Role r) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public void createAddEmployeeEvent(Employee e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

@@ -12,13 +12,13 @@ import javafx.stage.Stage;
 public class MainCompany extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		CompanyInterface eModel = new Company();
-
-		View eView = new View(primaryStage);
-		CompanySimulationController controller = new CompanySimulationController(eModel, eView);
+		CompanyInterface Model = new Company();
+		View View = new View(primaryStage);
+		CompanySimulationController controller = new CompanySimulationController(Model, View);
 	}
 
 	public static void main(String[] args) {
 		launch(args);
+
 	}
 }
