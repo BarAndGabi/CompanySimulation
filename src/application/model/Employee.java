@@ -59,6 +59,7 @@ public class Employee extends Person implements choosePreference {
 			case REGULAR_START:
 				profit = 8;
 				break;
+				
 			}
 		} else
 			profit = 8;
