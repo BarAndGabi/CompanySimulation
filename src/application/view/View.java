@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -24,8 +25,14 @@ public class View implements AbstractView {
 			new Button("Show Screen"), new Button("Change Prefrence"), new Button("Show Simulations Results"),
 			new Button("Save"), new Button("Exit") };
 	private VBox vBoxForButtons;
+	private Image logo = new Image(getClass().getResourceAsStream("logo.png"));
 
 	public View(Stage theStage) {
+		
+		theStage.setTitle("company simulator Systems");
+
+		theStage.getIcons().add(logo);
+
 		setChangePane();
 		addDepartment();
 		setvBox();
