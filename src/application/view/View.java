@@ -31,6 +31,7 @@ public class View implements AbstractView {
 		setvBox();
 		setMainPane();
 		Scene s = new Scene(this.mainPane);
+		s.getStylesheets().addAll(this.getClass().getResource("application.css").toExternalForm());
 		theStage.setScene(s);
 		theStage.show();
 	}
@@ -108,7 +109,7 @@ public class View implements AbstractView {
 	@Override
 	public void registerListener(CompanySimulationController companySimulationController) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

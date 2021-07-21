@@ -1,5 +1,8 @@
 package application.model;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import application.listeners.modelListener;
 
 public interface CompanyInterface {
@@ -23,4 +26,7 @@ public interface CompanyInterface {
 	void registerListener(modelListener x);
 
 	String getSimulationResults();
+
+	void saveFile() throws FileNotFoundException, IOException;
+
 }

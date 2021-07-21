@@ -1,6 +1,8 @@
 package application.model;
 
-public class Preference {
+import java.io.Serializable;
+
+public class Preference implements Serializable {
 	private PreferenceType pType;
 	private int hoursChange;
 	private final int REGULAR_START_HOUR = 8;

@@ -1,8 +1,9 @@
 package application.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Department implements syncAble, choosePreference {
+public class Department implements Serializable, syncAble, choosePreference {
 	private ArrayList<Role> roles;
 	private boolean sync;
 	private String name;

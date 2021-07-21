@@ -1,8 +1,9 @@
 package application.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Role implements syncAble, choosePreference {
+public class Role implements Serializable, syncAble, choosePreference {
 
 	private double profitPerHour;
 	private String jobTitle;
@@ -94,8 +95,11 @@ public class Role implements syncAble, choosePreference {
 	}
 
 	public void calcProfit() {
-		if (this.sync)
-			this.calcProfitWithPreference();
+		if (this.changePreference)
+			if (this.sync)
+				this.calcProfitWithPreference();
+			else
+				this.calcProfitNoPreference();
 		else
 			this.calcProfitNoPreference();
 

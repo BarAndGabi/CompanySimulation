@@ -1,6 +1,8 @@
 package application.model;
 
-public class Employee extends Person implements choosePreference {
+import java.io.Serializable;
+
+public class Employee extends Person implements Serializable, choosePreference {
 	protected int employeeId;
 	protected static int idSerialCounter = 1000;
 	protected Preference preference;
@@ -92,29 +94,34 @@ public class Employee extends Person implements choosePreference {
 						profit = 8;
 				else
 					profit = 8 * 1;
-			}
-			int employeeEnd, employeeStart, end, start;
-			start = p.getStartHour();
-			end = start + 9;
-			employeeStart = this.preference.getStartHour();
-			employeeEnd = employeeStart + 9;
-			int randomLunchBreak = (int) (Math.random() * (end - start)) + start;
-			for (int currentHour = start; currentHour < end; currentHour++) {
-				if (currentHour != randomLunchBreak) {
-					if (currentHour < 8) {
-						if (employeeStart <= currentHour)
-							profit += 1.2;
-						else
-							profit += 0.8;
+			} else {
+				if (this.preference.getPreferenceType() == PreferenceType.HOME) {
+					profit = 8;
+				} else {
+					int employeeEnd, employeeStart, end, start;
+					start = p.getStartHour();
+					end = start + 9;
+					employeeStart = this.preference.getStartHour();
+					employeeEnd = employeeStart + 9;
+					int randomLunchBreak = (int) (Math.random() * (end - start)) + start;
+					for (int currentHour = start; currentHour < end; currentHour++) {
+						if (currentHour != randomLunchBreak) {
+							if (currentHour < 8) {
+								if (employeeStart <= currentHour)
+									profit += 1.2;
+								else
+									profit += 0.8;
 
-					} else if (currentHour >= 8 && currentHour < 17) {
-						profit++;
+							} else if (currentHour >= 8 && currentHour < 17) {
+								profit++;
 
-					} else if (currentHour > 17) {
-						if (employeeEnd <= currentHour)
-							profit += 0.8;
-						else
-							profit += 1.2;
+							} else if (currentHour > 17) {
+								if (employeeEnd <= currentHour)
+									profit += 0.8;
+								else
+									profit += 1.2;
+							}
+						}
 					}
 				}
 			}

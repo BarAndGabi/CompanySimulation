@@ -1,11 +1,15 @@
 package application.model;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-import application.controller.CompanySimulationController;
 import application.listeners.modelListener;
 
-public class Company implements CompanyInterface {
+public class Company implements Serializable, CompanyInterface {
 	private ArrayList<Department> departments;
 	private ArrayList<Simulation> SimulationsArchive;
 	protected double currentMoneyProfitForDay;
@@ -112,13 +116,16 @@ public class Company implements CompanyInterface {
 	@Override
 	public Role addRole(double ProfitPerHour, String jobTitle, boolean sync, Department d, Preference preference,
 			boolean workFromHome, boolean b) throws Exception {
-		Role r = new Role(ProfitPerHour, jobTitle, sync, d, preference, workFromHome, b);
-		int index = this.findDepartment(d);
-		this.departments.get(index).addRole(r);
-		this.fireAddRoleEvent(r);
-		this.runSimulation();
-		return r;
-
+		if ((preference.getPreferenceType() == PreferenceType.HOME) && (!workFromHome))
+			throw new homeException();
+		else {
+			Role r = new Role(ProfitPerHour, jobTitle, sync, d, preference, workFromHome, b);
+			int index = this.findDepartment(d);
+			this.departments.get(index).addRole(r);
+			this.fireAddRoleEvent(r);
+			this.runSimulation();
+			return r;
+		}
 	}
 
 	private void fireAddRoleEvent(Role r) {
@@ -164,7 +171,15 @@ public class Company implements CompanyInterface {
 		for (int i = 0; i < this.departments.size(); i++) {
 			str.append("########-" + (i + 1) + "-########\n" + this.departments.get(i).getSimulationResults());
 		}
+		this.SimulationsArchive.add(new Simulation(str.toString()));
 		return str.toString();
+	}
+
+	@Override
+	public void saveFile() throws FileNotFoundException, IOException {
+		ObjectOutputStream outFile = new ObjectOutputStream(new FileOutputStream("Company_Simulation.dat"));
+		outFile.writeObject(this);
+		outFile.close();
 	}
 
 }
