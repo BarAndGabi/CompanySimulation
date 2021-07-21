@@ -29,4 +29,6 @@ public interface CompanyInterface {
 
 	void saveFile() throws FileNotFoundException, IOException;
 
+	void changePrefernce(String name, objectType o, PreferenceType p, int hourChange) throws Exception;
+
 }

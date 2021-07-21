@@ -15,6 +15,8 @@ public class Company implements Serializable, CompanyInterface {
 	protected double currentMoneyProfitForDay;
 	protected double currentHourProfitForDay;
 	private ArrayList<modelListener> listeners;
+	private ArrayList<Role> roles;
+	private ArrayList<Employee> employees;
 
 	public Company() throws Exception {
 		this.SimulationsArchive = new ArrayList<Simulation>();
@@ -22,6 +24,8 @@ public class Company implements Serializable, CompanyInterface {
 		this.currentHourProfitForDay = 0;
 		this.currentMoneyProfitForDay = 0;
 		this.listeners = new ArrayList<modelListener>();
+		this.roles = new ArrayList<Role>();
+		this.employees = new ArrayList<Employee>();
 		this.addHardCoded();
 
 	}
@@ -77,6 +81,7 @@ public class Company implements Serializable, CompanyInterface {
 	public void addEmployeeToDepartment(Employee a) {
 		int index = this.findDepartment(a.getDepartment());
 		this.departments.get(index).addEmployee(a);
+		this.employees.add(a);
 		this.fireAddEmployeeEvent(a);
 		this.runSimulation();
 
@@ -122,6 +127,7 @@ public class Company implements Serializable, CompanyInterface {
 			Role r = new Role(ProfitPerHour, jobTitle, sync, d, preference, workFromHome, b);
 			int index = this.findDepartment(d);
 			this.departments.get(index).addRole(r);
+			this.roles.add(r);
 			this.fireAddRoleEvent(r);
 			this.runSimulation();
 			return r;
@@ -182,4 +188,36 @@ public class Company implements Serializable, CompanyInterface {
 		outFile.close();
 	}
 
+	@Override
+	public void changePrefernce(String name, objectType o, PreferenceType p, int hourChange) throws Exception {
+		switch (o) {
+		case DEPARTMENT:
+			for (int i = 0; i < this.departments.size(); i++) {
+				if (this.departments.get(i).getName().equals(name)) {
+					this.departments.get(i).choosePreference(p, hourChange);
+					break;
+				}
+				throw new cantFingObjectException();
+
+			}
+		case ROLE:
+			for (int i = 0; i < this.departments.size(); i++) {
+				if (this.roles.get(i).getjobTitle().equals(name)) {
+					this.roles.get(i).choosePreference(p, hourChange);
+					break;
+				}
+				throw new cantFingObjectException();
+			}
+		case EMPLOYEE:
+			for (int i = 0; i < this.departments.size(); i++) {
+				if (this.employees.get(i).getName().equals(name)) {
+					this.employees.get(i).choosePreference(p, hourChange);
+					break;
+				}
+				throw new cantFingObjectException();
+			}
+
+		}
+
+	}
 }

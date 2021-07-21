@@ -177,4 +177,8 @@ public class Employee extends Person implements Serializable, choosePreference {
 		return str.toString();
 	}
 
+	public String getName() {
+		return this.name;
+	}
+
 }
