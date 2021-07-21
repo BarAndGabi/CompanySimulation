@@ -84,7 +84,7 @@ public class View implements AbstractView {
 		enterName.setMaxSize(300, 400);
 		enterName.setAlignment(Pos.CENTER);
 		Label l1 = new Label("Enter Name: ");
-		getTf().setText("Enter Name Of the Company");
+		getTf().setText("Enter Name Of the department");
 		enterName.getChildren().addAll(l1, getTf());
 		sp.getChildren().add(enterName);
 		HBox choosePreference = new HBox();

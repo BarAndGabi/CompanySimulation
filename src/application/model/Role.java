@@ -87,7 +87,7 @@ public class Role implements Serializable, syncAble, choosePreference {
 				+ "\nday's hours in money value: " + this.currentMoneyProfitForDay);
 		str.append("\nthe employees in this role are: \n");
 		for (int i = 0; i < this.Employees.size(); i++) {
-			str.append("     " + (i + 1) + ") " + this.Employees.get(i).toString() + "\n");
+			str.append("---------------\n" + (i + 1) + ") " + this.Employees.get(i).toString() + "\n");
 		}
 
 		return str.toString();

@@ -29,16 +29,16 @@ public class Company implements Serializable, CompanyInterface {
 	private void addHardCoded() throws Exception {
 		Preference p1 = new Preference(PreferenceType.REGULAR_START, 0);
 		Preference p2 = new Preference(PreferenceType.LATE_START, 2);
-		Preference p3 = new Preference(PreferenceType.EARLY_START, 8);
+		Preference p3 = new Preference(PreferenceType.EARLY_START, 3);
 		Preference p4 = new Preference(PreferenceType.HOME, 0);
 		Department logistic = this.addDepartment("logistic", false, PreferenceType.REGULAR_START, 0, false);
 		Department cars = this.addDepartment("cars", false, PreferenceType.EARLY_START, 6, true);
-		Department mangment = this.addDepartment("mangment", true, PreferenceType.REGULAR_START, 0, true);
+		Department mangment = this.addDepartment("mangment", true, PreferenceType.EARLY_START, 3, true);
 		Department wizards = this.addDepartment("wizards", false, PreferenceType.LATE_START, 3, true);
 		Role cleaner = this.addRole(35.5, "cleaner", true, logistic, p2, true, true);
 		Role carSalesMan = this.addRole(34, "car sales man", true, cars, p3, true, true);
-		Role fileOrganizer = this.addRole(25, "file organizer", true, mangment, p2, false, true);
-		Role harryPotter = this.addRole(450.3, "harryPotter", false, wizards, p4, true, true);
+		Role fileOrganizer = this.addRole(25, "file organizer", false, mangment, p2, true, true);
+		Role harryPotter = this.addRole(60, "harryPotter", false, wizards, p4, true, true);
 		EmployeeGlobaly yossi = new EmployeeGlobaly("yossi", 2002, p3, 7500, fileOrganizer, true);
 		EmployeeGlobaly bar = new EmployeeGlobaly("bar", 1996, p1, 11000, cleaner, true);
 		EmployeeGlobalyPlus itay = new EmployeeGlobalyPlus("itay", 2000, p1, 23000, harryPotter, false);
@@ -149,7 +149,7 @@ public class Company implements Serializable, CompanyInterface {
 	public String toString() {
 		this.runSimulation();
 		StringBuffer str = new StringBuffer(this.getClass().getSimpleName() + "info : \n" + "hour profit for day: "
-				+ this.currentHourProfitForDay + "\nmoney profit for day: " + this.currentMoneyProfitForDay + "\n");
+				+ this.currentHourProfitForDay + "\nmoney profit for day: " + this.currentMoneyProfitForDay + "\n\n");
 		for (int i = 0; i < this.departments.size(); i++) {
 			str.append("########-" + (i + 1) + "-########\n" + this.departments.get(i).toString());
 		}

@@ -106,12 +106,12 @@ public class Department implements Serializable, syncAble, choosePreference {
 	@Override
 	public String toString() {
 		StringBuffer str = new StringBuffer(this.getClass().getSimpleName() + " " + this.name + " info:" + "\n"
-				+ "\nsyncronized department ? : " + this.sync + "\ncan choose preference?  : " + this.changePreference
+				+ "syncronized department ? : " + this.sync + "\ncan choose preference?  : " + this.changePreference
 				+ "\n preference : " + this.preference.toString() + "\nday's hours in value: "
 				+ this.currentHourProfitForDay + "\nday's hours in money value: " + this.currentMoneyProfitForDay);
-		str.append("\nthe employees in this role are: \n");
+		str.append("\n\nthe roles in this department are: \n");
 		for (int i = 0; i < this.roles.size(); i++) {
-			str.append("     " + (i + 1) + ") " + this.roles.get(i).toString() + "\n");
+			str.append("************************\n" + (i + 1) + ") " + this.roles.get(i).toString() + "\n");
 		}
 
 		return str.toString();

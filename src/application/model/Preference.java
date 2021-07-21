@@ -70,4 +70,9 @@ public class Preference implements Serializable {
 		else
 			return false;
 	}
+
+	@Override
+	public String toString() {
+		return this.pType.name() + ", with: " + this.getHourChange() + " change.";
+	}
 }
