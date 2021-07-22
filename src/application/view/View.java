@@ -152,7 +152,15 @@ public class View implements AbstractView {
 			hb.setSpacing(15);
 			bp.setRight(hb);
 		});
+		getRd()[6].setOnAction(e -> {
+			hb.getChildren().clear();
+			bp.setRight(hb);
 
+		});
+		getRd()[7].setOnAction(e -> {
+			hb.getChildren().clear();
+			bp.setRight(hb);
+		});
 		sp.getChildren().add(bp);
 		changePane.setLeft(sp);
 
