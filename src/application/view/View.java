@@ -105,7 +105,7 @@ public class View implements AbstractView {
 	}
 
 	public void Test() {
-
+		System.out.println("gabi");
 	}
 
 	public TextField getTf() {
