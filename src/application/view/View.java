@@ -104,6 +104,9 @@ public class View implements AbstractView {
 		changePane.setLeft(sp);
 	}
 
+	public void Test() {
+
+	}
 
 	public TextField getTf() {
 		return tf;
