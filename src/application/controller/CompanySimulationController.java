@@ -61,4 +61,9 @@ public class CompanySimulationController implements modelListener, UIEventListen
 		// TODO Auto-generated method stub
 
 	}
+
+	@Override
+	public void save() throws FileNotFoundException, IOException {
+		this.Model.saveFile();
+	}
 }
