@@ -118,5 +118,5 @@ public class View implements AbstractView {
 	public void registerListener(CompanySimulationController companySimulationController) {
 
 	}
-
+//gabi
 }
