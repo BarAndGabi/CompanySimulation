@@ -220,5 +220,4 @@ public class Company implements Serializable, CompanyInterface {
 		}
 
 	}
-	//hello world
 }
