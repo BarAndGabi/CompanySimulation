@@ -104,7 +104,9 @@ public class View implements AbstractView {
 		changePane.setLeft(sp);
 	}
 
+	public void Test() {
 
+	}
 
 	public TextField getTf() {
 		return tf;
@@ -118,5 +120,4 @@ public class View implements AbstractView {
 	public void registerListener(CompanySimulationController companySimulationController) {
 
 	}
-//gabi
 }
