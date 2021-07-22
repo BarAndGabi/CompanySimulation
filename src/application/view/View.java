@@ -32,14 +32,14 @@ public class View implements AbstractView {
 		theStage.setTitle("company simulator Systems");
 
 		theStage.getIcons().add(logo);
-
 		setChangePane();
 		setvBox();
 		setMainPane();
-		Scene s = new Scene(this.mainPane);
+		Scene s = new Scene(this.mainPane, 500, 400);
 		s.getStylesheets().addAll(this.getClass().getResource("application.css").toExternalForm());
 		theStage.setScene(s);
 		theStage.show();
+		theStage.setResizable(false);
 	}
 
 	public BorderPane getMainPane() {
@@ -104,9 +104,7 @@ public class View implements AbstractView {
 		changePane.setLeft(sp);
 	}
 
-	public void barBoTilmadITI() {
 
-	}
 	public TextField getTf() {
 		return tf;
 	}
