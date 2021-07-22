@@ -30,12 +30,12 @@ public class View implements AbstractView {
 	public View(Stage theStage) {
 
 		theStage.setTitle("company simulator Systems");
-
 		theStage.getIcons().add(logo);
 		setChangePane();
+		addDepartment();
 		setvBox();
 		setMainPane();
-		Scene s = new Scene(this.mainPane, 500, 400);
+		Scene s = new Scene(this.mainPane, 660, 400);
 		s.getStylesheets().addAll(this.getClass().getResource("application.css").toExternalForm());
 		theStage.setScene(s);
 		theStage.show();
@@ -86,14 +86,17 @@ public class View implements AbstractView {
 
 	public void addDepartment() {
 		VBox sp = new VBox();
-		HBox enterName = new HBox();
-		enterName.setMaxSize(300, 400);
-		enterName.setAlignment(Pos.CENTER);
+		VBox enterName = new VBox();
+
 		Label l1 = new Label("Enter Name: ");
 		getTf().setText("Enter Name Of the department");
 		enterName.getChildren().addAll(l1, getTf());
+		enterName.setPadding(new Insets(15));
+		enterName.setSpacing(20);
 		sp.getChildren().add(enterName);
 		HBox choosePreference = new HBox();
+		choosePreference.setPadding(new Insets(10));
+		choosePreference.setSpacing(15);
 		Label l2 = new Label("Add if the Department can change it's preference");
 		getRd()[0].setText("Yes");
 		getRd()[1].setText("No");
@@ -103,7 +106,6 @@ public class View implements AbstractView {
 		sp.setSpacing(20);
 		changePane.setLeft(sp);
 	}
-
 
 	public TextField getTf() {
 		return tf;
