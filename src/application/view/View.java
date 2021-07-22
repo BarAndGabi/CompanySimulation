@@ -69,7 +69,7 @@ public class View implements AbstractView {
 			element.setMaxWidth(200);
 			vBox.getChildren().add(element);
 		}
-		vBox.setStyle("-fx-background-color: blue");
+		vBox.setStyle("-fx-background-color: #183492");
 		vBox.setSpacing(20);
 		this.vBoxForButtons = vBox;
 	}
