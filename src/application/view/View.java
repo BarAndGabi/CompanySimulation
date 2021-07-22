@@ -28,13 +28,12 @@ public class View implements AbstractView {
 	private Image logo = new Image(getClass().getResourceAsStream("logo.png"));
 
 	public View(Stage theStage) {
-		
+
 		theStage.setTitle("company simulator Systems");
 
 		theStage.getIcons().add(logo);
 
 		setChangePane();
-		addDepartment();
 		setvBox();
 		setMainPane();
 		Scene s = new Scene(this.mainPane);
@@ -105,6 +104,9 @@ public class View implements AbstractView {
 		changePane.setLeft(sp);
 	}
 
+	public void barBoTilmadITI() {
+
+	}
 	public TextField getTf() {
 		return tf;
 	}
@@ -115,7 +117,6 @@ public class View implements AbstractView {
 
 	@Override
 	public void registerListener(CompanySimulationController companySimulationController) {
-		// TODO Auto-generated method stub
 
 	}
 
