@@ -20,7 +20,7 @@ public class View implements AbstractView {
 	private BorderPane changePane;
 	private TextField tf = new TextField();
 	private RadioButton[] rd = { new RadioButton(), new RadioButton(), new RadioButton(), new RadioButton(),
-			new RadioButton(), new RadioButton() };
+			new RadioButton(), new RadioButton(), new RadioButton(), new RadioButton() };
 	private Button[] bt = { new Button("Add Department"), new Button("Add Role"), new Button("Add Employee"),
 			new Button("Show Screen"), new Button("Change Prefrence"), new Button("Show Simulations Results"),
 			new Button("Save"), new Button("Exit") };
@@ -84,6 +84,9 @@ public class View implements AbstractView {
 		this.changePane = changePane;
 	}
 
+	/**
+	 *
+	 */
 	public void addDepartment() {
 		VBox sp = new VBox();
 		VBox enterName = new VBox();
@@ -101,11 +104,27 @@ public class View implements AbstractView {
 		getRd()[0].setText("Yes");
 		getRd()[1].setText("No");
 		choosePreference.getChildren().addAll(l2, getRd()[0], getRd()[1]);
+		choosePreference.setSpacing(20);
 		sp.getChildren().add(choosePreference);
-		sp.setAlignment(Pos.CENTER);
-		sp.setSpacing(20);
+		BorderPane bp = new BorderPane();
+		VBox choosWorkMethod = new VBox();
+		getRd()[4].setText("Early");
+		getRd()[5].setText("Late");
+		getRd()[6].setText("Home");
+		getRd()[7].setText("Regular");
+		for (int i = 4; i < rd.length; i++) {
+			choosWorkMethod.getChildren().add(rd[i]);
+		}
+		Label l3 = new Label("Choose work method: ");
+		l3.setPadding(new Insets(15));
+		bp.setLeft(l3);
+		bp.setCenter(choosWorkMethod);
+		sp.getChildren().add(bp);
 		changePane.setLeft(sp);
+
 	}
+
+
 
 	public TextField getTf() {
 		return tf;
