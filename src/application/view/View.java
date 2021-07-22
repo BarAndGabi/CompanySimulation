@@ -105,7 +105,6 @@ public class View implements AbstractView {
 	}
 
 
-
 	public TextField getTf() {
 		return tf;
 	}
@@ -118,5 +117,4 @@ public class View implements AbstractView {
 	public void registerListener(CompanySimulationController companySimulationController) {
 
 	}
-
 }
