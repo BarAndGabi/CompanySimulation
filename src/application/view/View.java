@@ -43,7 +43,6 @@ public class View implements AbstractView {
 		theStage.setTitle("company simulator Systems");
 		theStage.getIcons().add(logo);
 		setChangePane();
-		addRole();
 		setvBox();
 		setMainPane();
 		Scene s = new Scene(this.mainPane, 660, 600);
@@ -218,6 +217,14 @@ public class View implements AbstractView {
 	}
 
 	public void addEmployee() {
+		VBox sp = new VBox();
+		VBox enterName = new VBox();
+		Label l1 = new Label("Enter Name: ");
+		getTf()[0].setText("Enter Job Description");
+		getTf()[0].setMaxSize(330, 100);
+		enterName.getChildren().addAll(l1, getTf()[0]);
+		enterName.setSpacing(20);
+		sp.getChildren().add(enterName);
 
 	}
 //work preference change used in all of the screens above
