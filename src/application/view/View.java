@@ -29,6 +29,8 @@ public class View implements AbstractView {
 	private RadioButton[] rd = { new RadioButton(), new RadioButton(), new RadioButton(), new RadioButton(),
 			new RadioButton(), new RadioButton(), new RadioButton(), new RadioButton(), new RadioButton(),
 			new RadioButton() };
+	private RadioButton[] rdForWorkPreference = { new RadioButton(), new RadioButton(), new RadioButton(),
+			new RadioButton() };
 	private Button[] bt = { new Button("Add Department"), new Button("Add Role"), new Button("Add Employee"),
 			new Button("Show Objects Screen"), new Button("Change Prefrence"), new Button("Show Simulations Results"),
 			new Button("Save"), new Button("Exit") };
@@ -107,15 +109,19 @@ public class View implements AbstractView {
 
 	// Department interface
 	public void addDepartment() {
+
 		VBox sp = new VBox();
 		VBox enterName = new VBox();
-
+		// name text box
 		Label l1 = new Label("Enter Name: ");
 		getTf().setText("Enter Name Of the department");
+		getTf().setMaxSize(330, 100);
+
 		enterName.getChildren().addAll(l1, getTf());
 		enterName.setPadding(new Insets(15));
 		enterName.setSpacing(20);
 		sp.getChildren().add(enterName);
+		// choose if it can have a preference
 		HBox choosePreference = new HBox();
 		choosePreference.setPadding(new Insets(10));
 		Label l2 = new Label("Add if the Department can change it's preference");
@@ -127,6 +133,7 @@ public class View implements AbstractView {
 		choosePreference.getChildren().addAll(l2, getRd()[0], getRd()[1]);
 		choosePreference.setSpacing(20);
 		sp.getChildren().add(choosePreference);
+		// choose if the department is syncable
 		HBox syncAble = new HBox();
 		syncAble.setPadding(new Insets(10));
 		Label l4 = new Label("Add if the Department is SYNCED");
@@ -139,62 +146,8 @@ public class View implements AbstractView {
 		syncAble.getChildren().addAll(l4, getRd()[2], getRd()[3]);
 		syncAble.setSpacing(20);
 		sp.getChildren().add(syncAble);
-		BorderPane bp = new BorderPane();
-		VBox choosWorkMethod = new VBox();
-		ToggleGroup tg = new ToggleGroup();
-		getRd()[4].setText("Early");
-		getRd()[4].setSelected(true);
-		getRd()[5].setText("Late");
-		getRd()[6].setText("Home");
-		getRd()[7].setText("Regular");
-		for (int i = 4; i < rd.length; i++) {
-			rd[i].setPadding(new Insets(4));
-			choosWorkMethod.getChildren().add(rd[i]);
-			tg.getToggles().add(rd[i]);
-
-		}
-		Label l3 = new Label("Choose work method: ");
-		l3.setPadding(new Insets(15));
-		bp.setLeft(l3);
-		bp.setCenter(choosWorkMethod);
-		HBox hb = new HBox();
-		getRd()[4].setOnAction(e -> {
-			hb.getChildren().clear();
-			Label l5 = new Label("how early would you like to be");
-			getC1().getItems().clear();
-			for (int i = 1; i < 9; i++) {
-				getC1().getItems().add(i);
-			}
-			getC1().setValue(1);
-			hb.getChildren().addAll(l5, getC1());
-			hb.setSpacing(15);
-			bp.setRight(hb);
-
-		});
-
-		getRd()[5].setOnAction(e -> {
-			hb.getChildren().clear();
-			Label l5 = new Label("how late would you like to be");
-			getC1().getItems().clear();
-			for (int i = 1; i < 8; i++) {
-				getC1().getItems().add(i);
-			}
-			getC1().setValue(1);
-			hb.getChildren().addAll(l5, getC1());
-			hb.setSpacing(15);
-			bp.setRight(hb);
-		});
-		getRd()[6].setOnAction(e -> {
-			hb.getChildren().clear();
-			bp.setRight(hb);
-
-		});
-
-		getRd()[7].setOnAction(e -> {
-			hb.getChildren().clear();
-			bp.setRight(hb);
-		});
-		sp.getChildren().add(bp);
+		// choose wich workmehod the department wants
+		sp.getChildren().add(workPreference());
 		BorderPane OKButton = new BorderPane();
 		getCasualButton().setText("OK");
 		OKButton.setRight(casualButton);
@@ -207,6 +160,7 @@ public class View implements AbstractView {
 		VBox enterName = new VBox();
 		Label l1 = new Label("Enter Name: ");
 		getTf().setText("Enter Job Description");
+		getTf().setMaxSize(330, 100);
 		enterName.getChildren().addAll(l1, getTf());
 		enterName.setPadding(new Insets(15));
 		enterName.setSpacing(20);
@@ -251,10 +205,68 @@ public class View implements AbstractView {
 		addDepartment.getChildren().addAll(l6, departmentList);
 		addDepartment.setSpacing(10);
 		addDepartment.setPadding(new Insets(15));
-		sp.getChildren().add(addDepartment);
-		changePane.setLeft(sp);
+		sp.getChildren().addAll(addDepartment, workPreference());
 		changePane.setLeft(sp);
 
+	}
+
+	public BorderPane workPreference() {
+		BorderPane bp = new BorderPane();
+		VBox choosWorkMethod = new VBox();
+		ToggleGroup tg = new ToggleGroup();
+		getRdForWorkPreference()[0].setText("Early");
+		getRdForWorkPreference()[0].setSelected(true);
+		getRdForWorkPreference()[1].setText("Late");
+		getRdForWorkPreference()[2].setText("Home");
+		getRdForWorkPreference()[3].setText("Regular");
+		for (int i = 0; i < 4; i++) {
+			rdForWorkPreference[i].setPadding(new Insets(4));
+			choosWorkMethod.getChildren().add(rdForWorkPreference[i]);
+			tg.getToggles().add(rdForWorkPreference[i]);
+
+		}
+		Label l3 = new Label("Choose work method: ");
+		l3.setPadding(new Insets(15));
+		bp.setLeft(l3);
+		bp.setCenter(choosWorkMethod);
+		HBox hb = new HBox();
+		getRdForWorkPreference()[0].setOnAction(e -> {
+			hb.getChildren().clear();
+			Label l5 = new Label("how early would you like to be");
+			getC1().getItems().clear();
+			for (int i = 1; i < 9; i++) {
+				getC1().getItems().add(i);
+			}
+			getC1().setValue(1);
+			hb.getChildren().addAll(l5, getC1());
+			hb.setSpacing(15);
+			bp.setRight(hb);
+
+		});
+
+		getRdForWorkPreference()[1].setOnAction(e -> {
+			hb.getChildren().clear();
+			Label l5 = new Label("how late would you like to be");
+			getC1().getItems().clear();
+			for (int i = 1; i < 8; i++) {
+				getC1().getItems().add(i);
+			}
+			getC1().setValue(1);
+			hb.getChildren().addAll(l5, getC1());
+			hb.setSpacing(15);
+			bp.setRight(hb);
+		});
+		getRdForWorkPreference()[2].setOnAction(e -> {
+			hb.getChildren().clear();
+			bp.setRight(hb);
+
+		});
+
+		getRdForWorkPreference()[3].setOnAction(e -> {
+			hb.getChildren().clear();
+			bp.setRight(hb);
+		});
+		return bp;
 	}
 
 	public TextField getTf() {
@@ -285,5 +297,9 @@ public class View implements AbstractView {
 
 	public ComboBox<Department> getDepartmentList() {
 		return departmentList;
+	}
+
+	public RadioButton[] getRdForWorkPreference() {
+		return rdForWorkPreference;
 	}
 }
