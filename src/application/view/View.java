@@ -12,9 +12,12 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class View implements AbstractView {
@@ -38,7 +41,7 @@ public class View implements AbstractView {
 		theStage.setTitle("company simulator Systems");
 		theStage.getIcons().add(logo);
 		setChangePane();
-		addRole();
+		// addRole();
 		setvBox();
 		setMainPane();
 		Scene s = new Scene(this.mainPane, 660, 400);
@@ -85,8 +88,20 @@ public class View implements AbstractView {
 	}
 
 	public void setChangePane() {
+		Font font1 = new Font("SansSerif", 20);
+		Font font2 = new Font("ROMAN_BASELINE", 30);
 		BorderPane changePane = new BorderPane();
+		VBox start = new VBox();
 		changePane.setPadding(new Insets(20));
+		Label l1 = new Label("Welcome to CompaNyer");
+		l1.setFont(font2);
+		Text t = new Text(
+				"this program calculates\nthe efficiency of the workers \nbased on there work hours and prefernce");
+		t.setFont(font1);
+		start.setAlignment(Pos.CENTER);
+		ImageView welcome = new ImageView("file:///C:/Users/lempe/git/CompanySimulation/src/application/view/logo.png");
+		start.getChildren().addAll(l1, t);
+		changePane.setLeft(start);
 		this.changePane = changePane;
 	}
 
