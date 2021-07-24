@@ -2,6 +2,7 @@ package application.view;
 
 import application.controller.CompanySimulationController;
 import application.model.Department;
+import application.model.Role;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -21,6 +22,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class View implements AbstractView {
+	private ComboBox<Role> roleList = new ComboBox<Role>();
 	private ComboBox<Department> departmentList = new ComboBox<Department>();
 	private Button casualButton = new Button();
 	private BorderPane mainPane;
@@ -39,10 +41,10 @@ public class View implements AbstractView {
 	private Image logo = new Image(getClass().getResourceAsStream("logo.png"));
 
 	public View(Stage theStage) {
-
 		theStage.setTitle("company simulator Systems");
 		theStage.getIcons().add(logo);
 		setChangePane();
+		addEmployee();
 		setvBox();
 		setMainPane();
 		Scene s = new Scene(this.mainPane, 660, 600);
@@ -220,13 +222,35 @@ public class View implements AbstractView {
 		VBox sp = new VBox();
 		VBox enterName = new VBox();
 		Label l1 = new Label("Enter Name: ");
-		getTf()[0].setText("Enter Job Description");
+		getTf()[0].setText("Enter employee name");
 		getTf()[0].setMaxSize(330, 100);
-		enterName.getChildren().addAll(l1, getTf()[0]);
+		getTf()[1].setText("Add year of birth");
+		getTf()[1].setMaxSize(330, 100);
+		Label l2 = new Label("Enter birth year");
+		enterName.getChildren().addAll(l1, getTf()[0], l2, getTf()[1]);
 		enterName.setSpacing(20);
-		sp.getChildren().add(enterName);
+		sp.getChildren().addAll(enterName, workPreference());
+		HBox addRole = new HBox();
+		Label l6 = new Label("Choose Role: ");
+		addRole.getChildren().addAll(l6, roleList);
+		addRole.setSpacing(10);
+		addRole.setPadding(new Insets(15));
+		sp.getChildren().add(addRole);
+		HBox choosePreference = new HBox();
+		choosePreference.setPadding(new Insets(10));
+		Label l3 = new Label("Add if the Role can change it's preference");
+		ToggleGroup tg1 = new ToggleGroup();
+		getRd()[0].setText("Yes");// yes if the department can change preference
+		getRd()[0].setSelected(true);
+		getRd()[1].setText("No");
+		tg1.getToggles().addAll(getRd()[0], getRd()[1]);
+		choosePreference.getChildren().addAll(l3, getRd()[0], getRd()[1]);
+		choosePreference.setSpacing(20);
+		sp.getChildren().add(choosePreference);
 
+		changePane.setLeft(sp);
 	}
+
 //work preference change used in all of the screens above
 	public BorderPane workPreference() {
 		BorderPane bp = new BorderPane();
@@ -329,4 +353,10 @@ public class View implements AbstractView {
 	public RadioButton[] getRdForWorkPreference() {
 		return rdForWorkPreference;
 	}
+
+	public ComboBox<Role> getRoleList() {
+		return roleList;
+	}
+
+
 }
