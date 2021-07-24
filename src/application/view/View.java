@@ -27,7 +27,7 @@ public class View implements AbstractView {
 			new RadioButton(), new RadioButton(), new RadioButton(), new RadioButton(), new RadioButton(),
 			new RadioButton() };
 	private Button[] bt = { new Button("Add Department"), new Button("Add Role"), new Button("Add Employee"),
-			new Button("Show Screen"), new Button("Change Prefrence"), new Button("Show Simulations Results"),
+			new Button("Show Objects Screen"), new Button("Change Prefrence"), new Button("Show Simulations Results"),
 			new Button("Save"), new Button("Exit") };
 	private VBox vBoxForButtons;
 	private ComboBox<Integer> c1 = new ComboBox<Integer>();
