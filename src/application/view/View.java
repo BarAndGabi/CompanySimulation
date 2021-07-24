@@ -161,7 +161,6 @@ public class View implements AbstractView {
 		getTf()[0].setText("Enter Job Description");
 		getTf()[0].setMaxSize(330, 100);
 		enterName.getChildren().addAll(l1, getTf()[0]);
-		enterName.setPadding(new Insets(15));
 		enterName.setSpacing(20);
 		sp.getChildren().add(enterName);
 		HBox choosePreference = new HBox();
@@ -201,13 +200,19 @@ public class View implements AbstractView {
 		sp.getChildren().add(homeWorking);
 		HBox addDepartment = new HBox();
 		Label l6 = new Label("Choose department: ");
+		VBox profit = new VBox();
+		Label l7 = new Label("Enter Profit: ");
 		getTf()[1].setText("What is the profit for hour for this role");
 		getTf()[1].setMaxSize(330, 100);
+		profit.getChildren().addAll(l7, getTf()[1]);
+		profit.setAlignment(Pos.CENTER_LEFT);
+		profit.setSpacing(10);
 		addDepartment.getChildren().addAll(l6, departmentList);
 		addDepartment.setSpacing(10);
 		addDepartment.setPadding(new Insets(15));
-		sp.getChildren().addAll(getTf()[1], addDepartment, workPreference(), OKBorderPane());
+		sp.getChildren().addAll(profit, addDepartment, workPreference(), OKBorderPane());
 		sp.setSpacing(10);
+		sp.setAlignment(Pos.CENTER_LEFT);
 		changePane.setLeft(sp);
 
 	}
@@ -221,10 +226,11 @@ public class View implements AbstractView {
 		VBox choosWorkMethod = new VBox();
 		ToggleGroup tg = new ToggleGroup();
 		getRdForWorkPreference()[0].setText("Early");
-		getRdForWorkPreference()[0].setSelected(true);
 		getRdForWorkPreference()[1].setText("Late");
 		getRdForWorkPreference()[2].setText("Home");
 		getRdForWorkPreference()[3].setText("Regular");
+		getRdForWorkPreference()[3].setSelected(true);
+
 		for (int i = 0; i < 4; i++) {
 			rdForWorkPreference[i].setPadding(new Insets(4));
 			choosWorkMethod.getChildren().add(rdForWorkPreference[i]);
