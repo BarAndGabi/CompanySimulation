@@ -17,7 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class View implements AbstractView {
-
+	private Button casualButton = new Button();
 	private BorderPane mainPane;
 	private BorderPane changePane;
 	private TextField tf = new TextField();
@@ -102,13 +102,25 @@ public class View implements AbstractView {
 		sp.getChildren().add(enterName);
 		HBox choosePreference = new HBox();
 		choosePreference.setPadding(new Insets(10));
-		choosePreference.setSpacing(15);
 		Label l2 = new Label("Add if the Department can change it's preference");
-		getRd()[0].setText("Yes");
+		ToggleGroup tg1 = new ToggleGroup();
+		getRd()[0].setText("Yes");// yes if the department can change preference
 		getRd()[1].setText("No");
+		tg1.getToggles().addAll(getRd()[0], getRd()[1]);
 		choosePreference.getChildren().addAll(l2, getRd()[0], getRd()[1]);
 		choosePreference.setSpacing(20);
 		sp.getChildren().add(choosePreference);
+		HBox syncAble = new HBox();
+		syncAble.setPadding(new Insets(10));
+		Label l4 = new Label("Add if the Department is SYNCED");
+		l4.setPadding(new Insets(0, 83, 40, 0));
+		ToggleGroup tg2 = new ToggleGroup();
+		getRd()[2].setText("Yes");
+		getRd()[3].setText("No");
+		tg2.getToggles().addAll(getRd()[2], getRd()[3]);
+		syncAble.getChildren().addAll(l4, getRd()[2], getRd()[3]);
+		syncAble.setSpacing(20);
+		sp.getChildren().add(syncAble);
 		BorderPane bp = new BorderPane();
 		VBox choosWorkMethod = new VBox();
 		ToggleGroup tg = new ToggleGroup();
@@ -117,6 +129,7 @@ public class View implements AbstractView {
 		getRd()[6].setText("Home");
 		getRd()[7].setText("Regular");
 		for (int i = 4; i < rd.length; i++) {
+			rd[i].setPadding(new Insets(4));
 			choosWorkMethod.getChildren().add(rd[i]);
 			tg.getToggles().add(rd[i]);
 
@@ -128,13 +141,13 @@ public class View implements AbstractView {
 		HBox hb = new HBox();
 		getRd()[4].setOnAction(e -> {
 			hb.getChildren().clear();
-			Label l4 = new Label("how early would you like to be");
+			Label l5 = new Label("how early would you like to be");
 			getC1().getItems().clear();
 			for (int i = 1; i < 9; i++) {
 				getC1().getItems().add(i);
 			}
 			getC1().setValue(1);
-			hb.getChildren().addAll(l4, getC1());
+			hb.getChildren().addAll(l5, getC1());
 			hb.setSpacing(15);
 			bp.setRight(hb);
 
@@ -142,13 +155,13 @@ public class View implements AbstractView {
 
 		getRd()[5].setOnAction(e -> {
 			hb.getChildren().clear();
-			Label l4 = new Label("how late would you like to be");
+			Label l5 = new Label("how late would you like to be");
 			getC1().getItems().clear();
 			for (int i = 1; i < 8; i++) {
 				getC1().getItems().add(i);
 			}
 			getC1().setValue(1);
-			hb.getChildren().addAll(l4, getC1());
+			hb.getChildren().addAll(l5, getC1());
 			hb.setSpacing(15);
 			bp.setRight(hb);
 		});
@@ -157,13 +170,17 @@ public class View implements AbstractView {
 			bp.setRight(hb);
 
 		});
+
 		getRd()[7].setOnAction(e -> {
 			hb.getChildren().clear();
 			bp.setRight(hb);
 		});
 		sp.getChildren().add(bp);
+		BorderPane OKButton = new BorderPane();
+		getCasualButton().setText("OK");
+		OKButton.setRight(casualButton);
+		sp.getChildren().add(OKButton);
 		changePane.setLeft(sp);
-
 	}
 
 	public TextField getTf() {
@@ -186,5 +203,9 @@ public class View implements AbstractView {
 	public void setC1() {
 		ComboBox<Integer> c1 = new ComboBox<Integer>();
 		this.c1 = c1;
+	}
+
+	public Button getCasualButton() {
+		return casualButton;
 	}
 }
