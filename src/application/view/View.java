@@ -1,6 +1,7 @@
 package application.view;
 
 import application.controller.CompanySimulationController;
+import application.model.Department;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -17,12 +18,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class View implements AbstractView {
+	private ComboBox<Department> departmentList = new ComboBox<Department>();
 	private Button casualButton = new Button();
 	private BorderPane mainPane;
 	private BorderPane changePane;
 	private TextField tf = new TextField();
 	private RadioButton[] rd = { new RadioButton(), new RadioButton(), new RadioButton(), new RadioButton(),
-			new RadioButton(), new RadioButton(), new RadioButton(), new RadioButton() };
+			new RadioButton(), new RadioButton(), new RadioButton(), new RadioButton(), new RadioButton(),
+			new RadioButton() };
 	private Button[] bt = { new Button("Add Department"), new Button("Add Role"), new Button("Add Employee"),
 			new Button("Show Screen"), new Button("Change Prefrence"), new Button("Show Simulations Results"),
 			new Button("Save"), new Button("Exit") };
@@ -35,7 +38,7 @@ public class View implements AbstractView {
 		theStage.setTitle("company simulator Systems");
 		theStage.getIcons().add(logo);
 		setChangePane();
-		addDepartment();
+		addRole();
 		setvBox();
 		setMainPane();
 		Scene s = new Scene(this.mainPane, 660, 400);
@@ -87,9 +90,7 @@ public class View implements AbstractView {
 		this.changePane = changePane;
 	}
 
-	/**
-	 *
-	 */
+	// Department interface
 	public void addDepartment() {
 		VBox sp = new VBox();
 		VBox enterName = new VBox();
@@ -106,6 +107,7 @@ public class View implements AbstractView {
 		ToggleGroup tg1 = new ToggleGroup();
 		getRd()[0].setText("Yes");// yes if the department can change preference
 		getRd()[1].setText("No");
+		getRd()[0].setSelected(true);
 		tg1.getToggles().addAll(getRd()[0], getRd()[1]);
 		choosePreference.getChildren().addAll(l2, getRd()[0], getRd()[1]);
 		choosePreference.setSpacing(20);
@@ -116,6 +118,7 @@ public class View implements AbstractView {
 		l4.setPadding(new Insets(0, 83, 40, 0));
 		ToggleGroup tg2 = new ToggleGroup();
 		getRd()[2].setText("Yes");
+		getRd()[2].setSelected(true);
 		getRd()[3].setText("No");
 		tg2.getToggles().addAll(getRd()[2], getRd()[3]);
 		syncAble.getChildren().addAll(l4, getRd()[2], getRd()[3]);
@@ -125,6 +128,7 @@ public class View implements AbstractView {
 		VBox choosWorkMethod = new VBox();
 		ToggleGroup tg = new ToggleGroup();
 		getRd()[4].setText("Early");
+		getRd()[4].setSelected(true);
 		getRd()[5].setText("Late");
 		getRd()[6].setText("Home");
 		getRd()[7].setText("Regular");
@@ -183,6 +187,54 @@ public class View implements AbstractView {
 		changePane.setLeft(sp);
 	}
 
+	public void addRole() {
+		VBox sp = new VBox();
+		VBox enterName = new VBox();
+		Label l1 = new Label("Enter Name: ");
+		getTf().setText("Enter Job Description");
+		enterName.getChildren().addAll(l1, getTf());
+		enterName.setPadding(new Insets(15));
+		enterName.setSpacing(20);
+		sp.getChildren().add(enterName);
+		HBox choosePreference = new HBox();
+		choosePreference.setPadding(new Insets(10));
+		Label l2 = new Label("Add if the Role can change it's preference");
+		ToggleGroup tg1 = new ToggleGroup();
+		getRd()[0].setText("Yes");// yes if the department can change preference
+		getRd()[0].setSelected(true);
+		getRd()[1].setText("No");
+		tg1.getToggles().addAll(getRd()[0], getRd()[1]);
+		choosePreference.getChildren().addAll(l2, getRd()[0], getRd()[1]);
+		choosePreference.setSpacing(20);
+		sp.getChildren().add(choosePreference);
+		HBox syncAble = new HBox();
+		syncAble.setPadding(new Insets(10));
+		Label l4 = new Label("Add if the Role is SYNCED");
+		l4.setPadding(new Insets(0, 83, 0, 0));
+		ToggleGroup tg2 = new ToggleGroup();
+		getRd()[2].setText("Yes");
+		getRd()[2].setSelected(true);
+		getRd()[3].setText("No");
+		tg2.getToggles().addAll(getRd()[2], getRd()[3]);
+		syncAble.getChildren().addAll(l4, getRd()[2], getRd()[3]);
+		syncAble.setSpacing(20);
+		sp.getChildren().add(syncAble);
+		HBox homeWorking = new HBox();
+		Label l5 = new Label("Add if the Role \ngives an option to work from home");
+		ToggleGroup tg3 = new ToggleGroup();
+		getRd()[4].setText("Yes");
+		getRd()[4].setSelected(true);
+		getRd()[5].setText("No");
+		tg3.getToggles().addAll(getRd()[4], getRd()[5]);
+		homeWorking.getChildren().addAll(l5, getRd()[4], getRd()[5]);
+		homeWorking.setSpacing(20);
+		l5.setPadding(new Insets(10, 29, 0, 10));
+		homeWorking.setPadding(new Insets(5));
+		sp.getChildren().add(homeWorking);
+		changePane.setLeft(sp);
+
+	}
+
 	public TextField getTf() {
 		return tf;
 	}
@@ -207,5 +259,9 @@ public class View implements AbstractView {
 
 	public Button getCasualButton() {
 		return casualButton;
+	}
+
+	public ComboBox<Department> getDepartmentList() {
+		return departmentList;
 	}
 }
