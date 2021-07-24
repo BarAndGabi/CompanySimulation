@@ -28,9 +28,9 @@ public class View implements AbstractView {
 	private BorderPane mainPane;
 	private BorderPane changePane;
 	private TextField[] tf = { new TextField(), new TextField(), new TextField() };
-	private RadioButton[] rd = { new RadioButton(), new RadioButton(), new RadioButton(), new RadioButton(),
-			new RadioButton(), new RadioButton(), new RadioButton(), new RadioButton(), new RadioButton(),
-			new RadioButton() };
+	private RadioButton[] rd = { new RadioButton(), new RadioButton(), new RadioButton(), new RadioButton() };
+	private RadioButton[] rdForSalary = { new RadioButton("Hourly"), new RadioButton("Global"),
+			new RadioButton("Global+Bonus") };
 	private RadioButton[] rdForWorkPreference = { new RadioButton(), new RadioButton(), new RadioButton(),
 			new RadioButton() };
 	private Button[] bt = { new Button("Add Department"), new Button("Add Role"), new Button("Add Employee"),
@@ -226,7 +226,7 @@ public class View implements AbstractView {
 		getTf()[0].setMaxSize(330, 100);
 		getTf()[1].setText("Add year of birth");
 		getTf()[1].setMaxSize(330, 100);
-		Label l2 = new Label("Enter birth year");
+		Label l2 = new Label("Enter birth year: ");
 		enterName.getChildren().addAll(l1, getTf()[0], l2, getTf()[1]);
 		enterName.setSpacing(20);
 		sp.getChildren().addAll(enterName, workPreference());
@@ -247,9 +247,61 @@ public class View implements AbstractView {
 		choosePreference.getChildren().addAll(l3, getRd()[0], getRd()[1]);
 		choosePreference.setSpacing(20);
 		sp.getChildren().add(choosePreference);
+		HBox chooseSalary = new HBox();
+		Label l4 = new Label("Choose salary");
+		ToggleGroup tg2 = new ToggleGroup();
+		chooseSalary.getChildren().add(l4);
+		for (RadioButton element : rdForSalary) {
+			chooseSalary.getChildren().add(element);
+			tg2.getToggles().add(element);
+		}
+		rdForSalary[0].setSelected(true);
+		chooseSalary.setAlignment(Pos.CENTER);
+		chooseSalary.setSpacing(8);
+		BorderPane bp = new BorderPane();
+		HBox enterSalary = new HBox();
+		enterSalary.setSpacing(10);
+		enterSalary.setAlignment(Pos.CENTER);
+		Label enterSalaryText = new Label();
+		sp.getChildren().add(chooseSalary);
+		enterSalaryText.setText("Add your salary for hour: ");
+		getTf()[2].setText("Add your salary for hour");
+		enterSalary.getChildren().addAll(enterSalaryText, getTf()[2]);
+		bp.setCenter(enterSalary);
 
+		rdForSalary[0].setOnAction(e -> {
+			if (rdForSalary[0].isSelected()) {
+				enterSalary.getChildren().clear();
+				enterSalaryText.setText("Add your salary for hour: ");
+				getTf()[2].setText("Add your salary for hour");
+				enterSalary.getChildren().addAll(enterSalaryText, getTf()[2]);
+				bp.setCenter(enterSalary);
+			}
+		});
+		rdForSalary[1].setOnAction(e -> {
+			if (rdForSalary[1].isSelected()) {
+				enterSalary.getChildren().clear();
+				enterSalaryText.setText("Add your global salary ");
+				getTf()[2].setText("Add your global salary ");
+				enterSalary.getChildren().addAll(enterSalaryText, getTf()[2]);
+				bp.setCenter(enterSalary);
+
+			}
+		});
+		rdForSalary[2].setOnAction(e -> {
+			if (rdForSalary[2].isSelected()) {
+				enterSalary.getChildren().clear();
+				enterSalaryText.setText("Add your global salary ");
+				getTf()[2].setText("Add your global salary ");
+				enterSalary.getChildren().addAll(enterSalaryText, getTf()[2]);
+				bp.setCenter(enterSalary);
+			}
+		});
+		sp.getChildren().addAll(bp, OKBorderPane());
+		sp.setSpacing(10);
 		changePane.setLeft(sp);
 	}
+
 
 //work preference change used in all of the screens above
 	public BorderPane workPreference() {
@@ -358,5 +410,8 @@ public class View implements AbstractView {
 		return roleList;
 	}
 
+	public RadioButton[] getRdForSalary() {
+		return rdForSalary;
+	}
 
 }
