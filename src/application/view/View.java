@@ -238,7 +238,7 @@ public class View implements AbstractView {
 		sp.getChildren().add(addRole);
 		HBox choosePreference = new HBox();
 		choosePreference.setPadding(new Insets(10));
-		Label l3 = new Label("Add if the Role can change it's preference");
+		Label l3 = new Label("Add if the Employee can change it's preference");
 		ToggleGroup tg1 = new ToggleGroup();
 		getRd()[0].setText("Yes");// yes if the department can change preference
 		getRd()[0].setSelected(true);
