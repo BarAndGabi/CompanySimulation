@@ -41,7 +41,7 @@ public class View implements AbstractView {
 		theStage.setTitle("company simulator Systems");
 		theStage.getIcons().add(logo);
 		setChangePane();
-		// addRole();
+		addRole();
 		setvBox();
 		setMainPane();
 		Scene s = new Scene(this.mainPane, 660, 400);
@@ -246,6 +246,13 @@ public class View implements AbstractView {
 		l5.setPadding(new Insets(10, 29, 0, 10));
 		homeWorking.setPadding(new Insets(5));
 		sp.getChildren().add(homeWorking);
+		HBox addDepartment = new HBox();
+		Label l6 = new Label("Choose department: ");
+		addDepartment.getChildren().addAll(l6, departmentList);
+		addDepartment.setSpacing(10);
+		addDepartment.setPadding(new Insets(15));
+		sp.getChildren().add(addDepartment);
+		changePane.setLeft(sp);
 		changePane.setLeft(sp);
 
 	}
