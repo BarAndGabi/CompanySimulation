@@ -25,7 +25,7 @@ public class View implements AbstractView {
 	private Button casualButton = new Button();
 	private BorderPane mainPane;
 	private BorderPane changePane;
-	private TextField tf = new TextField();
+	private TextField[] tf = { new TextField(), new TextField(), new TextField() };
 	private RadioButton[] rd = { new RadioButton(), new RadioButton(), new RadioButton(), new RadioButton(),
 			new RadioButton(), new RadioButton(), new RadioButton(), new RadioButton(), new RadioButton(),
 			new RadioButton() };
@@ -46,7 +46,7 @@ public class View implements AbstractView {
 		addRole();
 		setvBox();
 		setMainPane();
-		Scene s = new Scene(this.mainPane, 660, 500);
+		Scene s = new Scene(this.mainPane, 660, 600);
 		s.getStylesheets().addAll(this.getClass().getResource("application.css").toExternalForm());
 		theStage.setScene(s);
 		theStage.show();
@@ -119,9 +119,9 @@ public class View implements AbstractView {
 		VBox enterName = new VBox();
 		// name text box
 		Label l1 = new Label("Enter Name: ");
-		getTf().setText("Enter Name Of the department");
-		getTf().setMaxSize(330, 100);
-		enterName.getChildren().addAll(l1, getTf());
+		getTf()[0].setText("Enter Name Of the department");
+		getTf()[0].setMaxSize(330, 100);
+		enterName.getChildren().addAll(l1, getTf()[0]);
 		enterName.setPadding(new Insets(15));
 		enterName.setSpacing(20);
 		sp.getChildren().add(enterName);
@@ -158,9 +158,9 @@ public class View implements AbstractView {
 		VBox sp = new VBox();
 		VBox enterName = new VBox();
 		Label l1 = new Label("Enter Name: ");
-		getTf().setText("Enter Job Description");
-		getTf().setMaxSize(330, 100);
-		enterName.getChildren().addAll(l1, getTf());
+		getTf()[0].setText("Enter Job Description");
+		getTf()[0].setMaxSize(330, 100);
+		enterName.getChildren().addAll(l1, getTf()[0]);
 		enterName.setPadding(new Insets(15));
 		enterName.setSpacing(20);
 		sp.getChildren().add(enterName);
@@ -201,14 +201,20 @@ public class View implements AbstractView {
 		sp.getChildren().add(homeWorking);
 		HBox addDepartment = new HBox();
 		Label l6 = new Label("Choose department: ");
+		getTf()[1].setText("What is the profit for hour for this role");
+		getTf()[1].setMaxSize(330, 100);
 		addDepartment.getChildren().addAll(l6, departmentList);
 		addDepartment.setSpacing(10);
 		addDepartment.setPadding(new Insets(15));
-		sp.getChildren().addAll(addDepartment, workPreference(), OKBorderPane());
+		sp.getChildren().addAll(getTf()[1], addDepartment, workPreference(), OKBorderPane());
+		sp.setSpacing(10);
 		changePane.setLeft(sp);
 
 	}
 
+	public void addEmployee() {
+
+	}
 //work preference change used in all of the screens above
 	public BorderPane workPreference() {
 		BorderPane bp = new BorderPane();
@@ -277,7 +283,7 @@ public class View implements AbstractView {
 		return OKButton;
 	}
 
-	public TextField getTf() {
+	public TextField[] getTf() {
 		return tf;
 	}
 
