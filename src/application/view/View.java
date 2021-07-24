@@ -46,7 +46,7 @@ public class View implements AbstractView {
 		addRole();
 		setvBox();
 		setMainPane();
-		Scene s = new Scene(this.mainPane, 660, 400);
+		Scene s = new Scene(this.mainPane, 660, 500);
 		s.getStylesheets().addAll(this.getClass().getResource("application.css").toExternalForm());
 		theStage.setScene(s);
 		theStage.show();
@@ -89,12 +89,10 @@ public class View implements AbstractView {
 		return changePane;
 	}
 
-	public void setChangePane() {
+	public VBox enterToProgramm() {
 		Font font1 = new Font("SansSerif", 20);
 		Font font2 = new Font("ROMAN_BASELINE", 30);
-		BorderPane changePane = new BorderPane();
 		VBox start = new VBox();
-		changePane.setPadding(new Insets(20));
 		Label l1 = new Label("Welcome to CompaNyer");
 		l1.setFont(font2);
 		Text t = new Text(
@@ -103,7 +101,14 @@ public class View implements AbstractView {
 		start.setAlignment(Pos.CENTER);
 		ImageView welcome = new ImageView("file:///C:/Users/lempe/git/CompanySimulation/src/application/view/logo.png");
 		start.getChildren().addAll(l1, t);
-		changePane.setLeft(start);
+
+		return start;
+
+	}
+
+	public void setChangePane() {
+		BorderPane changePane = new BorderPane();
+		changePane.setPadding(new Insets(20));
 		this.changePane = changePane;
 	}
 
@@ -116,7 +121,6 @@ public class View implements AbstractView {
 		Label l1 = new Label("Enter Name: ");
 		getTf().setText("Enter Name Of the department");
 		getTf().setMaxSize(330, 100);
-
 		enterName.getChildren().addAll(l1, getTf());
 		enterName.setPadding(new Insets(15));
 		enterName.setSpacing(20);
@@ -146,12 +150,7 @@ public class View implements AbstractView {
 		syncAble.getChildren().addAll(l4, getRd()[2], getRd()[3]);
 		syncAble.setSpacing(20);
 		sp.getChildren().add(syncAble);
-		// choose wich workmehod the department wants
-		sp.getChildren().add(workPreference());
-		BorderPane OKButton = new BorderPane();
-		getCasualButton().setText("OK");
-		OKButton.setRight(casualButton);
-		sp.getChildren().add(OKButton);
+		sp.getChildren().addAll(workPreference(), OKBorderPane());
 		changePane.setLeft(sp);
 	}
 
@@ -205,11 +204,12 @@ public class View implements AbstractView {
 		addDepartment.getChildren().addAll(l6, departmentList);
 		addDepartment.setSpacing(10);
 		addDepartment.setPadding(new Insets(15));
-		sp.getChildren().addAll(addDepartment, workPreference());
+		sp.getChildren().addAll(addDepartment, workPreference(), OKBorderPane());
 		changePane.setLeft(sp);
 
 	}
 
+//work preference change used in all of the screens above
 	public BorderPane workPreference() {
 		BorderPane bp = new BorderPane();
 		VBox choosWorkMethod = new VBox();
@@ -267,6 +267,14 @@ public class View implements AbstractView {
 			bp.setRight(hb);
 		});
 		return bp;
+	}
+
+//OK button to save and exit back to main window
+	public BorderPane OKBorderPane() {
+		BorderPane OKButton = new BorderPane();
+		getCasualButton().setText("OK");
+		OKButton.setRight(casualButton);
+		return OKButton;
 	}
 
 	public TextField getTf() {
