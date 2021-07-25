@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import application.listeners.UIEventListener;
 import application.listeners.modelListener;
@@ -23,16 +24,20 @@ public class CompanySimulationController implements modelListener, UIEventListen
 	private AbstractView View;
 
 	public CompanySimulationController(CompanyInterface model, View view) throws Exception {
+		this.View = view;
+		View.registerListener(this);
+		this.Model = model;
+		this.Model.addHardCoded();
 		try {
 			this.Model = this.loadFileEvent();
 			this.View.getObjects();
 		} catch (FileNotFoundException e) {
-			this.Model = model;
-			this.Model.addHardCoded();
+
+		} catch (Exception e) {
+			throw e;
 		}
-		this.View = view;
+
 		Model.registerListener(this);
-		View.registerListener(this);
 	}
 
 	public CompanyInterface loadFileEvent() throws Exception {
@@ -111,5 +116,26 @@ public class CompanySimulationController implements modelListener, UIEventListen
 			String jobTitle, boolean cP) throws Exception {
 		Role r = this.findRole(jobTitle);
 		this.Model.addEmployeeGlobalyPlus(name, yearOfBirth, preference, salaryPerMonth, r, cP);
+	}
+
+	@Override
+	public ArrayList<String> getEmployeesNames() {
+		ArrayList<String> temp = new ArrayList<String>();
+		temp = this.Model.getEmployeesNames(temp);
+		return temp;
+	}
+
+	@Override
+	public ArrayList<String> getRolesNames() {
+		ArrayList<String> temp = new ArrayList<String>();
+		temp = this.Model.getRolesNames(temp);
+		return temp;
+	}
+
+	@Override
+	public ArrayList<String> getDeparmentsNames() {
+		ArrayList<String> temp = new ArrayList<String>();
+		temp = this.Model.getDepartmentNames(temp);
+		return temp;
 	}
 }

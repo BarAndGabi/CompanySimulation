@@ -2,6 +2,7 @@ package application.model;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import application.listeners.modelListener;
 
@@ -35,4 +36,10 @@ public interface CompanyInterface {
 	void runSimulation();
 
 	public Role findRole(String jobTitle) throws cantFingObjectException;
+
+	ArrayList<String> getEmployeesNames(ArrayList<String> temp);
+
+	ArrayList<String> getRolesNames(ArrayList<String> temp);
+
+	ArrayList<String> getDepartmentNames(ArrayList<String> temp);
 }

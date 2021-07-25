@@ -262,4 +262,28 @@ public class Company implements Serializable, CompanyInterface {
 				return this.roles.get(i);
 		throw new cantFingObjectException();
 	}
+
+	@Override
+	public ArrayList<String> getEmployeesNames(ArrayList<String> temp) {
+		for (int i = 0; i < this.employees.size(); i++)
+			temp.add(this.employees.get(i).name);
+		return temp;
+
+	}
+
+	@Override
+	public ArrayList<String> getRolesNames(ArrayList<String> temp) {
+		for (int i = 0; i < this.roles.size(); i++)
+			temp.add(this.roles.get(i).getjobTitle());
+		return temp;
+
+	}
+
+	@Override
+	public ArrayList<String> getDepartmentNames(ArrayList<String> temp) {
+		for (int i = 0; i < this.departments.size(); i++)
+			temp.add(this.departments.get(i).getName());
+		return temp;
+
+	}
 }

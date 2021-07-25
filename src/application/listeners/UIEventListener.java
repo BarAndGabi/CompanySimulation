@@ -2,6 +2,7 @@ package application.listeners;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import application.model.Department;
 import application.model.Preference;
@@ -25,10 +26,10 @@ public interface UIEventListener {
 	void addEmployeeGlobalyPlusToModel(String name, int yearOfBirth, Preference preference, int salaryPerMonth,
 			String jobTitle, boolean cP) throws Exception;
 
-	String getEmployeesNames();
+	ArrayList<String> getEmployeesNames();
 
-	String getRolesNames();
+	ArrayList<String> getRolesNames();
 
-	String getDeparmentsNames();
+	ArrayList<String> getDeparmentsNames();
 
 }
