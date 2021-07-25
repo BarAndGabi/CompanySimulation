@@ -278,6 +278,9 @@ public class View implements AbstractView, Serializable {
 		Label l1 = new Label("Enter Name: ");
 		getTf()[0].setText("Enter Job Description");
 		getTf()[0].setMaxSize(330, 100);
+		getTf()[0].setOnMouseClicked(e -> {
+			getTf()[0].clear();
+		});
 		enterName.getChildren().addAll(l1, getTf()[0]);
 		enterName.setSpacing(20);
 		sp.getChildren().add(enterName);
@@ -319,6 +322,9 @@ public class View implements AbstractView, Serializable {
 		Label l7 = new Label("Enter Profit: ");
 		getTf()[1].setText("What is the profit for hour for this role");
 		getTf()[1].setMaxSize(330, 100);
+		getTf()[1].setOnMouseClicked(e -> {
+			getTf()[1].clear();
+		});
 		profit.getChildren().addAll(l7, getTf()[1]);
 		profit.setAlignment(Pos.CENTER_LEFT);
 		profit.setSpacing(10);
@@ -351,8 +357,15 @@ public class View implements AbstractView, Serializable {
 		Label l1 = new Label("Enter Name: ");
 		getTf()[0].setText("Enter employee name");
 		getTf()[0].setMaxSize(330, 100);
+		getTf()[0].setOnMouseClicked(e -> {
+			getTf()[0].clear();
+		});
 		getTf()[1].setText("Add year of birth");
 		getTf()[1].setMaxSize(330, 100);
+		getTf()[1].setOnMouseClicked(e -> {
+			getTf()[1].clear();
+		});
+
 		Label l2 = new Label("Enter birth year: ");
 		enterName.getChildren().addAll(l1, getTf()[0], l2, getTf()[1]);
 		enterName.setSpacing(20);
@@ -393,6 +406,10 @@ public class View implements AbstractView, Serializable {
 		getSp().getChildren().add(chooseSalary);
 		enterSalaryText.setText("Add your salary for hour: ");
 		getTf()[2].setText("Add your salary for hour");
+		getTf()[2].setOnMouseClicked(e -> {
+			getTf()[2].clear();
+		});
+
 		enterSalary.getChildren().addAll(enterSalaryText, getTf()[2]);
 		bp.setCenter(enterSalary);
 
@@ -401,6 +418,9 @@ public class View implements AbstractView, Serializable {
 				enterSalary.getChildren().clear();
 				enterSalaryText.setText("Add your salary for hour: ");
 				getTf()[2].setText("Add your salary for hour");
+				getTf()[2].setOnMouseClicked(e1 -> {
+					getTf()[2].clear();
+				});
 				enterSalary.getChildren().addAll(enterSalaryText, getTf()[2]);
 				bp.setCenter(enterSalary);
 			}
@@ -410,6 +430,10 @@ public class View implements AbstractView, Serializable {
 				enterSalary.getChildren().clear();
 				enterSalaryText.setText("Add your global salary ");
 				getTf()[2].setText("Add your global salary ");
+				getTf()[2].setOnMouseClicked(e1 -> {
+					getTf()[2].clear();
+				});
+
 				enterSalary.getChildren().addAll(enterSalaryText, getTf()[2]);
 				bp.setCenter(enterSalary);
 
@@ -420,6 +444,9 @@ public class View implements AbstractView, Serializable {
 				enterSalary.getChildren().clear();
 				enterSalaryText.setText("Add your global salary ");
 				getTf()[2].setText("Add your global salary ");
+				getTf()[2].setOnMouseClicked(e1 -> {
+					getTf()[2].clear();
+				});
 				enterSalary.getChildren().addAll(enterSalaryText, getTf()[2]);
 				bp.setCenter(enterSalary);
 			}
