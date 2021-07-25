@@ -105,7 +105,7 @@ public class View implements AbstractView, Serializable {
 		});
 		getBt()[7].setOnAction(e -> {
 			this.quitApp(s);
-			
+
 		});
 	}
 
@@ -246,6 +246,11 @@ public class View implements AbstractView, Serializable {
 		syncAble.setSpacing(20);
 		sp.getChildren().add(syncAble);
 		sp.getChildren().addAll(workPreference(), OKBorderPane());
+		casualButton.setOnAction(e -> {
+			for (UIEventListener listener : listeners) {
+//listener.addDepartmentToModel(getTf()[0]., false, null, 0, false)
+			}
+		});
 		changePane.setLeft(sp);
 	}
 
