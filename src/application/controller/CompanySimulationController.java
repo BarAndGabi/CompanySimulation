@@ -14,6 +14,7 @@ import application.model.Employee;
 import application.model.Preference;
 import application.model.PreferenceType;
 import application.model.Role;
+import application.model.cantFingObjectException;
 import application.view.AbstractView;
 import application.view.View;
 
@@ -86,21 +87,28 @@ public class CompanySimulationController implements modelListener, UIEventListen
 
 	@Override
 	public void addEmployeeHourlyToModel(String name, int yearOfBirth, Preference preference, int salaryPerHour,
-			Role role, boolean cP) throws Exception {
-		this.Model.addEmployeeHourly(name, yearOfBirth, preference, salaryPerHour, role, cP);
+			String jobTitle, boolean cP) throws Exception {
+		Role r = this.findRole(jobTitle);
+		this.Model.addEmployeeHourly(name, yearOfBirth, preference, salaryPerHour, r, cP);
 
+	}
+
+	private Role findRole(String jobTitle) throws cantFingObjectException {
+		Role r = this.Model.findRole(jobTitle);
+		return r;
 	}
 
 	@Override
 	public void addEmployeeGlobalyToModel(String name, int yearOfBirth, Preference preference, int salaryPerMonth,
-			Role role, boolean cP) throws Exception {
-		this.Model.addEmployeeGlobaly(name, yearOfBirth, preference, salaryPerMonth, role, cP);
+			String jobTitle, boolean cP) throws Exception {
+		Role r = this.findRole(jobTitle);
+		this.Model.addEmployeeGlobaly(name, yearOfBirth, preference, salaryPerMonth, r, cP);
 	}
 
 	@Override
 	public void addEmployeeGlobalyPlusToModel(String name, int yearOfBirth, Preference preference, int salaryPerMonth,
-			Role role, boolean cP) throws Exception {
-		// TODO Auto-generated method stub
-
+			String jobTitle, boolean cP) throws Exception {
+		Role r = this.findRole(jobTitle);
+		this.Model.addEmployeeGlobalyPlus(name, yearOfBirth, preference, salaryPerMonth, r, cP);
 	}
 }

@@ -32,4 +32,6 @@ public interface CompanyInterface {
 	void addHardCoded() throws Exception;
 
 	void runSimulation();
+
+	public Role findRole(String jobTitle) throws cantFingObjectException;
 }

@@ -14,16 +14,15 @@ public interface UIEventListener {
 	void addRoleToModel(double ProfitPerHour, String jobTitle, boolean sync, Department d, Preference preference,
 			boolean workFromHome, boolean b) throws Exception;
 
-	void addDepartmentToModel(String name, boolean sync, PreferenceType p, int hourChange, boolean cP)
-			throws Exception;
+	void addDepartmentToModel(String name, boolean sync, PreferenceType p, int hourChange, boolean cP) throws Exception;
 
-	void addEmployeeHourlyToModel(String name, int yearOfBirth, Preference preference, int salaryPerHour, Role role,
-			boolean cP) throws Exception;
+	void addEmployeeHourlyToModel(String name, int yearOfBirth, Preference preference, int salaryPerHour,
+			String jobTitle, boolean cP) throws Exception;
 
-	void addEmployeeGlobalyToModel(String name, int yearOfBirth, Preference preference, int salaryPerMonth, Role role,
-			boolean cP) throws Exception;
+	void addEmployeeGlobalyToModel(String name, int yearOfBirth, Preference preference, int salaryPerMonth,
+			String jobTitle, boolean cP) throws Exception;
 
 	void addEmployeeGlobalyPlusToModel(String name, int yearOfBirth, Preference preference, int salaryPerMonth,
-			Role role, boolean cP) throws Exception;
+			String jobTitle, boolean cP) throws Exception;
 
 }

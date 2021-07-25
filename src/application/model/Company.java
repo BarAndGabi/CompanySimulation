@@ -228,4 +228,12 @@ public class Company implements Serializable, CompanyInterface {
 		}
 
 	}
+
+	@Override
+	public Role findRole(String jobTitle) throws cantFingObjectException {
+		for (int i = 0; i < this.roles.size(); i++)
+			if (jobTitle.equals(this.roles.get(i).getjobTitle()))
+				return this.roles.get(i);
+		throw new cantFingObjectException();
+	}
 }

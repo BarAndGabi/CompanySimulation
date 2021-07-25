@@ -47,8 +47,10 @@ public class View implements AbstractView, Serializable {
 	private VBox vBoxForButtons;
 	private ComboBox<Integer> c1 = new ComboBox<Integer>();
 	private Image logo = new Image(getClass().getResourceAsStream("logo.png"));
+	private Stage s;
 
 	public View(Stage theStage) {
+		s = theStage;
 		this.listeners = new ArrayList<UIEventListener>();
 		this.roleList.setMaxWidth(Double.MAX_VALUE);
 		this.employeeList.setMaxWidth(Double.MAX_VALUE);
@@ -98,6 +100,10 @@ public class View implements AbstractView, Serializable {
 		});
 		getBt()[6].setOnAction(e -> {
 			this.save();
+		});
+		getBt()[7].setOnAction(e -> {
+			this.quitApp(s);
+			
 		});
 	}
 
