@@ -12,8 +12,8 @@ import javafx.stage.Stage;
 public class MainCompany extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		CompanyInterface Model = new Company();
 		View View = new View(primaryStage);
+		CompanyInterface Model = new Company();
 		CompanySimulationController controller = new CompanySimulationController(Model, View);
 	}
 
