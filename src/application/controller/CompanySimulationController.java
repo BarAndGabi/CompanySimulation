@@ -82,6 +82,8 @@ public class CompanySimulationController implements modelListener, UIEventListen
 	@Override
 	public void addRoleToModel(double ProfitPerHour, String jobTitle, boolean sync, String department,
 			Preference preference, boolean workFromHome, boolean b) throws Exception {
+		if (department == null)
+			throw new forgotToFillSomethingException();
 		Department d = this.findDeparment(department);
 		this.Model.addRole(ProfitPerHour, jobTitle, sync, d, preference, workFromHome, b);
 	}
