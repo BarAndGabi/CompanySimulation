@@ -140,17 +140,20 @@ public class Company implements Serializable, CompanyInterface {
 	public Role addRole(double ProfitPerHour, String jobTitle, boolean sync, Department d, Preference preference,
 			boolean workFromHome, boolean b) throws Exception {
 		if (this.roleNotExist(jobTitle)) {
-			if ((preference.getPreferenceType() == PreferenceType.HOME) && (!workFromHome))
-				throw new homeException();
-			else {
-				Role r = new Role(ProfitPerHour, jobTitle, sync, d, preference, workFromHome, b);
-				int index = this.findDepartment(d);
-				this.departments.get(index).addRole(r);
-				this.roles.add(r);
-				this.fireAddRoleEvent(r);
-				this.runSimulation();
-				return r;
-			}
+			if (ProfitPerHour >= 0) {
+				if ((preference.getPreferenceType() == PreferenceType.HOME) && (!workFromHome))
+					throw new homeException();
+				else {
+					Role r = new Role(ProfitPerHour, jobTitle, sync, d, preference, workFromHome, b);
+					int index = this.findDepartment(d);
+					this.departments.get(index).addRole(r);
+					this.roles.add(r);
+					this.fireAddRoleEvent(r);
+					this.runSimulation();
+					return r;
+				}
+			} else
+				throw new profitPositiveException();
 		} else
 			throw new alreadyExistException();
 	}
