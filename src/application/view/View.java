@@ -536,8 +536,6 @@ public class View implements AbstractView, Serializable {
 		this.departmentList.getItems().add(name);
 	}
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
 	public VBox getSp() {
 		return sp;
 	}
@@ -551,11 +549,6 @@ public class View implements AbstractView, Serializable {
 
 	}
 
-
-
-=======
->>>>>>> ff2dc2972995756650d67ecfd7adc16d24e1749f
-=======
 	private void exceptionAlert(Exception e) {
 		Alert alert = new Alert(Alert.AlertType.WARNING);
 		DialogPane dialogPane = alert.getDialogPane();
@@ -594,5 +587,4 @@ public class View implements AbstractView, Serializable {
 		s.close();
 	}
 
->>>>>>> Stashed changes
 }
