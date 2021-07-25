@@ -29,7 +29,8 @@ public class View implements AbstractView {
 	private BorderPane mainPane;
 	private BorderPane changePane;
 	private TextField[] tf = { new TextField(), new TextField(), new TextField() };
-	private RadioButton[] rd = { new RadioButton(), new RadioButton(), new RadioButton(), new RadioButton() };
+	private RadioButton[] rd = { new RadioButton(), new RadioButton(), new RadioButton(), new RadioButton(),
+			new RadioButton(), new RadioButton() };
 	private RadioButton[] rdForSalary = { new RadioButton("Hourly"), new RadioButton("Global"),
 			new RadioButton("Global+Bonus") };
 	private RadioButton[] rdForWorkPreference = { new RadioButton(), new RadioButton(), new RadioButton(),
@@ -45,7 +46,8 @@ public class View implements AbstractView {
 		theStage.setTitle("company simulator Systems");
 		theStage.getIcons().add(logo);
 		setChangePane();
-		addEmployee();
+
+		changePanels();
 		setvBox();
 		setMainPane();
 		Scene s = new Scene(this.mainPane, 660, 600);
@@ -59,6 +61,21 @@ public class View implements AbstractView {
 		return mainPane;
 	}
 
+	public void changePanels() {
+		getBt()[0].setOnAction(e -> {
+			addDepartment();
+		});
+		getBt()[1].setOnAction(e->{
+			addRole();
+		});
+		getBt()[2].setOnAction(e -> {
+			addEmployee();
+		});
+
+		getBt()[4].setOnAction(e -> {
+			changePrefrence();
+		});
+	}
 	public void setMainPane() {
 		BorderPane mainPane = new BorderPane();
 		mainPane.setLeft(vBoxForButtons);
@@ -116,6 +133,7 @@ public class View implements AbstractView {
 	public void setChangePane() {
 		BorderPane changePane = new BorderPane();
 		changePane.setPadding(new Insets(20));
+		changePane.setLeft(enterToProgramm());
 		this.changePane = changePane;
 	}
 
@@ -475,13 +493,11 @@ public class View implements AbstractView {
 
 	@Override
 	public void addRoleEvent(String jobTitle) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void addDepartmentEvent(String name) {
-		// TODO Auto-generated method stub
 
 	}
 
