@@ -591,4 +591,11 @@ public class View implements AbstractView, Serializable {
 		s.close();
 	}
 
+	@Override
+	public void addEmployeeHourlyToModel() {
+		for (int i = 0; i < this.listeners.size(); i++) {
+
+		}
+	}
+
 }

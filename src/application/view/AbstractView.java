@@ -14,5 +14,6 @@ public interface AbstractView {
 	void addRoleEvent(String jobTitle);// add to roles combobox
 
 	void addDepartmentEvent(String name);// add to departments combobox
+	void addEmployeeHourlyToModel();
 
 }

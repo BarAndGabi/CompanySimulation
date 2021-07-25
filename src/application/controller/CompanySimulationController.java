@@ -11,6 +11,8 @@ import application.listeners.modelListener;
 import application.model.CompanyInterface;
 import application.model.Department;
 import application.model.Employee;
+import application.model.Preference;
+import application.model.PreferenceType;
 import application.model.Role;
 import application.view.AbstractView;
 import application.view.View;
@@ -67,5 +69,39 @@ public class CompanySimulationController implements modelListener, UIEventListen
 	@Override
 	public void save() throws FileNotFoundException, IOException {
 		this.Model.saveFile();
+	}
+
+	@Override
+	public Role addRoleToModel(double ProfitPerHour, String jobTitle, boolean sync, Department d, Preference preference,
+			boolean workFromHome, boolean b) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Department addDepartmentToModel(String name, boolean sync, PreferenceType p, int hourChange, boolean cP)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addEmployeeHourlyToModel(String name, int yearOfBirth, Preference preference, int salaryPerHour,
+			Role role, boolean cP) throws Exception {
+		this.Model.addEmployeeHourly(name, yearOfBirth, preference, salaryPerHour, role, cP);
+
+	}
+
+	@Override
+	public void addEmployeeGlobalyToModel(String name, int yearOfBirth, Preference preference, int salaryPerMonth,
+			Role role, boolean cP) throws Exception {
+		this.Model.addEmployeeGlobaly(name, yearOfBirth, preference, salaryPerMonth, role, cP);
+	}
+
+	@Override
+	public void addEmployeeGlobalyPlusToModel(String name, int yearOfBirth, Preference preference, int salaryPerMonth,
+			Role role, boolean cP) throws Exception {
+		// TODO Auto-generated method stub
+
 	}
 }
