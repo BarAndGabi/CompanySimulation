@@ -11,10 +11,10 @@ import application.model.Role;
 public interface UIEventListener {
 	void save() throws FileNotFoundException, IOException;
 
-	Role addRoleToModel(double ProfitPerHour, String jobTitle, boolean sync, Department d, Preference preference,
+	void addRoleToModel(double ProfitPerHour, String jobTitle, boolean sync, Department d, Preference preference,
 			boolean workFromHome, boolean b) throws Exception;
 
-	Department addDepartmentToModel(String name, boolean sync, PreferenceType p, int hourChange, boolean cP)
+	void addDepartmentToModel(String name, boolean sync, PreferenceType p, int hourChange, boolean cP)
 			throws Exception;
 
 	void addEmployeeHourlyToModel(String name, int yearOfBirth, Preference preference, int salaryPerHour, Role role,

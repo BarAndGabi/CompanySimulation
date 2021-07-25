@@ -72,17 +72,16 @@ public class CompanySimulationController implements modelListener, UIEventListen
 	}
 
 	@Override
-	public Role addRoleToModel(double ProfitPerHour, String jobTitle, boolean sync, Department d, Preference preference,
+	public void addRoleToModel(double ProfitPerHour, String jobTitle, boolean sync, Department d, Preference preference,
 			boolean workFromHome, boolean b) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+
 	}
 
 	@Override
-	public Department addDepartmentToModel(String name, boolean sync, PreferenceType p, int hourChange, boolean cP)
+	public void addDepartmentToModel(String name, boolean sync, PreferenceType p, int hourChange, boolean cP)
 			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		this.Model.addDepartment(name, sync, p, hourChange, cP);
 	}
 
 	@Override

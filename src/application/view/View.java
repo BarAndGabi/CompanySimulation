@@ -397,7 +397,6 @@ public class View implements AbstractView, Serializable {
 		});
 		sp.getChildren().addAll(bp, workPreference(), OKBorderPane());
 		sp.setSpacing(20);
-		sp.setAlignment(Pos.CENTER);
 		changePane.setLeft(sp);
 	}
 
@@ -466,7 +465,6 @@ public class View implements AbstractView, Serializable {
 		BorderPane OKButton = new BorderPane();
 		getCasualButton().setText("Submit");
 		OKButton.setCenter(casualButton);
-		OKButton.setPadding(new Insets(40, 100, 90, 40));
 		return OKButton;
 	}
 
@@ -596,7 +594,6 @@ public class View implements AbstractView, Serializable {
 	@Override
 	public void addEmployeeHourlyToModel() {
 		for (int i = 0; i < this.listeners.size(); i++) {
-
 		}
 	}
 
