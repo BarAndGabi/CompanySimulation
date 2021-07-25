@@ -2,6 +2,8 @@ package application.view;
 
 import java.util.ArrayList;
 
+import com.apple.laf.AquaInternalFrameDockIconUI;
+
 import application.listeners.UIEventListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -46,6 +48,10 @@ public class View implements AbstractView {
 
 	public View(Stage theStage) {
 		this.listeners = new ArrayList<UIEventListener>();
+		this.roleList.setMaxWidth(Double.MAX_VALUE);
+		this.employeeList.setMaxWidth(Double.MAX_VALUE);
+		this.departmentList.setMaxWidth(Double.MAX_VALUE);
+
 		rd[0].setSelected(true);
 		rd[2].setSelected(true);
 		rd[4].setSelected(true);
@@ -506,7 +512,5 @@ public class View implements AbstractView {
 	public void addDepartmentEvent(String name) {
 		this.departmentList.getItems().add(name);
 	}
-
-
 
 }
