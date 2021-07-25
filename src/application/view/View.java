@@ -248,7 +248,7 @@ public class View implements AbstractView, Serializable {
 		sp.getChildren().addAll(workPreference(), OKBorderPane());
 		casualButton.setOnAction(e -> {
 			for (UIEventListener listener : listeners) {
-//listener.addDepartmentToModel(getTf()[0]., false, null, 0, false)
+				listener.addDepartmentToModel(name, sync, chooseP, p, hourChange, cP);
 			}
 		});
 		changePane.setLeft(sp);
