@@ -3,10 +3,11 @@ package application.view;
 import java.util.Vector;
 
 import application.controller.CompanySimulationController;
+import application.listeners.UIEventListener;
 
 public interface AbstractView {
 
-	void registerListener(CompanySimulationController companySimulationController);
+	void registerListener(UIEventListener companySimulationController);
 
 	void addEmployeeEvent(String name);// add to employees combobox
 

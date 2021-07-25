@@ -1,6 +1,10 @@
 package application.view;
 
+import java.util.ArrayList;
+
 import application.controller.CompanySimulationController;
+import application.listeners.UIEventListener;
+import application.listeners.modelListener;
 import application.model.Department;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -23,7 +27,9 @@ import javafx.stage.Stage;
 public class View implements AbstractView {
 	private ComboBox<String> employeeList = new ComboBox<String>();
 	private ComboBox<String> roleList = new ComboBox<String>();
-	private ComboBox<Department> departmentList = new ComboBox<Department>();
+	private ComboBox<String> departmentList = new ComboBox<String>();
+	private ArrayList<UIEventListener> listeners;
+
 	private Button casualButton = new Button();
 	private BorderPane mainPane;
 	private BorderPane changePane;
@@ -42,6 +48,7 @@ public class View implements AbstractView {
 	private Image logo = new Image(getClass().getResourceAsStream("logo.png"));
 
 	public View(Stage theStage) {
+		this.listeners = new ArrayList<UIEventListener>();
 		theStage.setTitle("company simulator Systems");
 		theStage.getIcons().add(logo);
 		setChangePane();
@@ -63,7 +70,7 @@ public class View implements AbstractView {
 		getBt()[0].setOnAction(e -> {
 			addDepartment();
 		});
-		getBt()[1].setOnAction(e->{
+		getBt()[1].setOnAction(e -> {
 			addRole();
 		});
 		getBt()[2].setOnAction(e -> {
@@ -74,6 +81,7 @@ public class View implements AbstractView {
 			changePrefrence();
 		});
 	}
+
 	public void setMainPane() {
 		BorderPane mainPane = new BorderPane();
 		mainPane.setLeft(vBoxForButtons);
@@ -447,8 +455,8 @@ public class View implements AbstractView {
 	}
 
 	@Override
-	public void registerListener(CompanySimulationController companySimulationController) {
-
+	public void registerListener(UIEventListener companySimulationController) {
+		this.listeners.add(companySimulationController);
 	}
 
 	public ComboBox<Integer> getC1() {
@@ -464,7 +472,7 @@ public class View implements AbstractView {
 		return casualButton;
 	}
 
-	public ComboBox<Department> getDepartmentList() {
+	public ComboBox<String> getDepartmentList() {
 		return departmentList;
 	}
 
@@ -496,7 +504,7 @@ public class View implements AbstractView {
 
 	@Override
 	public void addDepartmentEvent(String name) {
-
+		this.departmentList.getItems().add(name);
 	}
 
 }
