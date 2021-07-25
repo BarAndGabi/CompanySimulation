@@ -42,10 +42,10 @@ public class Company implements Serializable, CompanyInterface {
 		Preference p2 = new Preference(PreferenceType.LATE_START, 2);
 		Preference p3 = new Preference(PreferenceType.EARLY_START, 3);
 		Preference p4 = new Preference(PreferenceType.HOME, 0);
-		Department logistic = this.addDepartment("logistic", false, true, PreferenceType.REGULAR_START, 0, false);
-		Department cars = this.addDepartment("cars", false, false, PreferenceType.EARLY_START, 6, true);
-		Department mangment = this.addDepartment("mangment", true, true, PreferenceType.EARLY_START, 3, true);
-		Department wizards = this.addDepartment("wizards", false, true, PreferenceType.LATE_START, 3, true);
+		Department logistic = this.addDepartment("logistic", false, true, PreferenceType.REGULAR_START, 0);
+		Department cars = this.addDepartment("cars", false, false, PreferenceType.EARLY_START, 6);
+		Department mangment = this.addDepartment("mangment", true, true, PreferenceType.EARLY_START, 3);
+		Department wizards = this.addDepartment("wizards", false, true, PreferenceType.LATE_START, 3);
 		Role cleaner = this.addRole(35.5, "cleaner", true, logistic, p2, true, true);
 		Role carSalesMan = this.addRole(34, "car sales man", true, cars, p3, true, true);
 		Role fileOrganizer = this.addRole(25, "file organizer", false, mangment, p2, true, true);
@@ -106,9 +106,9 @@ public class Company implements Serializable, CompanyInterface {
 	}
 
 	@Override
-	public Department addDepartment(String name, boolean sync, boolean chooseP, PreferenceType p, int hourChange,
-			boolean cP) throws Exception {
-		Department d = new Department(name, sync, p, hourChange, cP);
+	public Department addDepartment(String name, boolean sync, boolean chooseP, PreferenceType p, int hourChange)
+			throws Exception {
+		Department d = new Department(name, sync, p, hourChange, chooseP);
 		for (int i = 0; i < this.departments.size(); i++) {
 			if (this.departments.get(i).equals(d))
 				throw new alreadyExistException();
