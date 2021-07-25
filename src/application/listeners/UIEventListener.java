@@ -6,7 +6,6 @@ import java.io.IOException;
 import application.model.Department;
 import application.model.Preference;
 import application.model.PreferenceType;
-import application.model.Role;
 
 public interface UIEventListener {
 	void save() throws FileNotFoundException, IOException;
@@ -14,7 +13,7 @@ public interface UIEventListener {
 	void addRoleToModel(double ProfitPerHour, String jobTitle, boolean sync, Department d, Preference preference,
 			boolean workFromHome, boolean b) throws Exception;
 
-	void addDepartmentToModel(String name, boolean sync, boolean chooseP, PreferenceType p, int hourChange, boolean cP)
+	void addDepartmentToModel(String name, boolean sync, boolean chooseP, PreferenceType p, int hourChange)
 			throws Exception;
 
 	void addEmployeeHourlyToModel(String name, int yearOfBirth, Preference preference, int salaryPerHour,
