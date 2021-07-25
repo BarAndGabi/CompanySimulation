@@ -728,11 +728,11 @@ public class View implements AbstractView, Serializable {
 			syncd = false;
 		}
 
-		if (getRd()[3].isSelected()) {
+		if (getRd()[4].isSelected()) {
 			workHome = true;
 		}
 
-		if (getRd()[4].isSelected()) {
+		if (getRd()[5].isSelected()) {
 			workHome = false;
 		}
 
