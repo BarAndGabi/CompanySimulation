@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import application.model.Department;
 import application.model.Preference;
 import application.model.PreferenceType;
 
