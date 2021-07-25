@@ -724,7 +724,7 @@ public class View implements AbstractView, Serializable {
 		if (getRd()[2].isSelected()) {
 			syncd = true;
 		}
-		if (getRd()[2].isSelected()) {
+		if (getRd()[3].isSelected()) {
 			syncd = false;
 		}
 
