@@ -80,8 +80,8 @@ public class CompanySimulationController implements modelListener, UIEventListen
 	}
 
 	@Override
-	public void addRoleToModel(double ProfitPerHour, String jobTitle, boolean sync, Department d, Preference preference,
-			boolean workFromHome, boolean b) throws Exception {
+	public void addRoleToModel(double ProfitPerHour, String jobTitle, boolean sync, String department,
+			Preference preference, boolean workFromHome, boolean b) throws Exception {
 		// TODO Auto-generated method stub
 
 	}

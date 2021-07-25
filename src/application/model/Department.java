@@ -58,7 +58,7 @@ public class Department implements Serializable, syncAble, choosePreference {
 		if (!(obj instanceof Department))
 			return false;
 		Department temp = (Department) obj;
-		if (temp.getName() == this.name)
+		if (temp.getName().equals(this.name))
 			return true;
 		else
 			return false;
