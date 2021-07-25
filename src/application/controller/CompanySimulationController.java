@@ -35,6 +35,7 @@ public class CompanySimulationController implements modelListener, UIEventListen
 		try {
 			ObjectInputStream inFile = new ObjectInputStream(new FileInputStream("Elections.dat"));
 			CompanyInterface fileArchive = ((CompanyInterface) inFile.readObject());
+			fileArchive.registerListener(this);
 			inFile.close();
 			return fileArchive;
 		} catch (FileNotFoundException e) {
