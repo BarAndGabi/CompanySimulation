@@ -2,10 +2,7 @@ package application.view;
 
 import java.util.ArrayList;
 
-import application.controller.CompanySimulationController;
 import application.listeners.UIEventListener;
-import application.listeners.modelListener;
-import application.model.Department;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -49,6 +46,9 @@ public class View implements AbstractView {
 
 	public View(Stage theStage) {
 		this.listeners = new ArrayList<UIEventListener>();
+		rd[0].setSelected(true);
+		rd[2].setSelected(true);
+		rd[4].setSelected(true);
 		theStage.setTitle("company simulator Systems");
 		theStage.getIcons().add(logo);
 		setChangePane();
@@ -506,5 +506,7 @@ public class View implements AbstractView {
 	public void addDepartmentEvent(String name) {
 		this.departmentList.getItems().add(name);
 	}
+
+
 
 }
