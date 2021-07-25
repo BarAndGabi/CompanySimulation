@@ -46,18 +46,18 @@ public class CompanySimulationController implements modelListener, UIEventListen
 
 	@Override
 	public void createAddDepartmentEvent(Department d) {
-		// this.View.addDepartmentEvent(d.getName());
+		this.View.addDepartmentEvent(d.getName());
 	}
 
 	@Override
 	public void createAddRoleEvent(Role r) {
-		// this.View.addRoleEvent(r.getjobTitle());
+		this.View.addRoleEvent(r.getjobTitle());
 
 	}
 
 	@Override
 	public void createAddEmployeeEvent(Employee e) {
-		// this.View.addEmployeeEvent(e.getName());
+		this.View.addEmployeeEvent(e.getName());
 
 	}
 

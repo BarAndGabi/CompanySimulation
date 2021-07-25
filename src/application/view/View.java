@@ -23,7 +23,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class View implements AbstractView {
-	private ComboBox<Employee> employeeList = new ComboBox<Employee>();
+	private ComboBox<String> employeeList = new ComboBox<String>();
 	private ComboBox<Role> roleList = new ComboBox<Role>();
 	private ComboBox<Department> departmentList = new ComboBox<Department>();
 	private Button casualButton = new Button();
@@ -108,7 +108,7 @@ public class View implements AbstractView {
 		welcome.setY(1);
 		welcome.setFitWidth(200);
 		welcome.setPreserveRatio(true);
-		start.getChildren().addAll(l1, t,welcome);
+		start.getChildren().addAll(l1, t, welcome);
 
 		return start;
 
@@ -354,7 +354,6 @@ public class View implements AbstractView {
 		changePane.setLeft(sp);
 	}
 
-
 //work preference change used in all of the screens above
 	public BorderPane workPreference() {
 		BorderPane bp = new BorderPane();
@@ -466,8 +465,25 @@ public class View implements AbstractView {
 		return rdForSalary;
 	}
 
-	public ComboBox<Employee> getEmployeeList() {
+	public ComboBox<String> getEmployeeList() {
 		return employeeList;
+	}
+
+	@Override
+	public void addEmployeeEvent(String name) {
+		this.employeeList.getItems().add(name);
+	}
+
+	@Override
+	public void addRoleEvent(String jobTitle) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void addDepartmentEvent(String name) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
