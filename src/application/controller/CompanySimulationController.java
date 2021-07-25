@@ -25,29 +25,30 @@ public class CompanySimulationController implements modelListener, UIEventListen
 	public CompanySimulationController(CompanyInterface model, View view) throws Exception {
 		try {
 			this.Model = this.loadFileEvent();
+			this.View.getObjects();
 		} catch (FileNotFoundException e) {
 			this.Model = model;
+			this.Model.addHardCoded();
 		}
 		this.View = view;
 		Model.registerListener(this);
 		View.registerListener(this);
-		this.Model.addHardCoded();
 	}
 
 	public CompanyInterface loadFileEvent() throws Exception {
 		try {
-			ObjectInputStream inFile = new ObjectInputStream(new FileInputStream("Elections.dat"));
+			ObjectInputStream inFile = new ObjectInputStream(new FileInputStream("Company_Simulation.dat"));
 			CompanyInterface fileArchive = ((CompanyInterface) inFile.readObject());
-			fileArchive.registerListener(this);
 			inFile.close();
 			return fileArchive;
 		} catch (FileNotFoundException e) {
 			throw new FileNotFoundException();
 		} catch (IOException e) {
 			throw new oldFilecCorruptedException();
-		} catch (ClassNotFoundException e) {
+		} catch (Exception e) {
 			throw e;
 		}
+
 	}
 
 	@Override

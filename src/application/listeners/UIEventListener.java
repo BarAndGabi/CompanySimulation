@@ -25,4 +25,10 @@ public interface UIEventListener {
 	void addEmployeeGlobalyPlusToModel(String name, int yearOfBirth, Preference preference, int salaryPerMonth,
 			String jobTitle, boolean cP) throws Exception;
 
+	String getEmployeesNames();
+
+	String getRolesNames();
+
+	String getDeparmentsNames();
+
 }

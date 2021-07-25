@@ -221,7 +221,7 @@ public class View implements AbstractView, Serializable {
 		Label l1 = new Label("Enter Name: ");
 		getTf()[0].setText("Enter Name Of the department");
 		getTf()[0].setMaxSize(330, 100);
-		getTf()[0].setOnMouseClicked(e->{
+		getTf()[0].setOnMouseClicked(e -> {
 			getTf()[0].clear();
 		});
 		enterName.getChildren().addAll(l1, getTf()[0]);
@@ -696,6 +696,16 @@ public class View implements AbstractView, Serializable {
 
 	public Button getCompanyButton() {
 		return companyButton;
+	}
+
+	@Override
+	public void getObjects() {
+		for (int i = 0; i < this.listeners.size(); i++) {
+			this.employeeList.getItems().addAll(this.listeners.get(i).getEmployeesNames());
+			this.roleList.getItems().addAll(this.listeners.get(i).getRolesNames());
+			this.departmentList.getItems().addAll(this.listeners.get(i).getDeparmentsNames());
+
+		}
 	}
 
 }

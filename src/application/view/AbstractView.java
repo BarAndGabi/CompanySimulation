@@ -16,4 +16,6 @@ public interface AbstractView {
 	void addDepartmentEvent(String name);// add to departments combobox
 	void addEmployeeHourlyToModel();
 
+	void getObjects();
+
 }

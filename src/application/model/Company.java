@@ -34,6 +34,7 @@ public class Company implements Serializable, CompanyInterface {
 		this.employees = employees2;
 		this.currentHourProfitForDay = currentHourProfitForDay2;
 		this.currentMoneyProfitForDay = currentMoneyProfitForDay2;
+		this.listeners = new ArrayList<modelListener>();
 	}
 
 	@Override
