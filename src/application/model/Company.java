@@ -286,4 +286,13 @@ public class Company implements Serializable, CompanyInterface {
 		return temp;
 
 	}
+
+	@Override
+	public Department findDepartment(String name) throws cantFingObjectException {
+		for (int i = 0; i < this.departments.size(); i++)
+			if (name.equals(this.departments.get(i).getName()))
+				return this.departments.get(i);
+		throw new cantFingObjectException();
+	}
+
 }

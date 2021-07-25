@@ -42,4 +42,6 @@ public interface CompanyInterface {
 	ArrayList<String> getRolesNames(ArrayList<String> temp);
 
 	ArrayList<String> getDepartmentNames(ArrayList<String> temp);
+
+	Department findDepartment(String name) throws cantFingObjectException;
 }

@@ -82,8 +82,13 @@ public class CompanySimulationController implements modelListener, UIEventListen
 	@Override
 	public void addRoleToModel(double ProfitPerHour, String jobTitle, boolean sync, String department,
 			Preference preference, boolean workFromHome, boolean b) throws Exception {
-		// TODO Auto-generated method stub
+		Department d = this.findDeparment(department);
+		this.Model.addRole(ProfitPerHour, jobTitle, sync, d, preference, workFromHome, b);
+	}
 
+	private Department findDeparment(String name) throws cantFingObjectException {
+		Department d = this.Model.findDepartment(name);
+		return d;
 	}
 
 	@Override
