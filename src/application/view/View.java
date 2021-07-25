@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 
 public class View implements AbstractView {
 	private ComboBox<String> employeeList = new ComboBox<String>();
-	private ComboBox<Role> roleList = new ComboBox<Role>();
+	private ComboBox<String> roleList = new ComboBox<String>();
 	private ComboBox<Department> departmentList = new ComboBox<Department>();
 	private Button casualButton = new Button();
 	private BorderPane mainPane;
@@ -456,7 +456,7 @@ public class View implements AbstractView {
 		return rdForWorkPreference;
 	}
 
-	public ComboBox<Role> getRoleList() {
+	public ComboBox<String> getRoleList() {
 		return roleList;
 	}
 
@@ -475,8 +475,7 @@ public class View implements AbstractView {
 
 	@Override
 	public void addRoleEvent(String jobTitle) {
-		// TODO Auto-generated method stub
-
+		this.roleList.getItems().add(jobTitle);
 	}
 
 	@Override
