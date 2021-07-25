@@ -454,6 +454,33 @@ public class View implements AbstractView, Serializable {
 		bp.setPadding(new Insets(15));
 		getSp().getChildren().addAll(bp, OKBorderPane());
 		getSp().setSpacing(10);
+		casualButton.setOnAction(e -> {
+			for (UIEventListener listener : listeners) {
+				Preference p = new Preference(choosePrefrenceNav(), hourChange);
+
+				try {
+					if (rdForSalary[2].isSelected()) {
+						listener.addEmployeeGlobalyPlusToModel(getTf()[0].getText(),
+								Integer.valueOf(getTf()[1].getText()), p, Integer.valueOf(getTf()[2].getText()),
+								this.roleList.getValue(), chooseP);
+					}
+					if (rdForSalary[1].isSelected()) {
+						listener.addEmployeeGlobalyToModel(getTf()[0].getText(), Integer.valueOf(getTf()[1].getText()),
+								p, Integer.valueOf(getTf()[2].getText()), this.roleList.getValue(), chooseP);
+					}
+					if (rdForSalary[0].isSelected()) {
+						listener.addEmployeeHourlyToModel(getTf()[0].getText(), Integer.valueOf(getTf()[1].getText()),
+								p, Integer.valueOf(getTf()[2].getText()), this.roleList.getValue(), chooseP);
+
+					}
+					this.loadSucssesAlert();
+
+				} catch (Exception e1) {
+					this.exceptionAlert(e1);
+				}
+
+			}
+		});
 		changePane.setLeft(getSp());
 	}
 
