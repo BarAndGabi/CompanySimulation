@@ -2,6 +2,7 @@ package application.view;
 
 import application.controller.CompanySimulationController;
 import application.model.Department;
+import application.model.Employee;
 import application.model.Role;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -22,6 +23,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class View implements AbstractView {
+	private ComboBox<Employee> employeeList = new ComboBox<Employee>();
 	private ComboBox<Role> roleList = new ComboBox<Role>();
 	private ComboBox<Department> departmentList = new ComboBox<Department>();
 	private Button casualButton = new Button();
@@ -44,7 +46,7 @@ public class View implements AbstractView {
 		theStage.setTitle("company simulator Systems");
 		theStage.getIcons().add(logo);
 		setChangePane();
-		addEmployee();
+		changePrefrence();
 		setvBox();
 		setMainPane();
 		Scene s = new Scene(this.mainPane, 660, 600);
@@ -297,11 +299,55 @@ public class View implements AbstractView {
 				bp.setCenter(enterSalary);
 			}
 		});
+		bp.setPadding(new Insets(15));
 		sp.getChildren().addAll(bp, OKBorderPane());
 		sp.setSpacing(10);
 		changePane.setLeft(sp);
 	}
 
+	public void changePrefrence() {
+		VBox sp = new VBox();
+		Label l1 = new Label("Choose between the options: ");
+		BorderPane bp = new BorderPane();
+		VBox vb1 = new VBox();
+		VBox vb2 = new VBox();
+		vb1.getChildren().add(l1);
+		Button[] btForChange = { new Button("Employees"), new Button("Roles"), new Button("Department") };
+		for (Button element : btForChange) {
+			element.setMaxWidth(100);
+			vb1.getChildren().add(element);
+		}
+		vb1.setSpacing(10);
+		bp.setLeft(vb1);
+		employeeList.setDisable(true);
+		roleList.setDisable(true);
+		departmentList.setDisable(true);
+		vb2.getChildren().addAll(employeeList, roleList, departmentList);
+		vb2.setSpacing(10);
+		vb2.setAlignment(Pos.CENTER);
+		vb2.setPadding(new Insets(30, 100, 60, 140));
+		bp.setRight(vb2);
+		btForChange[0].setOnAction(e -> {
+			employeeList.setDisable(false);
+			roleList.setDisable(true);
+			departmentList.setDisable(true);
+
+		});
+		btForChange[1].setOnAction(e -> {
+			roleList.setDisable(false);
+			employeeList.setDisable(true);
+			departmentList.setDisable(true);
+		});
+		btForChange[2].setOnAction(e -> {
+			departmentList.setDisable(false);
+			employeeList.setDisable(true);
+			roleList.setDisable(true);
+
+		});
+		sp.getChildren().addAll(bp, workPreference(), OKBorderPane());
+		sp.setSpacing(20);
+		changePane.setLeft(sp);
+	}
 
 //work preference change used in all of the screens above
 	public BorderPane workPreference() {
@@ -313,7 +359,6 @@ public class View implements AbstractView {
 		getRdForWorkPreference()[2].setText("Home");
 		getRdForWorkPreference()[3].setText("Regular");
 		getRdForWorkPreference()[3].setSelected(true);
-
 		for (int i = 0; i < 4; i++) {
 			rdForWorkPreference[i].setPadding(new Insets(4));
 			choosWorkMethod.getChildren().add(rdForWorkPreference[i]);
@@ -367,8 +412,9 @@ public class View implements AbstractView {
 //OK button to save and exit back to main window
 	public BorderPane OKBorderPane() {
 		BorderPane OKButton = new BorderPane();
-		getCasualButton().setText("OK");
+		getCasualButton().setText("Submit");
 		OKButton.setRight(casualButton);
+		OKButton.setPadding(new Insets(50, 0, 0, 0));
 		return OKButton;
 	}
 
@@ -412,6 +458,10 @@ public class View implements AbstractView {
 
 	public RadioButton[] getRdForSalary() {
 		return rdForSalary;
+	}
+
+	public ComboBox<Employee> getEmployeeList() {
+		return employeeList;
 	}
 
 }
