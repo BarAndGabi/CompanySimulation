@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 public class View implements AbstractView, Serializable {
 	private boolean syncd = false;
 	private boolean chooseP = false;
+	private boolean workHome = false;
 	private ComboBox<String> employeeList = new ComboBox<String>();
 	private ComboBox<String> roleList = new ComboBox<String>();
 	private ComboBox<String> departmentList = new ComboBox<String>();
@@ -247,23 +248,11 @@ public class View implements AbstractView, Serializable {
 		ToggleGroup tg2 = new ToggleGroup();
 		getRd()[2].setText("Yes");
 		getRd()[3].setText("No");
-		if (getRd()[2].isSelected()) {
-			syncd = true;
-		}
-		if (getRd()[2].isSelected()) {
-			syncd = false;
-		}
 		tg2.getToggles().addAll(getRd()[2], getRd()[3]);
 		syncAble.getChildren().addAll(l4, getRd()[2], getRd()[3]);
 		syncAble.setSpacing(20);
 		sp.getChildren().add(syncAble);
 		sp.getChildren().addAll(workPreference(), OKBorderPane());
-		if (getRd()[0].isSelected()) {
-			chooseP = true;
-		}
-		if (getRd()[1].isSelected()) {
-			chooseP = false;
-		}
 		int hourChange;
 		if (rdForWorkPreference[2].isSelected() || rdForWorkPreference[3].isSelected()) {
 			hourChange = 0;
@@ -275,6 +264,7 @@ public class View implements AbstractView, Serializable {
 			}
 		}
 		casualButton.setOnAction(e -> {
+			ChooseP();
 			for (UIEventListener listener : listeners) {
 				try {
 					listener.addDepartmentToModel(getTf()[0].getText(), syncd, chooseP, choosePrefrenceNav(),
@@ -346,6 +336,12 @@ public class View implements AbstractView, Serializable {
 		sp.getChildren().addAll(profit, addDepartment, workPreference(), OKBorderPane());
 		sp.setSpacing(10);
 		sp.setAlignment(Pos.CENTER_LEFT);
+		casualButton.setOnAction(e -> {
+for (UIEventListener listener : listeners) {
+				ChooseP();
+				listener.addRoleToModel(0, null, syncd, null, null, syncd, chooseP);
+}
+		});
 		changePane.setLeft(sp);
 
 	}
@@ -700,12 +696,38 @@ public class View implements AbstractView, Serializable {
 
 	@Override
 	public void getObjects() {
-		for (int i = 0; i < this.listeners.size(); i++) {
-			this.employeeList.getItems().addAll(this.listeners.get(i).getEmployeesNames());
-			this.roleList.getItems().addAll(this.listeners.get(i).getRolesNames());
-			this.departmentList.getItems().addAll(this.listeners.get(i).getDeparmentsNames());
+		for (UIEventListener element : this.listeners) {
+			this.employeeList.getItems().addAll(element.getEmployeesNames());
+			this.roleList.getItems().addAll(element.getRolesNames());
+			this.departmentList.getItems().addAll(element.getDeparmentsNames());
 
 		}
+	}
+
+	public void ChooseP() {
+
+		if (getRd()[0].isSelected()) {
+			chooseP = true;
+		}
+		if (getRd()[1].isSelected()) {
+			chooseP = false;
+		}
+
+		if (getRd()[2].isSelected()) {
+			syncd = true;
+		}
+		if (getRd()[2].isSelected()) {
+			syncd = false;
+		}
+
+		if (getRd()[3].isSelected()) {
+			workHome = true;
+		}
+
+		if (getRd()[4].isSelected()) {
+			workHome = false;
+		}
+
 	}
 
 }
