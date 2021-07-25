@@ -2,7 +2,6 @@ package application.view;
 
 import application.controller.CompanySimulationController;
 import application.model.Department;
-import application.model.Employee;
 import application.model.Role;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -46,7 +45,7 @@ public class View implements AbstractView {
 		theStage.setTitle("company simulator Systems");
 		theStage.getIcons().add(logo);
 		setChangePane();
-		changePrefrence();
+		addEmployee();
 		setvBox();
 		setMainPane();
 		Scene s = new Scene(this.mainPane, 660, 600);
@@ -324,9 +323,9 @@ public class View implements AbstractView {
 		}
 		vb1.setSpacing(10);
 		bp.setLeft(vb1);
-		employeeList.setDisable(true);
-		roleList.setDisable(true);
-		departmentList.setDisable(true);
+		getEmployeeList().setDisable(true);
+		getRoleList().setDisable(true);
+		getEmployeeList().setDisable(true);
 		vb2.getChildren().addAll(employeeList, roleList, departmentList);
 		vb2.setSpacing(10);
 		vb2.setAlignment(Pos.CENTER);
@@ -339,7 +338,7 @@ public class View implements AbstractView {
 
 		});
 		btForChange[1].setOnAction(e -> {
-			roleList.setDisable(false);
+			getRoleList().setDisable(false);
 			employeeList.setDisable(true);
 			departmentList.setDisable(true);
 		});
