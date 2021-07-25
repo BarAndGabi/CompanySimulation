@@ -25,19 +25,20 @@ public class CompanySimulationController implements modelListener, UIEventListen
 
 	public CompanySimulationController(CompanyInterface model, View view) throws Exception {
 		this.View = view;
-		View.registerListener(this);
 		this.Model = model;
 		this.Model.addHardCoded();
+
 		try {
 			this.Model = this.loadFileEvent();
-			this.View.getObjects();
 		} catch (FileNotFoundException e) {
-
+			this.Model = this.Model;
 		} catch (Exception e) {
 			throw e;
 		}
-
+		View.registerListener(this);
 		Model.registerListener(this);
+		this.View.getObjects();
+
 	}
 
 	public CompanyInterface loadFileEvent() throws Exception {
