@@ -46,11 +46,7 @@ public class View implements AbstractView {
 		theStage.setTitle("company simulator Systems");
 		theStage.getIcons().add(logo);
 		setChangePane();
-<<<<<<< HEAD
 		changePrefrence();
-=======
-		this.changePane.setLeft(this.enterToProgramm());
->>>>>>> e43fda1e399b1884a7eb551857ff0649f4d2cebb
 		setvBox();
 		setMainPane();
 		Scene s = new Scene(this.mainPane, 660, 600);
@@ -314,7 +310,6 @@ public class View implements AbstractView {
 		changePane.setLeft(sp);
 	}
 
-<<<<<<< HEAD
 	public void changePrefrence() {
 		VBox sp = new VBox();
 		Label l1 = new Label("Choose between the options: ");
@@ -359,8 +354,7 @@ public class View implements AbstractView {
 		changePane.setLeft(sp);
 	}
 
-=======
->>>>>>> e43fda1e399b1884a7eb551857ff0649f4d2cebb
+
 //work preference change used in all of the screens above
 	public BorderPane workPreference() {
 		BorderPane bp = new BorderPane();
