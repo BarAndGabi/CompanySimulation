@@ -26,6 +26,7 @@ public class View implements AbstractView {
 	private ComboBox<String> roleList = new ComboBox<String>();
 	private ComboBox<String> departmentList = new ComboBox<String>();
 	private ArrayList<UIEventListener> listeners;
+	private VBox sp = new VBox();
 
 	private Button casualButton = new Button();
 	private BorderPane mainPane;
@@ -49,6 +50,7 @@ public class View implements AbstractView {
 		rd[0].setSelected(true);
 		rd[2].setSelected(true);
 		rd[4].setSelected(true);
+		rdForWorkPreference[2].setSelected(true);
 		theStage.setTitle("company simulator Systems");
 		theStage.getIcons().add(logo);
 		setChangePane();
@@ -69,16 +71,23 @@ public class View implements AbstractView {
 	public void changePanels() {
 		getBt()[0].setOnAction(e -> {
 			addDepartment();
+			setRdButtonSelected();
 		});
 		getBt()[1].setOnAction(e -> {
 			addRole();
+			setRdButtonSelected();
+			this.departmentList.setDisable(false);
 		});
 		getBt()[2].setOnAction(e -> {
 			addEmployee();
+			setRdButtonSelected();
+			this.roleList.setDisable(false);
 		});
 
 		getBt()[4].setOnAction(e -> {
 			changePrefrence();
+			setRdButtonSelected();
+
 		});
 	}
 
@@ -145,10 +154,9 @@ public class View implements AbstractView {
 
 	// Department interface
 	public void addDepartment() {
-
-		VBox sp = new VBox();
 		VBox enterName = new VBox();
 		// name text box
+		sp.getChildren().clear();
 		Label l1 = new Label("Enter Name: ");
 		getTf()[0].setText("Enter Name Of the department");
 		getTf()[0].setMaxSize(330, 100);
@@ -163,7 +171,6 @@ public class View implements AbstractView {
 		ToggleGroup tg1 = new ToggleGroup();
 		getRd()[0].setText("Yes");// yes if the department can change preference
 		getRd()[1].setText("No");
-		getRd()[0].setSelected(true);
 		tg1.getToggles().addAll(getRd()[0], getRd()[1]);
 		choosePreference.getChildren().addAll(l2, getRd()[0], getRd()[1]);
 		choosePreference.setSpacing(20);
@@ -175,7 +182,6 @@ public class View implements AbstractView {
 		l4.setPadding(new Insets(0, 83, 40, 0));
 		ToggleGroup tg2 = new ToggleGroup();
 		getRd()[2].setText("Yes");
-		getRd()[2].setSelected(true);
 		getRd()[3].setText("No");
 		tg2.getToggles().addAll(getRd()[2], getRd()[3]);
 		syncAble.getChildren().addAll(l4, getRd()[2], getRd()[3]);
@@ -186,8 +192,8 @@ public class View implements AbstractView {
 	}
 
 	public void addRole() {
-		VBox sp = new VBox();
 		VBox enterName = new VBox();
+		getSp().getChildren().clear();
 		Label l1 = new Label("Enter Name: ");
 		getTf()[0].setText("Enter Job Description");
 		getTf()[0].setMaxSize(330, 100);
@@ -199,7 +205,6 @@ public class View implements AbstractView {
 		Label l2 = new Label("Add if the Role can change it's preference");
 		ToggleGroup tg1 = new ToggleGroup();
 		getRd()[0].setText("Yes");// yes if the department can change preference
-		getRd()[0].setSelected(true);
 		getRd()[1].setText("No");
 		tg1.getToggles().addAll(getRd()[0], getRd()[1]);
 		choosePreference.getChildren().addAll(l2, getRd()[0], getRd()[1]);
@@ -211,7 +216,6 @@ public class View implements AbstractView {
 		l4.setPadding(new Insets(0, 83, 0, 0));
 		ToggleGroup tg2 = new ToggleGroup();
 		getRd()[2].setText("Yes");
-		getRd()[2].setSelected(true);
 		getRd()[3].setText("No");
 		tg2.getToggles().addAll(getRd()[2], getRd()[3]);
 		syncAble.getChildren().addAll(l4, getRd()[2], getRd()[3]);
@@ -221,7 +225,6 @@ public class View implements AbstractView {
 		Label l5 = new Label("Add if the Role \ngives an option to work from home");
 		ToggleGroup tg3 = new ToggleGroup();
 		getRd()[4].setText("Yes");
-		getRd()[4].setSelected(true);
 		getRd()[5].setText("No");
 		tg3.getToggles().addAll(getRd()[4], getRd()[5]);
 		homeWorking.getChildren().addAll(l5, getRd()[4], getRd()[5]);
@@ -249,8 +252,8 @@ public class View implements AbstractView {
 	}
 
 	public void addEmployee() {
-		VBox sp = new VBox();
 		VBox enterName = new VBox();
+		getSp().getChildren().clear();
 		Label l1 = new Label("Enter Name: ");
 		getTf()[0].setText("Enter employee name");
 		getTf()[0].setMaxSize(330, 100);
@@ -259,24 +262,24 @@ public class View implements AbstractView {
 		Label l2 = new Label("Enter birth year: ");
 		enterName.getChildren().addAll(l1, getTf()[0], l2, getTf()[1]);
 		enterName.setSpacing(20);
-		sp.getChildren().addAll(enterName, workPreference());
+		getSp().getChildren().addAll(enterName, workPreference());
 		HBox addRole = new HBox();
 		Label l6 = new Label("Choose Role: ");
 		addRole.getChildren().addAll(l6, roleList);
 		addRole.setSpacing(10);
 		addRole.setPadding(new Insets(15));
-		sp.getChildren().add(addRole);
+		getSp().getChildren().add(addRole);
 		HBox choosePreference = new HBox();
 		choosePreference.setPadding(new Insets(10));
 		Label l3 = new Label("Add if the Employee can change it's preference");
 		ToggleGroup tg1 = new ToggleGroup();
 		getRd()[0].setText("Yes");// yes if the department can change preference
-		getRd()[0].setSelected(true);
 		getRd()[1].setText("No");
 		tg1.getToggles().addAll(getRd()[0], getRd()[1]);
+		rd[0].setSelected(true);
 		choosePreference.getChildren().addAll(l3, getRd()[0], getRd()[1]);
 		choosePreference.setSpacing(20);
-		sp.getChildren().add(choosePreference);
+		getSp().getChildren().add(choosePreference);
 		HBox chooseSalary = new HBox();
 		Label l4 = new Label("Choose salary");
 		ToggleGroup tg2 = new ToggleGroup();
@@ -293,7 +296,7 @@ public class View implements AbstractView {
 		enterSalary.setSpacing(10);
 		enterSalary.setAlignment(Pos.CENTER);
 		Label enterSalaryText = new Label();
-		sp.getChildren().add(chooseSalary);
+		getSp().getChildren().add(chooseSalary);
 		enterSalaryText.setText("Add your salary for hour: ");
 		getTf()[2].setText("Add your salary for hour");
 		enterSalary.getChildren().addAll(enterSalaryText, getTf()[2]);
@@ -328,13 +331,13 @@ public class View implements AbstractView {
 			}
 		});
 		bp.setPadding(new Insets(15));
-		sp.getChildren().addAll(bp, OKBorderPane());
-		sp.setSpacing(10);
-		changePane.setLeft(sp);
+		getSp().getChildren().addAll(bp, OKBorderPane());
+		getSp().setSpacing(10);
+		changePane.setLeft(getSp());
 	}
 
 	public void changePrefrence() {
-		VBox sp = new VBox();
+		getSp().getChildren().clear();
 		Label l1 = new Label("Choose between the options: ");
 		BorderPane bp = new BorderPane();
 		VBox vb1 = new VBox();
@@ -386,7 +389,6 @@ public class View implements AbstractView {
 		getRdForWorkPreference()[1].setText("Late");
 		getRdForWorkPreference()[2].setText("Home");
 		getRdForWorkPreference()[3].setText("Regular");
-		getRdForWorkPreference()[3].setSelected(true);
 		for (int i = 0; i < 4; i++) {
 			rdForWorkPreference[i].setPadding(new Insets(4));
 			choosWorkMethod.getChildren().add(rdForWorkPreference[i]);
@@ -434,6 +436,7 @@ public class View implements AbstractView {
 			hb.getChildren().clear();
 			bp.setRight(hb);
 		});
+
 		return bp;
 	}
 
@@ -500,11 +503,27 @@ public class View implements AbstractView {
 	@Override
 	public void addRoleEvent(String jobTitle) {
 		this.roleList.getItems().add(jobTitle);
+		if (!(roleList.getItems().isEmpty())) {
+			this.roleList.setValue(this.roleList.getItems().get(0));
+		}
 	}
 
 	@Override
 	public void addDepartmentEvent(String name) {
 		this.departmentList.getItems().add(name);
+	}
+
+	public VBox getSp() {
+		return sp;
+	}
+
+	public void setRdButtonSelected() {
+		rd[0].setSelected(true);
+		rd[2].setSelected(true);
+		rd[4].setSelected(true);
+		rdForWorkPreference[2].setSelected(true);
+		rdForSalary[0].setSelected(true);
+
 	}
 
 
