@@ -27,6 +27,7 @@ public class CompanySimulationController implements modelListener, UIEventListen
 		this.View = view;
 		Model.registerListener(this);
 		View.registerListener(this);
+		this.Model.addHardCoded();
 	}
 
 	public CompanyInterface loadFileEvent() throws Exception {

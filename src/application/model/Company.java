@@ -26,11 +26,11 @@ public class Company implements Serializable, CompanyInterface {
 		this.listeners = new ArrayList<modelListener>();
 		this.roles = new ArrayList<Role>();
 		this.employees = new ArrayList<Employee>();
-		this.addHardCoded();
 
 	}
 
-	private void addHardCoded() throws Exception {
+	@Override
+	public void addHardCoded() throws Exception {
 		Preference p1 = new Preference(PreferenceType.REGULAR_START, 0);
 		Preference p2 = new Preference(PreferenceType.LATE_START, 2);
 		Preference p3 = new Preference(PreferenceType.EARLY_START, 3);

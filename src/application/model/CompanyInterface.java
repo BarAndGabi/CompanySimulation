@@ -31,4 +31,6 @@ public interface CompanyInterface {
 
 	void changePrefernce(String name, objectType o, PreferenceType p, int hourChange) throws Exception;
 
+	void addHardCoded() throws Exception;
+
 }
