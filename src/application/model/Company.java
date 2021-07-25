@@ -108,15 +108,26 @@ public class Company implements Serializable, CompanyInterface {
 	@Override
 	public Department addDepartment(String name, boolean sync, boolean chooseP, PreferenceType p, int hourChange)
 			throws Exception {
-		Department d = new Department(name, sync, p, hourChange, chooseP);
+		if (this.departmentNotExist(name)) {
+			Department d = new Department(name, sync, p, hourChange, chooseP);
+			for (int i = 0; i < this.departments.size(); i++) {
+				if (this.departments.get(i).equals(d))
+					throw new alreadyExistException();
+			}
+			this.departments.add(d);
+			this.fireAddDepartmentEvent(d);
+			this.runSimulation();
+			return d;
+		} else
+			throw new alreadyExistException();
+	}
+
+	private boolean departmentNotExist(String name) {
 		for (int i = 0; i < this.departments.size(); i++) {
-			if (this.departments.get(i).equals(d))
-				throw new alreadyExistException();
+			if (this.departments.get(i).getName().equals(name))
+				return false;
 		}
-		this.departments.add(d);
-		this.fireAddDepartmentEvent(d);
-		this.runSimulation();
-		return d;
+		return true;
 	}
 
 	private void fireAddDepartmentEvent(Department d) {
@@ -128,17 +139,28 @@ public class Company implements Serializable, CompanyInterface {
 	@Override
 	public Role addRole(double ProfitPerHour, String jobTitle, boolean sync, Department d, Preference preference,
 			boolean workFromHome, boolean b) throws Exception {
-		if ((preference.getPreferenceType() == PreferenceType.HOME) && (!workFromHome))
-			throw new homeException();
-		else {
-			Role r = new Role(ProfitPerHour, jobTitle, sync, d, preference, workFromHome, b);
-			int index = this.findDepartment(d);
-			this.departments.get(index).addRole(r);
-			this.roles.add(r);
-			this.fireAddRoleEvent(r);
-			this.runSimulation();
-			return r;
+		if (this.roleNotExist(jobTitle)) {
+			if ((preference.getPreferenceType() == PreferenceType.HOME) && (!workFromHome))
+				throw new homeException();
+			else {
+				Role r = new Role(ProfitPerHour, jobTitle, sync, d, preference, workFromHome, b);
+				int index = this.findDepartment(d);
+				this.departments.get(index).addRole(r);
+				this.roles.add(r);
+				this.fireAddRoleEvent(r);
+				this.runSimulation();
+				return r;
+			}
+		} else
+			throw new alreadyExistException();
+	}
+
+	private boolean roleNotExist(String jobTitle) {
+		for (int i = 0; i < this.departments.size(); i++) {
+			if (this.departments.get(i).getName().equals(jobTitle))
+				return false;
 		}
+		return true;
 	}
 
 	private void fireAddRoleEvent(Role r) {
