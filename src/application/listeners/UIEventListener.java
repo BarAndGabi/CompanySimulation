@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import application.model.Preference;
 import application.model.PreferenceType;
+import application.model.objectType;
 
 public interface UIEventListener {
 	void save() throws FileNotFoundException, IOException;
@@ -30,5 +31,7 @@ public interface UIEventListener {
 	ArrayList<String> getRolesNames();
 
 	ArrayList<String> getDeparmentsNames();
+
+	void choosePreference(PreferenceType p, int hourChange, objectType o, String name) throws Exception;
 
 }

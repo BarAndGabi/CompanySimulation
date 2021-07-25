@@ -16,6 +16,7 @@ import application.model.Preference;
 import application.model.PreferenceType;
 import application.model.Role;
 import application.model.cantFingObjectException;
+import application.model.objectType;
 import application.view.AbstractView;
 import application.view.View;
 
@@ -145,5 +146,12 @@ public class CompanySimulationController implements modelListener, UIEventListen
 		ArrayList<String> temp = new ArrayList<String>();
 		temp = this.Model.getDepartmentNames(temp);
 		return temp;
+	}
+
+	@Override
+	public void choosePreference(PreferenceType p, int hourChange, objectType o, String name) throws Exception {
+
+		this.Model.changePrefernce(name, o, p, hourChange);
+
 	}
 }
