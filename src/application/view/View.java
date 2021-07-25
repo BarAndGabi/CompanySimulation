@@ -537,16 +537,18 @@ public class View implements AbstractView, Serializable {
 		getRdForWorkPreference()[2].setText("Home");
 		getRdForWorkPreference()[3].setText("Regular");
 		for (int i = 0; i < 4; i++) {
-			rdForWorkPreference[i].setPadding(new Insets(4));
 			choosWorkMethod.getChildren().add(rdForWorkPreference[i]);
 			tg.getToggles().add(rdForWorkPreference[i]);
 
 		}
 		Label l3 = new Label("Choose work method: ");
-		l3.setPadding(new Insets(15));
-		bp.setLeft(l3);
-		bp.setCenter(choosWorkMethod);
+		l3.setPadding(new Insets(3));
+		bp.setTop(l3);
+		bp.setLeft(choosWorkMethod);
+		choosWorkMethod.setSpacing(3);
+		choosWorkMethod.setPadding(new Insets(8));
 		HBox hb = new HBox();
+		hb.setSpacing(9);
 		getRdForWorkPreference()[0].setOnAction(e -> {
 			hb.getChildren().clear();
 			Label l5 = new Label("how early would you like to be");
@@ -556,8 +558,7 @@ public class View implements AbstractView, Serializable {
 			}
 			getC1().setValue(1);
 			hb.getChildren().addAll(l5, getC1());
-			hb.setSpacing(15);
-			bp.setRight(hb);
+			bp.setCenter(hb);
 
 		});
 
@@ -571,18 +572,19 @@ public class View implements AbstractView, Serializable {
 			getC1().setValue(1);
 			hb.getChildren().addAll(l5, getC1());
 			hb.setSpacing(15);
-			bp.setRight(hb);
+			bp.setCenter(hb);
 		});
 		getRdForWorkPreference()[2].setOnAction(e -> {
 			hb.getChildren().clear();
-			bp.setRight(hb);
+			bp.setCenter(hb);
 
 		});
 
 		getRdForWorkPreference()[3].setOnAction(e -> {
 			hb.getChildren().clear();
-			bp.setRight(hb);
+			bp.setCenter(hb);
 		});
+
 
 		return bp;
 	}
