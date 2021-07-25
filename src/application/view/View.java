@@ -30,7 +30,7 @@ public class View implements AbstractView, Serializable {
 	private ComboBox<String> departmentList = new ComboBox<String>();
 	private ArrayList<UIEventListener> listeners;
 	private VBox sp = new VBox();
-
+	private Button companyButton = new Button("Company");
 	private Button casualButton = new Button();
 	private BorderPane mainPane;
 	private BorderPane changePane;
@@ -92,11 +92,13 @@ public class View implements AbstractView, Serializable {
 			setRdButtonSelected();
 			this.roleList.setDisable(false);
 		});
+		getBt()[3].setOnAction(e -> {
+			showObjects();
+		});
 
 		getBt()[4].setOnAction(e -> {
 			changePrefrence();
 			setRdButtonSelected();
-
 		});
 		getBt()[6].setOnAction(e -> {
 			this.save();
@@ -151,8 +153,34 @@ public class View implements AbstractView, Serializable {
 	}
 
 	public void showObjects() {
+		HBox hb = new HBox();
+		BorderPane bp = new BorderPane();
+		sp.getChildren().clear();
+		Button[] btForShow = { new Button("Employee"), new Button("Roles"), new Button("Department"), new Button() };
+		btForShow[3] = companyButton;
+		for (Button element : btForShow) {
+			element.setMaxWidth(Double.MAX_VALUE);
+			hb.getChildren().add(element);
+		}
+		hb.setSpacing(20);
+		hb.setAlignment(Pos.CENTER);
+		hb.setPadding(new Insets(20, 30, 40, 60));
+		sp.getChildren().addAll(hb, bp);
+
+		btForShow[0].setOnAction(e -> {
+			bp.setCenter(this.employeeList);
+		});
+		btForShow[1].setOnAction(e -> {
+			bp.setCenter(this.roleList);
+		});
+		btForShow[2].setOnAction(e -> {
+			bp.setCenter(this.departmentList);
+		});
+
+		changePane.setLeft(sp);
 
 	}
+
 	public VBox enterToProgramm() {
 		Font font1 = new Font("SansSerif", 20);
 		Font font2 = new Font("ROMAN_BASELINE", 30);
@@ -602,8 +630,12 @@ public class View implements AbstractView, Serializable {
 
 	@Override
 	public void addEmployeeHourlyToModel() {
-		for (int i = 0; i < this.listeners.size(); i++) {
+		for (UIEventListener element : this.listeners) {
 		}
+	}
+
+	public Button getCompanyButton() {
+		return companyButton;
 	}
 
 }
