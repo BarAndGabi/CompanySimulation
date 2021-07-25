@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import application.listeners.UIEventListener;
+import application.model.Preference;
 import application.model.PreferenceType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -52,6 +53,7 @@ public class View implements AbstractView, Serializable {
 	private ComboBox<Integer> c1 = new ComboBox<Integer>();
 	private Image logo = new Image(getClass().getResourceAsStream("logo.png"));
 	private Stage s;
+	private int hourChange;
 
 	public View(Stage theStage) {
 		s = theStage;
@@ -253,16 +255,6 @@ public class View implements AbstractView, Serializable {
 		syncAble.setSpacing(20);
 		sp.getChildren().add(syncAble);
 		sp.getChildren().addAll(workPreference(), OKBorderPane());
-		int hourChange;
-		if (rdForWorkPreference[2].isSelected() || rdForWorkPreference[3].isSelected()) {
-			hourChange = 0;
-		} else {
-			if (getC1().getItems().isEmpty()) {
-				hourChange = 0;
-			} else {
-				hourChange = getC1().getValue();
-			}
-		}
 		casualButton.setOnAction(e -> {
 			ChooseP();
 			for (UIEventListener listener : listeners) {
@@ -337,10 +329,17 @@ public class View implements AbstractView, Serializable {
 		sp.setSpacing(10);
 		sp.setAlignment(Pos.CENTER_LEFT);
 		casualButton.setOnAction(e -> {
-for (UIEventListener listener : listeners) {
+			for (UIEventListener listener : listeners) {
 				ChooseP();
-				listener.addRoleToModel(0, null, syncd, null, null, syncd, chooseP);
-}
+				Preference p = new Preference(choosePrefrenceNav(), hourChange);
+				try {
+					listener.addRoleToModel(Double.valueOf(getTf()[1].getText()), getTf()[0].getText(), syncd,
+							departmentList.getValue(), p, workHome, chooseP);
+					this.loadSucssesAlert();
+				} catch (Exception e1) {
+					this.exceptionAlert(e1);
+				}
+			}
 		});
 		changePane.setLeft(sp);
 
@@ -705,6 +704,15 @@ for (UIEventListener listener : listeners) {
 	}
 
 	public void ChooseP() {
+		if (rdForWorkPreference[2].isSelected() || rdForWorkPreference[3].isSelected()) {
+			hourChange = 0;
+		} else {
+			if (getC1().getItems().isEmpty()) {
+				hourChange = 0;
+			} else {
+				hourChange = getC1().getValue();
+			}
+		}
 
 		if (getRd()[0].isSelected()) {
 			chooseP = true;
