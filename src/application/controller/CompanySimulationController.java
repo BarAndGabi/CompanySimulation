@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 
 import application.listeners.UIEventListener;
 import application.listeners.modelListener;
@@ -14,7 +15,7 @@ import application.model.Role;
 import application.view.AbstractView;
 import application.view.View;
 
-public class CompanySimulationController implements modelListener, UIEventListener {
+public class CompanySimulationController implements modelListener, UIEventListener, Serializable {
 	private CompanyInterface Model;
 	private AbstractView View;
 

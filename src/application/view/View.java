@@ -1,15 +1,18 @@
 package application.view;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
-
-import com.apple.laf.AquaInternalFrameDockIconUI;
 
 import application.listeners.UIEventListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -23,7 +26,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class View implements AbstractView {
+public class View implements AbstractView, Serializable {
 	private ComboBox<String> employeeList = new ComboBox<String>();
 	private ComboBox<String> roleList = new ComboBox<String>();
 	private ComboBox<String> departmentList = new ComboBox<String>();
@@ -95,6 +98,20 @@ public class View implements AbstractView {
 			setRdButtonSelected();
 
 		});
+		getBt()[6].setOnAction(e -> {
+			this.save();
+		});
+	}
+
+	private void save() {
+		for (int i = 0; i < listeners.size(); i++) {
+			try {
+				this.listeners.get(i).save();
+				this.loadSucssesAlert();
+			} catch (Exception e) {
+				this.exceptionAlert(e);
+			}
+		}
 	}
 
 	public void setMainPane() {
@@ -519,6 +536,7 @@ public class View implements AbstractView {
 		this.departmentList.getItems().add(name);
 	}
 
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 	public VBox getSp() {
 		return sp;
@@ -537,4 +555,44 @@ public class View implements AbstractView {
 
 =======
 >>>>>>> ff2dc2972995756650d67ecfd7adc16d24e1749f
+=======
+	private void exceptionAlert(Exception e) {
+		Alert alert = new Alert(Alert.AlertType.WARNING);
+		DialogPane dialogPane = alert.getDialogPane();
+		dialogPane.getStylesheets().addAll(this.getClass().getResource("application.css").toExternalForm());
+		alert.setTitle("Exception alert");
+		alert.setHeaderText("exception :");
+		alert.setContentText(e.getMessage());
+		((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(logo);
+		alert.showAndWait();
+	}
+
+	private void loadSucssesAlert() {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		DialogPane dialogPane = alert.getDialogPane();
+		dialogPane.getStyleClass().remove("alert");
+		dialogPane.getStylesheets().addAll(this.getClass().getResource("application.css").toExternalForm());
+		alert.setTitle("Goodbye");
+		alert.setTitle("Sucsses");
+		alert.setHeaderText("the object added sucssesfully");
+		alert.setContentText("going back to menu");
+
+		((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(logo);
+		alert.showAndWait();
+	}
+
+	private void quitApp(Stage s) {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		DialogPane dialogPane = alert.getDialogPane();
+		dialogPane.getStyleClass().remove("alert");
+		dialogPane.getStylesheets().addAll(this.getClass().getResource("application.css").toExternalForm());
+		alert.setTitle("Goodbye");
+		alert.setHeaderText("thank you for using our app");
+		alert.setContentText("Elections systems ©");
+		((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(logo);
+		alert.showAndWait();
+		s.close();
+	}
+
+>>>>>>> Stashed changes
 }

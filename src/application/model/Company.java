@@ -11,7 +11,6 @@ import application.listeners.modelListener;
 
 public class Company implements Serializable, CompanyInterface {
 	private ArrayList<Department> departments;
-	private ArrayList<Simulation> SimulationsArchive;
 	protected double currentMoneyProfitForDay;
 	protected double currentHourProfitForDay;
 	private ArrayList<modelListener> listeners;
@@ -19,7 +18,6 @@ public class Company implements Serializable, CompanyInterface {
 	private ArrayList<Employee> employees;
 
 	public Company() throws Exception {
-		this.SimulationsArchive = new ArrayList<Simulation>();
 		this.departments = new ArrayList<Department>();
 		this.currentHourProfitForDay = 0;
 		this.currentMoneyProfitForDay = 0;
@@ -27,6 +25,15 @@ public class Company implements Serializable, CompanyInterface {
 		this.roles = new ArrayList<Role>();
 		this.employees = new ArrayList<Employee>();
 
+	}
+
+	public Company(ArrayList<Department> departments2, ArrayList<Role> roles2, ArrayList<Employee> employees2,
+			double currentHourProfitForDay2, double currentMoneyProfitForDay2) {
+		this.roles = roles2;
+		this.departments = departments2;
+		this.employees = employees2;
+		this.currentHourProfitForDay = currentHourProfitForDay2;
+		this.currentMoneyProfitForDay = currentMoneyProfitForDay2;
 	}
 
 	@Override
@@ -177,14 +184,15 @@ public class Company implements Serializable, CompanyInterface {
 		for (int i = 0; i < this.departments.size(); i++) {
 			str.append("########-" + (i + 1) + "-########\n" + this.departments.get(i).getSimulationResults());
 		}
-		this.SimulationsArchive.add(new Simulation(str.toString()));
 		return str.toString();
 	}
 
 	@Override
 	public void saveFile() throws FileNotFoundException, IOException {
 		ObjectOutputStream outFile = new ObjectOutputStream(new FileOutputStream("Company_Simulation.dat"));
-		outFile.writeObject(this);
+		outFile.writeObject(new Company(this.departments, this.roles, this.employees, this.currentHourProfitForDay,
+				this.currentMoneyProfitForDay));
+		;
 		outFile.close();
 	}
 
