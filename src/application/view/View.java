@@ -1,7 +1,5 @@
 package application.view;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -375,7 +373,7 @@ public class View implements AbstractView, Serializable {
 		bp.setLeft(vb1);
 		getEmployeeList().setDisable(true);
 		getRoleList().setDisable(true);
-		getEmployeeList().setDisable(true);
+		getDepartmentList().setDisable(true);
 		vb2.getChildren().addAll(employeeList, roleList, departmentList);
 		vb2.setSpacing(10);
 		vb2.setAlignment(Pos.CENTER);
@@ -396,7 +394,6 @@ public class View implements AbstractView, Serializable {
 			departmentList.setDisable(false);
 			employeeList.setDisable(true);
 			roleList.setDisable(true);
-
 		});
 		sp.getChildren().addAll(bp, workPreference(), OKBorderPane());
 		sp.setSpacing(20);
@@ -467,8 +464,7 @@ public class View implements AbstractView, Serializable {
 	public BorderPane OKBorderPane() {
 		BorderPane OKButton = new BorderPane();
 		getCasualButton().setText("Submit");
-		OKButton.setRight(casualButton);
-		OKButton.setPadding(new Insets(50, 0, 0, 0));
+		OKButton.setCenter(casualButton);
 		return OKButton;
 	}
 
@@ -521,6 +517,10 @@ public class View implements AbstractView, Serializable {
 	@Override
 	public void addEmployeeEvent(String name) {
 		this.employeeList.getItems().add(name);
+		if (!(employeeList.getItems().isEmpty())) {
+			this.employeeList.setValue(this.employeeList.getItems().get(0));
+		}
+
 	}
 
 	@Override
@@ -534,6 +534,10 @@ public class View implements AbstractView, Serializable {
 	@Override
 	public void addDepartmentEvent(String name) {
 		this.departmentList.getItems().add(name);
+		if (!(departmentList.getItems().isEmpty())) {
+			this.departmentList.setValue(this.departmentList.getItems().get(0));
+		}
+
 	}
 
 	public VBox getSp() {
