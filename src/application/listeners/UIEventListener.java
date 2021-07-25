@@ -11,7 +11,7 @@ import application.model.PreferenceType;
 public interface UIEventListener {
 	void save() throws FileNotFoundException, IOException;
 
-	void addRoleToModel(double ProfitPerHour, String jobTitle, boolean sync, Department d, Preference preference,
+	void addRoleToModel(double ProfitPerHour, String jobTitle, boolean sync, String department, Preference preference,
 			boolean workFromHome, boolean b) throws Exception;
 
 	void addDepartmentToModel(String name, boolean sync, boolean chooseP, PreferenceType p, int hourChange)
