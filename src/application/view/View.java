@@ -46,7 +46,11 @@ public class View implements AbstractView {
 		theStage.setTitle("company simulator Systems");
 		theStage.getIcons().add(logo);
 		setChangePane();
+<<<<<<< HEAD
 		changePrefrence();
+=======
+		this.changePane.setLeft(this.enterToProgramm());
+>>>>>>> e43fda1e399b1884a7eb551857ff0649f4d2cebb
 		setvBox();
 		setMainPane();
 		Scene s = new Scene(this.mainPane, 660, 600);
@@ -102,8 +106,13 @@ public class View implements AbstractView {
 				"this program calculates\nthe efficiency of the workers \nbased on there work hours and prefernce");
 		t.setFont(font1);
 		start.setAlignment(Pos.CENTER);
-		ImageView welcome = new ImageView("file:///C:/Users/lempe/git/CompanySimulation/src/application/view/logo.png");
-		start.getChildren().addAll(l1, t);
+		ImageView welcome = new ImageView();
+		welcome.setImage(this.logo);
+		welcome.setX(1);
+		welcome.setY(1);
+		welcome.setFitWidth(200);
+		welcome.setPreserveRatio(true);
+		start.getChildren().addAll(l1, t,welcome);
 
 		return start;
 
@@ -305,6 +314,7 @@ public class View implements AbstractView {
 		changePane.setLeft(sp);
 	}
 
+<<<<<<< HEAD
 	public void changePrefrence() {
 		VBox sp = new VBox();
 		Label l1 = new Label("Choose between the options: ");
@@ -349,6 +359,8 @@ public class View implements AbstractView {
 		changePane.setLeft(sp);
 	}
 
+=======
+>>>>>>> e43fda1e399b1884a7eb551857ff0649f4d2cebb
 //work preference change used in all of the screens above
 	public BorderPane workPreference() {
 		BorderPane bp = new BorderPane();
