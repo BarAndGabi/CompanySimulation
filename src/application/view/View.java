@@ -2,7 +2,6 @@ package application.view;
 
 import application.controller.CompanySimulationController;
 import application.model.Department;
-import application.model.Role;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -46,7 +45,6 @@ public class View implements AbstractView {
 		theStage.setTitle("company simulator Systems");
 		theStage.getIcons().add(logo);
 		setChangePane();
-
 		changePanels();
 		setvBox();
 		setMainPane();
@@ -493,11 +491,7 @@ public class View implements AbstractView {
 
 	@Override
 	public void addRoleEvent(String jobTitle) {
-<<<<<<< HEAD
-
-=======
 		this.roleList.getItems().add(jobTitle);
->>>>>>> ee0be8059ec20421bebe296e6022b90488d034bf
 	}
 
 	@Override
