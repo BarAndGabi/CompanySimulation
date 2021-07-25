@@ -80,8 +80,8 @@ public class CompanySimulationController implements modelListener, UIEventListen
 	}
 
 	@Override
-	public void addDepartmentToModel(String name, boolean sync, boolean chooseP, PreferenceType p, int hourChange,
-			boolean cP) throws Exception {
+	public void addDepartmentToModel(String name, boolean sync, boolean chooseP, PreferenceType p, int hourChange)
+			throws Exception {
 		this.Model.addDepartment(name, sync, chooseP, p, hourChange);
 	}
 
