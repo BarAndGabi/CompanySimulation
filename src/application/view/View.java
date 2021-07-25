@@ -144,6 +144,9 @@ public class View implements AbstractView, Serializable {
 		return changePane;
 	}
 
+	public void showObjects() {
+
+	}
 	public VBox enterToProgramm() {
 		Font font1 = new Font("SansSerif", 20);
 		Font font2 = new Font("ROMAN_BASELINE", 30);
