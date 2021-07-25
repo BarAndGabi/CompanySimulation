@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import application.listeners.UIEventListener;
+import application.model.PreferenceType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -25,6 +26,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class View implements AbstractView, Serializable {
+	private boolean syncd = false;
+	private boolean chooseP = false;
 	private ComboBox<String> employeeList = new ComboBox<String>();
 	private ComboBox<String> roleList = new ComboBox<String>();
 	private ComboBox<String> departmentList = new ComboBox<String>();
@@ -218,6 +221,9 @@ public class View implements AbstractView, Serializable {
 		Label l1 = new Label("Enter Name: ");
 		getTf()[0].setText("Enter Name Of the department");
 		getTf()[0].setMaxSize(330, 100);
+		getTf()[0].setOnMouseClicked(e->{
+			getTf()[0].clear();
+		});
 		enterName.getChildren().addAll(l1, getTf()[0]);
 		enterName.setPadding(new Insets(15));
 		enterName.setSpacing(20);
@@ -241,16 +247,46 @@ public class View implements AbstractView, Serializable {
 		ToggleGroup tg2 = new ToggleGroup();
 		getRd()[2].setText("Yes");
 		getRd()[3].setText("No");
+		if (getRd()[2].isSelected()) {
+			syncd = true;
+		}
+		if (getRd()[2].isSelected()) {
+			syncd = false;
+		}
 		tg2.getToggles().addAll(getRd()[2], getRd()[3]);
 		syncAble.getChildren().addAll(l4, getRd()[2], getRd()[3]);
 		syncAble.setSpacing(20);
 		sp.getChildren().add(syncAble);
 		sp.getChildren().addAll(workPreference(), OKBorderPane());
+		if (getRd()[0].isSelected()) {
+			chooseP = true;
+		}
+		if (getRd()[1].isSelected()) {
+			chooseP = false;
+		}
+		int hourChange;
+		if (rdForWorkPreference[2].isSelected() || rdForWorkPreference[3].isSelected()) {
+			hourChange = 0;
+		} else {
+			if (getC1().getItems().isEmpty()) {
+				hourChange = 0;
+			} else {
+				hourChange = getC1().getValue();
+			}
+		}
 		casualButton.setOnAction(e -> {
 			for (UIEventListener listener : listeners) {
-				//listener.addDepartmentToModel(name, sync, chooseP, p, hourChange);
+				try {
+					listener.addDepartmentToModel(getTf()[0].getText(), syncd, chooseP, choosePrefrenceNav(),
+							hourChange);
+					this.loadSucssesAlert();
+
+				} catch (Exception e1) {
+					this.exceptionAlert(e1);
+				}
 			}
 		});
+		sp.setSpacing(15);
 		changePane.setLeft(sp);
 	}
 
@@ -637,6 +673,25 @@ public class View implements AbstractView, Serializable {
 	public void addEmployeeHourlyToModel() {
 		for (UIEventListener element : this.listeners) {
 		}
+	}
+
+	public PreferenceType choosePrefrenceNav() {
+		if (rdForWorkPreference[0].isSelected()) {
+			return PreferenceType.EARLY_START;
+
+		}
+		if (rdForWorkPreference[1].isSelected()) {
+			return PreferenceType.LATE_START;
+		}
+		if (rdForWorkPreference[2].isSelected()) {
+			return PreferenceType.HOME;
+		}
+		if (rdForWorkPreference[3].isSelected()) {
+			return PreferenceType.REGULAR_START;
+		} else {
+			return null;
+		}
+
 	}
 
 	public Button getCompanyButton() {
