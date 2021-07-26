@@ -188,12 +188,15 @@ public class View implements AbstractView, Serializable {
 		hb.setPadding(new Insets(20, 30, 40, 60));
 		sp.getChildren().addAll(hb, bp);
 		btForShow[0].setOnAction(e -> {
+			this.employeeList.setDisable(false);
 			bp.setCenter(this.employeeList);
 		});
 		btForShow[1].setOnAction(e -> {
+			this.roleList.setDisable(false);
 			bp.setCenter(this.roleList);
 		});
 		btForShow[2].setOnAction(e -> {
+			this.departmentList.setDisable(false);
 			bp.setCenter(this.departmentList);
 		});
 		sp.setAlignment(Pos.TOP_CENTER);
@@ -341,6 +344,7 @@ public class View implements AbstractView, Serializable {
 
 	public void addRole() {
 		VBox enterName = new VBox();
+		enterName.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		this.sp.getChildren().clear();
 		Label l1 = new Label("Enter Name: ");
 		getTf()[0].setText("Enter Job Description");
@@ -352,6 +356,7 @@ public class View implements AbstractView, Serializable {
 		enterName.setSpacing(20);
 		this.sp.getChildren().add(enterName);
 		HBox choosePreference = new HBox();
+		choosePreference.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		choosePreference.setPadding(new Insets(10));
 		Label l2 = new Label("Add if the Role can change it's preference");
 		ToggleGroup tg1 = new ToggleGroup();
