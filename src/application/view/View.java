@@ -9,6 +9,7 @@ import application.model.PreferenceType;
 import application.model.objectType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -84,6 +85,9 @@ public class View implements AbstractView, Serializable {
 		theStage.setScene(s);
 		theStage.show();
 		theStage.setResizable(false);
+		this.casualButton.setStyle(" -fx-background-color: #2E4980;\n" + "    -fx-background-radius: 30;\n"
+				+ "    -fx-background-insets: 0;\n" + "    -fx-text-fill: white;\n");
+		this.casualButton.setCursor(Cursor.HAND);
 	}
 
 	public BorderPane getMainPane() {
@@ -580,7 +584,8 @@ public class View implements AbstractView, Serializable {
 
 	public void changePrefrence() {
 		getSp().getChildren().clear();
-		Label l1 = new Label("Choose between the options: ");
+		Label l1 = new Label("Choose the objectType to change\nthen choose from the list:\n \n\n");
+		Label l2 = new Label("\n ");
 		BorderPane bp = new BorderPane();
 		VBox vb1 = new VBox();
 		VBox vb2 = new VBox();
@@ -588,6 +593,7 @@ public class View implements AbstractView, Serializable {
 		vb2.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		vb2.setAlignment(Pos.CENTER_LEFT);
 		vb1.getChildren().add(l1);
+		vb2.getChildren().add(l2);
 		Button[] btForChange = { new Button("Employees"), new Button("Roles"), new Button("Department") };
 		for (Button element : btForChange) {
 			element.setMaxWidth(Double.MAX_VALUE);
