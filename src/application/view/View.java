@@ -110,30 +110,44 @@ public class View implements AbstractView, Serializable {
 		});
 		getBt()[4].setOnAction(e -> {
 			getSp().getChildren().clear();
-			employeeList.setMaxWidth(Double.MAX_VALUE);
-			roleList.setMaxWidth(Double.MAX_VALUE);
-			departmentList.setMaxWidth(Double.MAX_VALUE);
-
+			this.employeeList.setMaxWidth(Double.MAX_VALUE);
+			this.roleList.setMaxWidth(Double.MAX_VALUE);
+			this.departmentList.setMaxWidth(Double.MAX_VALUE);
 			showObjects();
+			this.employeeList.setValue("");
+			this.roleList.setValue("");
+			this.departmentList.setValue("");
+
 		});
 
 		getBt()[3].setOnAction(e -> {
-			sp.getChildren().clear();
-			employeeList.setMaxWidth(100);
-			roleList.setMaxWidth(100);
-			departmentList.setMaxWidth(100);
+			this.sp.getChildren().clear();
+			this.employeeList.setMaxWidth(100);
+			this.roleList.setMaxWidth(100);
+			this.departmentList.setMaxWidth(100);
 			changePrefrence();
+			this.employeeList.setValue("");
+			this.roleList.setValue("");
+			this.departmentList.setValue("");
 			setRdButtonSelected();
 		});
 		getBt()[5].setOnAction(e -> {
+			this.sp.getChildren().clear();
+			this.employeeList.setMaxWidth(Double.MAX_VALUE);
+			this.roleList.setMaxWidth(Double.MAX_VALUE);
+			this.departmentList.setMaxWidth(Double.MAX_VALUE);
+			showResutls();
+			this.employeeList.setValue("");
+			this.roleList.setValue("");
+			this.departmentList.setValue("");
 
 		});
 		getBt()[6].setOnAction(e -> {
-			sp.getChildren().clear();
+			this.sp.getChildren().clear();
 			this.save();
 		});
 		getBt()[7].setOnAction(e -> {
-			this.quitApp(s);
+			this.quitApp(this.s);
 
 		});
 	}
@@ -871,6 +885,90 @@ public class View implements AbstractView, Serializable {
 		}
 	}
 
+	public void showResutls() {
+		HBox hb = new HBox();
+		BorderPane bp = new BorderPane();
+		sp.getChildren().clear();
+		Button[] btForShow = { new Button("Employee"), new Button("Roles"), new Button("Department"), new Button() };
+		btForShow[3] = companyButton;
+		for (Button element : btForShow) {
+			element.setMaxWidth(Double.MAX_VALUE);
+			hb.getChildren().add(element);
+		}
+		hb.setSpacing(20);
+		hb.setAlignment(Pos.CENTER);
+		hb.setPadding(new Insets(20, 30, 40, 60));
+		sp.getChildren().addAll(hb, bp);
+		btForShow[0].setOnAction(e -> {
+			this.employeeList.setDisable(false);
+			bp.setCenter(this.employeeList);
+		});
+		btForShow[1].setOnAction(e -> {
+			this.roleList.setDisable(false);
+			bp.setCenter(this.roleList);
+		});
+		btForShow[2].setOnAction(e -> {
+			this.departmentList.setDisable(false);
+			bp.setCenter(this.departmentList);
+		});
+		sp.setAlignment(Pos.TOP_CENTER);
+		ScrollPane toStringForEach = new ScrollPane();
+		Text text = new Text();
+		toStringForEach.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		toStringForEach.setPadding(new Insets(20, 30, 40, 50));
+		sp.getChildren().add(toStringForEach);
+		int size = sp.getChildren().size();
+		sp.getChildren().get(size - 1).setVisible(false);
+		this.departmentList.setOnAction(e -> {
+			for (UIEventListener listener : listeners) {
+				try {
+					sp.getChildren().get(size - 1).setVisible(true);
+					String st = listener.getObjectResult(objectType.DEPARTMENT, departmentList.getValue());
+					text.setText(st);
+					toStringForEach.setContent(text);
+				} catch (Exception e1) {
+					this.exceptionAlert(e1);
+				}
+			}
+		});
+
+		this.roleList.setOnAction(e -> {
+			for (UIEventListener listener : listeners) {
+				try {
+					sp.getChildren().get(size - 1).setVisible(true);
+					String st = listener.getObjectToString(objectType.ROLE, roleList.getValue());
+					text.setText(st);
+					toStringForEach.setContent(text);
+				} catch (Exception e1) {
+					this.exceptionAlert(e1);
+				}
+			}
+
+		});
+		this.employeeList.setOnAction(e -> {
+			for (UIEventListener listener : listeners) {
+				try {
+					sp.getChildren().get(size - 1).setVisible(true);
+					String st = listener.getObjectResult(objectType.EMPLOYEE, employeeList.getValue());
+					text.setText(st);
+					toStringForEach.setContent(text);
+				} catch (Exception e1) {
+					this.exceptionAlert(e1);
+				}
+			}
+		});
+		btForShow[3].setOnAction(e -> {
+			for (UIEventListener listener : listeners) {
+				sp.getChildren().get(size - 1).setVisible(true);
+				String st = listener.getCompanyResult();
+				text.setText(st);
+				toStringForEach.setContent(text);
+			}
+		});
+		sp.setSpacing(10);
+		changePane.setLeft(sp);
+
+	}
 	public void ChooseP() {
 		if (rdForWorkPreference[2].isSelected() || rdForWorkPreference[3].isSelected()) {
 			hourChange = 0;
