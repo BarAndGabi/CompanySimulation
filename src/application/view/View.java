@@ -149,7 +149,7 @@ public class View implements AbstractView, Serializable {
 			element.setMaxWidth(200);
 			vBox.getChildren().add(element);
 		}
-		vBox.setStyle("-fx-background-color: #183492");
+		vBox.setStyle("-fx-background-color: #5D6968");
 		vBox.setSpacing(20);
 		this.vBoxForButtons = vBox;
 	}
@@ -584,7 +584,6 @@ public class View implements AbstractView, Serializable {
 			hb.getChildren().clear();
 			bp.setCenter(hb);
 		});
-
 
 		return bp;
 	}
