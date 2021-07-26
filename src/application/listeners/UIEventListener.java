@@ -36,4 +36,8 @@ public interface UIEventListener {
 
 	String getObjectToString(objectType o, String name) throws Exception;
 
+	String getObjectResult(objectType o, String name) throws Exception;
+
+	String getCompanyResult();
+
 }
