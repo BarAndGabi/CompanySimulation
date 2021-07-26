@@ -231,25 +231,28 @@ public class Company implements Serializable, CompanyInterface {
 					this.departments.get(i).choosePreference(p, hourChange);
 					break;
 				}
-				throw new cantFingObjectException();
 
 			}
+			throw new cantFingObjectException();
+
 		case ROLE:
 			for (int i = 0; i < this.departments.size(); i++) {
 				if (this.roles.get(i).getjobTitle().equals(name)) {
 					this.roles.get(i).choosePreference(p, hourChange);
 					break;
 				}
-				throw new cantFingObjectException();
 			}
+			throw new cantFingObjectException();
+
 		case EMPLOYEE:
 			for (int i = 0; i < this.departments.size(); i++) {
 				if (this.employees.get(i).getName().equals(name)) {
 					this.employees.get(i).choosePreference(p, hourChange);
 					break;
 				}
-				throw new cantFingObjectException();
+
 			}
+			throw new cantFingObjectException();
 
 		}
 
