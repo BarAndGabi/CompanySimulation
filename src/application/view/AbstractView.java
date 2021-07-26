@@ -1,8 +1,5 @@
 package application.view;
 
-import java.util.Vector;
-
-import application.controller.CompanySimulationController;
 import application.listeners.UIEventListener;
 
 public interface AbstractView {
@@ -14,6 +11,7 @@ public interface AbstractView {
 	void addRoleEvent(String jobTitle);// add to roles combobox
 
 	void addDepartmentEvent(String name);// add to departments combobox
+
 	void addEmployeeHourlyToModel();
 
 	void getObjects();
