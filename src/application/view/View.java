@@ -202,7 +202,10 @@ public class View implements AbstractView, Serializable {
 	public void showObjects() {
 		HBox hb = new HBox();
 		BorderPane bp = new BorderPane();
+		Label l1 = new Label("Choose which object you want to show");
+		HBox hb1 = new HBox(l1);
 		sp.getChildren().clear();
+		hb1.setAlignment(Pos.CENTER);
 		Button[] btForShow = { new Button("Employee"), new Button("Roles"), new Button("Department"), new Button() };
 		btForShow[3] = companyButton;
 		for (Button element : btForShow) {
@@ -212,7 +215,7 @@ public class View implements AbstractView, Serializable {
 		hb.setSpacing(20);
 		hb.setAlignment(Pos.CENTER);
 		hb.setPadding(new Insets(20, 30, 40, 60));
-		sp.getChildren().addAll(hb, bp);
+		sp.getChildren().addAll(hb1,hb, bp);
 		btForShow[0].setOnAction(e -> {
 			this.employeeList.setDisable(false);
 			bp.setCenter(this.employeeList);
@@ -893,6 +896,9 @@ public class View implements AbstractView, Serializable {
 
 	public void showResutls() {
 		HBox hb = new HBox();
+		Label l1 = new Label("Choose which object result you wish to see");
+		HBox hb1 = new HBox(l1);
+		hb1.setAlignment(Pos.CENTER);
 		BorderPane bp = new BorderPane();
 		sp.getChildren().clear();
 		Button[] btForShow = { new Button("Employee"), new Button("Roles"), new Button("Department"), new Button() };
@@ -904,7 +910,7 @@ public class View implements AbstractView, Serializable {
 		hb.setSpacing(20);
 		hb.setAlignment(Pos.CENTER);
 		hb.setPadding(new Insets(20, 30, 40, 60));
-		sp.getChildren().addAll(hb, bp);
+		sp.getChildren().addAll(hb1, hb, bp);
 		btForShow[0].setOnAction(e -> {
 			this.employeeList.setDisable(false);
 			bp.setCenter(this.employeeList);
