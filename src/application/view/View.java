@@ -49,7 +49,7 @@ public class View implements AbstractView, Serializable {
 	private RadioButton[] rdForWorkPreference = { new RadioButton(), new RadioButton(), new RadioButton(),
 			new RadioButton() };
 	private Button[] bt = { new Button("Add Department"), new Button("Add Role"), new Button("Add Employee"),
-			new Button("Show Objects Screen"), new Button("Change Prefrence"), new Button("Show Simulations Results"),
+			new Button("Change Prefrence"), new Button("Show Objects Screen"), new Button("Show Simulations Results"),
 			new Button("Save"), new Button("Exit") };
 	private VBox vBoxForButtons;
 	private ComboBox<Integer> c1 = new ComboBox<Integer>();
@@ -63,7 +63,6 @@ public class View implements AbstractView, Serializable {
 		this.roleList.setMaxWidth(Double.MAX_VALUE);
 		this.employeeList.setMaxWidth(Double.MAX_VALUE);
 		this.departmentList.setMaxWidth(Double.MAX_VALUE);
-
 		rd[0].setSelected(true);
 		rd[2].setSelected(true);
 		rd[4].setSelected(true);
@@ -103,12 +102,12 @@ public class View implements AbstractView, Serializable {
 			setRdButtonSelected();
 			this.roleList.setDisable(false);
 		});
-		getBt()[3].setOnAction(e -> {
+		getBt()[4].setOnAction(e -> {
 			getSp().getChildren().clear();
 			showObjects();
 		});
 
-		getBt()[4].setOnAction(e -> {
+		getBt()[3].setOnAction(e -> {
 			sp.getChildren().clear();
 			changePrefrence();
 			setRdButtonSelected();
@@ -513,13 +512,14 @@ public class View implements AbstractView, Serializable {
 		vb2.setPadding(new Insets(30, 100, 60, 140));
 		bp.setRight(vb2);
 		btForChange[0].setOnAction(e -> {
-			objectType = objectType.EMPLOYEE;
+			this.objectType = objectType.EMPLOYEE;
 			employeeList.setDisable(false);
 			roleList.setDisable(true);
 			departmentList.setDisable(true);
 
 		});
 		btForChange[1].setOnAction(e -> {
+			this.objectType = objectType.ROLE;
 			getRoleList().setDisable(false);
 			employeeList.setDisable(true);
 			departmentList.setDisable(true);
