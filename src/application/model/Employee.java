@@ -165,10 +165,10 @@ public class Employee extends Person implements Serializable, choosePreference {
 
 	@Override
 	public String toString() {
-		return (this.name + ":" + "\nid: " + this.employeeId + "\npreference :" + this.preference.toString()
-				+ "\nrole: " + this.role.getjobTitle() + "\ncan choose preference? : " + this.changePreference
-				+ "\nday's hours in value: " + this.currentHourProfitForDay + "\nday's hours in money value: "
-				+ this.currentMoneyProfitForDay);
+		return (this.name + ":" + "\n year of birth " + this.yearOfBirth + "\nid: " + this.employeeId + "\npreference :\n"
+				+ this.preference.toString() + "\nrole: " + this.role.getjobTitle() + "\ncan choose preference? : "
+				+ this.changePreference + "\nday's hours in value: " + this.currentHourProfitForDay
+				+ "\nday's hours in money value: " + this.currentMoneyProfitForDay);
 	}
 
 	public String getSimulationResults() {

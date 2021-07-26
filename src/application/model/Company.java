@@ -69,21 +69,30 @@ public class Company implements Serializable, CompanyInterface {
 	@Override
 	public void addEmployeeHourly(String name, int yearOfBirth, Preference preference, int salaryPerHour, Role role,
 			boolean cP) throws Exception {
-		this.addEmployeeToDepartment(new EmployeeHourly(name, yearOfBirth, preference, salaryPerHour, role, cP));
+		if (salaryPerHour >= 0)
+			this.addEmployeeToDepartment(new EmployeeHourly(name, yearOfBirth, preference, salaryPerHour, role, cP));
+		else
+			throw new profitPositiveException();
 	}
 
 	@Override
 	public void addEmployeeGlobaly(String name, int yearOfBirth, Preference preference, int salaryPerMonth, Role role,
 			boolean cP) throws Exception {
-		this.addEmployeeToDepartment(new EmployeeGlobaly(name, yearOfBirth, preference, salaryPerMonth, role, cP));
-
+		if (salaryPerMonth >= 0)
+			this.addEmployeeToDepartment(new EmployeeGlobaly(name, yearOfBirth, preference, salaryPerMonth, role, cP));
+		else
+			throw new profitPositiveException();
 	}
 
 	@Override
 	public void addEmployeeGlobalyPlus(String name, int yearOfBirth, Preference preference, int salaryPerMonth,
 			Role role, boolean cP) throws Exception {
+		if (salaryPerMonth >= 0)
+			this.addEmployeeToDepartment(
+					new EmployeeGlobalyPlus(name, yearOfBirth, preference, salaryPerMonth, role, cP));
+		else
+			throw new profitPositiveException();
 
-		this.addEmployeeToDepartment(new EmployeeGlobalyPlus(name, yearOfBirth, preference, salaryPerMonth, role, cP));
 	}
 
 	public void addEmployeeToDepartment(Employee a) throws alreadyExistException {
