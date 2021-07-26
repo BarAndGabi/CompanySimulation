@@ -9,6 +9,7 @@ import application.model.PreferenceType;
 import application.model.objectType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -83,6 +84,9 @@ public class View implements AbstractView, Serializable {
 		theStage.setScene(s);
 		theStage.show();
 		theStage.setResizable(false);
+		this.casualButton.setStyle(" -fx-background-color: #2E4980;\n" + "    -fx-background-radius: 30;\n"
+				+ "    -fx-background-insets: 0;\n" + "    -fx-text-fill: white;\n");
+		this.casualButton.setCursor(Cursor.HAND);
 	}
 
 	public BorderPane getMainPane() {
