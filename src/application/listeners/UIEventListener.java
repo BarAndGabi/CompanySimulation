@@ -35,6 +35,8 @@ public interface UIEventListener {
 	void choosePreference(PreferenceType p, int hourChange, objectType o, String name) throws Exception;
 
 	String getObjectToString(objectType o, String name) throws Exception;
+	
+	String getCompanyToString();
 
 	String getObjectResult(objectType o, String name) throws Exception;
 
