@@ -99,7 +99,7 @@ public class Company implements Serializable, CompanyInterface {
 	}
 
 	private boolean employeeNotExist(String name) {
-		for (int i = 0; i < this.departments.size(); i++) {
+		for (int i = 0; i < this.employees.size(); i++) {
 			if (this.employees.get(i).getName().equals(name))
 				return false;
 		}
