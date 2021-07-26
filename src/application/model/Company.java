@@ -86,13 +86,24 @@ public class Company implements Serializable, CompanyInterface {
 		this.addEmployeeToDepartment(new EmployeeGlobalyPlus(name, yearOfBirth, preference, salaryPerMonth, role, cP));
 	}
 
-	public void addEmployeeToDepartment(Employee a) {
-		int index = this.findDepartment(a.getDepartment());
-		this.departments.get(index).addEmployee(a);
-		this.employees.add(a);
-		this.fireAddEmployeeEvent(a);
-		this.runSimulation();
+	public void addEmployeeToDepartment(Employee a) throws alreadyExistException {
+		if (this.employeeNotExist(a.getName())) {
+			int index = this.findDepartment(a.getDepartment());
+			this.departments.get(index).addEmployee(a);
+			this.employees.add(a);
+			this.fireAddEmployeeEvent(a);
+			this.runSimulation();
+		} else
+			throw new alreadyExistException();
 
+	}
+
+	private boolean employeeNotExist(String name) {
+		for (int i = 0; i < this.departments.size(); i++) {
+			if (this.employees.get(i).getName().equals(name))
+				return false;
+		}
+		return true;
 	}
 
 	private void fireAddEmployeeEvent(Employee e) {
@@ -233,7 +244,6 @@ public class Company implements Serializable, CompanyInterface {
 				}
 
 			}
-			throw new cantFingObjectException();
 
 		case ROLE:
 			for (int i = 0; i < this.departments.size(); i++) {
@@ -242,7 +252,6 @@ public class Company implements Serializable, CompanyInterface {
 					break;
 				}
 			}
-			throw new cantFingObjectException();
 
 		case EMPLOYEE:
 			for (int i = 0; i < this.departments.size(); i++) {
@@ -252,7 +261,6 @@ public class Company implements Serializable, CompanyInterface {
 				}
 
 			}
-			throw new cantFingObjectException();
 
 		}
 
@@ -307,7 +315,6 @@ public class Company implements Serializable, CompanyInterface {
 					return this.departments.get(i).toString();
 
 				}
-				throw new cantFingObjectException();
 
 			}
 		case ROLE:
@@ -315,14 +322,12 @@ public class Company implements Serializable, CompanyInterface {
 				if (this.roles.get(i).getjobTitle().equals(name)) {
 					return this.roles.get(i).toString();
 				}
-				throw new cantFingObjectException();
 			}
 		case EMPLOYEE:
 			for (int i = 0; i < this.departments.size(); i++) {
 				if (this.employees.get(i).getName().equals(name)) {
 					return this.employees.get(i).toString();
 				}
-				throw new cantFingObjectException();
 			}
 		}
 		return null;
@@ -339,7 +344,6 @@ public class Company implements Serializable, CompanyInterface {
 					return this.departments.get(i).getSimulationResults();
 
 				}
-				throw new cantFingObjectException();
 
 			}
 		case ROLE:
@@ -347,14 +351,12 @@ public class Company implements Serializable, CompanyInterface {
 				if (this.roles.get(i).getjobTitle().equals(name)) {
 					return this.roles.get(i).getSimulationResults();
 				}
-				throw new cantFingObjectException();
 			}
 		case EMPLOYEE:
 			for (int i = 0; i < this.departments.size(); i++) {
 				if (this.employees.get(i).getName().equals(name)) {
 					return this.employees.get(i).getSimulationResults();
 				}
-				throw new cantFingObjectException();
 			}
 		}
 		return null;
