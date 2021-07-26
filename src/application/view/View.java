@@ -570,7 +570,8 @@ public class View implements AbstractView, Serializable {
 
 	public void changePrefrence() {
 		getSp().getChildren().clear();
-		Label l1 = new Label("Choose between the options: ");
+		Label l1 = new Label("Choose the objectType to change\nthen choose from the list:\n \n\n");
+		Label l2 = new Label("\n ");
 		BorderPane bp = new BorderPane();
 		VBox vb1 = new VBox();
 		VBox vb2 = new VBox();
@@ -578,6 +579,7 @@ public class View implements AbstractView, Serializable {
 		vb2.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		vb2.setAlignment(Pos.CENTER_LEFT);
 		vb1.getChildren().add(l1);
+		vb2.getChildren().add(l2);
 		Button[] btForChange = { new Button("Employees"), new Button("Roles"), new Button("Department") };
 		for (Button element : btForChange) {
 			element.setMaxWidth(Double.MAX_VALUE);
