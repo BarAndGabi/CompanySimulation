@@ -78,7 +78,7 @@ public class View implements AbstractView, Serializable {
 		changePanels();
 		setvBox();
 		setMainPane();
-		Scene s = new Scene(this.mainPane, 675, 600);
+		Scene s = new Scene(this.mainPane, 660, 600);
 		s.getStylesheets().addAll(this.getClass().getResource("application.css").toExternalForm());
 		theStage.setScene(s);
 		theStage.show();
