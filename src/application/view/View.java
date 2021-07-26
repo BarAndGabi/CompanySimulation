@@ -16,6 +16,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
@@ -192,6 +193,36 @@ public class View implements AbstractView, Serializable {
 			bp.setCenter(this.departmentList);
 		});
 		sp.setAlignment(Pos.TOP_CENTER);
+		ScrollPane toStringForEach = new ScrollPane();
+		Text text = new Text();
+		toStringForEach.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		toStringForEach.setPadding(new Insets(20, 30, 40, 50));
+		this.departmentList.setOnAction(e -> {
+			for (UIEventListener listener : listeners) {
+				try {
+					String st = listener.getObjectToString(objectType.DEPARTMENT, departmentList.getValue());
+					text.setText(st);
+					toStringForEach.setContent(text);
+					sp.getChildren().add(toStringForEach);
+				} catch (Exception e1) {
+					this.exceptionAlert(e1);
+				}
+		}
+		});
+			this.departmentList.setOnAction(e -> {
+				for (UIEventListener listener : listeners) {
+					try {
+						String st = listener.getObjectToString(objectType.DEPARTMENT, departmentList.getValue());
+						text.setText(st);
+						toStringForEach.setContent(text);
+						sp.getChildren().add(toStringForEach);
+					} catch (Exception e1) {
+						this.exceptionAlert(e1);
+					}
+			}
+
+		});
+		sp.setSpacing(10);
 		changePane.setLeft(sp);
 
 	}
@@ -600,7 +631,6 @@ public class View implements AbstractView, Serializable {
 			bp.setCenter(hb);
 
 		});
-
 		getRdForWorkPreference()[1].setOnAction(e -> {
 			hb.getChildren().clear();
 			Label l5 = new Label("how late would you like to be");
