@@ -76,6 +76,7 @@ public class View implements AbstractView, Serializable {
 		theStage.setTitle("company simulator Systems");
 		theStage.getIcons().add(logo);
 		setChangePane();
+		changePane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		changePanels();
 		setvBox();
 		setMainPane();
@@ -113,11 +114,18 @@ public class View implements AbstractView, Serializable {
 		});
 		getBt()[4].setOnAction(e -> {
 			getSp().getChildren().clear();
+			employeeList.setMaxWidth(Double.MAX_VALUE);
+			roleList.setMaxWidth(Double.MAX_VALUE);
+			departmentList.setMaxWidth(Double.MAX_VALUE);
+
 			showObjects();
 		});
 
 		getBt()[3].setOnAction(e -> {
 			sp.getChildren().clear();
+			employeeList.setMaxWidth(100);
+			roleList.setMaxWidth(100);
+			departmentList.setMaxWidth(100);
 			changePrefrence();
 			setRdButtonSelected();
 		});
@@ -566,10 +574,13 @@ public class View implements AbstractView, Serializable {
 		BorderPane bp = new BorderPane();
 		VBox vb1 = new VBox();
 		VBox vb2 = new VBox();
+		vb1.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		vb2.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		vb2.setAlignment(Pos.CENTER_LEFT);
 		vb1.getChildren().add(l1);
 		Button[] btForChange = { new Button("Employees"), new Button("Roles"), new Button("Department") };
 		for (Button element : btForChange) {
-			element.setMaxWidth(100);
+			element.setMaxWidth(Double.MAX_VALUE);
 			vb1.getChildren().add(element);
 		}
 		vb1.setSpacing(10);
@@ -579,9 +590,9 @@ public class View implements AbstractView, Serializable {
 		getDepartmentList().setDisable(true);
 		vb2.getChildren().addAll(employeeList, roleList, departmentList);
 		vb2.setSpacing(10);
-		vb2.setAlignment(Pos.CENTER);
 		vb2.setPadding(new Insets(30, 100, 60, 140));
-		bp.setRight(vb2);
+		bp.setCenter(vb2);
+		bp.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		btForChange[0].setOnAction(e -> {
 			this.objectType = objectType.EMPLOYEE;
 			employeeList.setDisable(false);
