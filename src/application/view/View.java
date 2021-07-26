@@ -200,7 +200,6 @@ public class View implements AbstractView, Serializable {
 		ScrollPane toStringForEach = new ScrollPane();
 		Text text = new Text();
 		toStringForEach.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-		// Bar Moshe
 		toStringForEach.setPadding(new Insets(20, 30, 40, 50));
 		sp.getChildren().add(toStringForEach);
 		int size = sp.getChildren().size();
