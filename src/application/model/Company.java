@@ -327,13 +327,13 @@ public class Company implements Serializable, CompanyInterface {
 
 			}
 		case ROLE:
-			for (int i = 0; i < this.departments.size(); i++) {
+			for (int i = 0; i < this.roles.size(); i++) {
 				if (this.roles.get(i).getjobTitle().equals(name)) {
 					return this.roles.get(i).toString();
 				}
 			}
 		case EMPLOYEE:
-			for (int i = 0; i < this.departments.size(); i++) {
+			for (int i = 0; i < this.employees.size(); i++) {
 				if (this.employees.get(i).getName().equals(name)) {
 					return this.employees.get(i).toString();
 				}
@@ -356,13 +356,13 @@ public class Company implements Serializable, CompanyInterface {
 
 			}
 		case ROLE:
-			for (int i = 0; i < this.departments.size(); i++) {
+			for (int i = 0; i < this.roles.size(); i++) {
 				if (this.roles.get(i).getjobTitle().equals(name)) {
 					return this.roles.get(i).getSimulationResults();
 				}
 			}
 		case EMPLOYEE:
-			for (int i = 0; i < this.departments.size(); i++) {
+			for (int i = 0; i < this.employees.size(); i++) {
 				if (this.employees.get(i).getName().equals(name)) {
 					return this.employees.get(i).getSimulationResults();
 				}
