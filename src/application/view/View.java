@@ -543,6 +543,7 @@ public class View implements AbstractView, Serializable {
 			for (UIEventListener listener : listeners) {
 				try {
 					listener.choosePreference(choosePrefrenceNav(), hourChange, objectType, this.name);
+					this.loadSucssesAlert();
 				} catch (Exception e1) {
 					this.exceptionAlert(e1);
 				}
