@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import application.listeners.UIEventListener;
 import application.model.Preference;
 import application.model.PreferenceType;
+import application.model.objectType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -27,6 +28,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class View implements AbstractView, Serializable {
+	private objectType objectType;
 	private boolean syncd = false;
 	private boolean chooseP = false;
 	private boolean workHome = false;
@@ -511,6 +513,7 @@ public class View implements AbstractView, Serializable {
 		vb2.setPadding(new Insets(30, 100, 60, 140));
 		bp.setRight(vb2);
 		btForChange[0].setOnAction(e -> {
+			objectType = objectType.EMPLOYEE;
 			employeeList.setDisable(false);
 			roleList.setDisable(true);
 			departmentList.setDisable(true);
@@ -526,8 +529,12 @@ public class View implements AbstractView, Serializable {
 			employeeList.setDisable(true);
 			roleList.setDisable(true);
 		});
+
 		sp.getChildren().addAll(bp, workPreference(), OKBorderPane());
 		sp.setSpacing(20);
+		this.casualButton.setOnAction(e -> {
+
+		});
 		changePane.setLeft(sp);
 	}
 
