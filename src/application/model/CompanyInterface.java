@@ -44,4 +44,6 @@ public interface CompanyInterface {
 	ArrayList<String> getDepartmentNames(ArrayList<String> temp);
 
 	Department findDepartment(String name) throws cantFingObjectException;
+
+	public String getToString(objectType o, String name) throws Exception;
 }

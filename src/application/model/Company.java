@@ -295,4 +295,35 @@ public class Company implements Serializable, CompanyInterface {
 		throw new cantFingObjectException();
 	}
 
+	@Override
+	public String getToString(objectType o, String name) throws Exception {
+		switch (o) {
+		case DEPARTMENT:
+			for (int i = 0; i < this.departments.size(); i++) {
+				if (this.departments.get(i).getName().equals(name)) {
+					return this.departments.get(i).toString();
+
+				}
+				throw new cantFingObjectException();
+
+			}
+		case ROLE:
+			for (int i = 0; i < this.departments.size(); i++) {
+				if (this.roles.get(i).getjobTitle().equals(name)) {
+					return this.roles.get(i).toString();
+				}
+				throw new cantFingObjectException();
+			}
+		case EMPLOYEE:
+			for (int i = 0; i < this.departments.size(); i++) {
+				if (this.employees.get(i).getName().equals(name)) {
+					return this.employees.get(i).toString();
+				}
+				throw new cantFingObjectException();
+			}
+		}
+		return null;
+
+	}
+
 }

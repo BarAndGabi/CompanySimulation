@@ -154,4 +154,10 @@ public class CompanySimulationController implements modelListener, UIEventListen
 		this.Model.changePrefernce(name, o, p, hourChange);
 
 	}
+
+	@Override
+	public String getObjectToString(objectType o, String name) throws Exception {
+		return this.Model.getToString(o, name);
+	}
+
 }
