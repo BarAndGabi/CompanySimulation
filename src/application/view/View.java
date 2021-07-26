@@ -196,31 +196,56 @@ public class View implements AbstractView, Serializable {
 		ScrollPane toStringForEach = new ScrollPane();
 		Text text = new Text();
 		toStringForEach.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		// Bar Moshe
 		toStringForEach.setPadding(new Insets(20, 30, 40, 50));
+		sp.getChildren().add(toStringForEach);
+		int size = sp.getChildren().size();
+		sp.getChildren().get(size - 1).setVisible(false);
 		this.departmentList.setOnAction(e -> {
 			for (UIEventListener listener : listeners) {
 				try {
+					sp.getChildren().get(size - 1).setVisible(true);
 					String st = listener.getObjectToString(objectType.DEPARTMENT, departmentList.getValue());
 					text.setText(st);
 					toStringForEach.setContent(text);
-					sp.getChildren().add(toStringForEach);
 				} catch (Exception e1) {
 					this.exceptionAlert(e1);
 				}
 			}
 		});
+
 		this.roleList.setOnAction(e -> {
 			for (UIEventListener listener : listeners) {
 				try {
+					sp.getChildren().get(size - 1).setVisible(true);
 					String st = listener.getObjectToString(objectType.ROLE, roleList.getValue());
 					text.setText(st);
 					toStringForEach.setContent(text);
-					sp.getChildren().add(toStringForEach);
 				} catch (Exception e1) {
 					this.exceptionAlert(e1);
 				}
 			}
 
+		});
+		this.employeeList.setOnAction(e -> {
+			for (UIEventListener listener : listeners) {
+				try {
+					sp.getChildren().get(size - 1).setVisible(true);
+					String st = listener.getObjectToString(objectType.EMPLOYEE, employeeList.getValue());
+					text.setText(st);
+					toStringForEach.setContent(text);
+				} catch (Exception e1) {
+					this.exceptionAlert(e1);
+				}
+			}
+		});
+		btForShow[3].setOnAction(e -> {
+			for (UIEventListener listener : listeners) {
+				sp.getChildren().get(size - 1).setVisible(true);
+				String st = listener.getCompanyToString();
+				text.setText(st);
+				toStringForEach.setContent(text);
+			}
 		});
 		sp.setSpacing(10);
 		changePane.setLeft(sp);
