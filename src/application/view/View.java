@@ -62,6 +62,7 @@ public class View implements AbstractView, Serializable {
 	private int hourChange;
 
 	public View(Stage theStage) {
+		sp.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		s = theStage;
 		this.listeners = new ArrayList<UIEventListener>();
 		this.roleList.setMaxWidth(Double.MAX_VALUE);
@@ -115,6 +116,9 @@ public class View implements AbstractView, Serializable {
 			sp.getChildren().clear();
 			changePrefrence();
 			setRdButtonSelected();
+		});
+		getBt()[5].setOnAction(e -> {
+
 		});
 		getBt()[6].setOnAction(e -> {
 			sp.getChildren().clear();
