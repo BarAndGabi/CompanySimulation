@@ -207,18 +207,18 @@ public class View implements AbstractView, Serializable {
 				} catch (Exception e1) {
 					this.exceptionAlert(e1);
 				}
-		}
+			}
 		});
-			this.departmentList.setOnAction(e -> {
-				for (UIEventListener listener : listeners) {
-					try {
-						String st = listener.getObjectToString(objectType.DEPARTMENT, departmentList.getValue());
-						text.setText(st);
-						toStringForEach.setContent(text);
-						sp.getChildren().add(toStringForEach);
-					} catch (Exception e1) {
-						this.exceptionAlert(e1);
-					}
+		this.roleList.setOnAction(e -> {
+			for (UIEventListener listener : listeners) {
+				try {
+					String st = listener.getObjectToString(objectType.ROLE, roleList.getValue());
+					text.setText(st);
+					toStringForEach.setContent(text);
+					sp.getChildren().add(toStringForEach);
+				} catch (Exception e1) {
+					this.exceptionAlert(e1);
+				}
 			}
 
 		});
