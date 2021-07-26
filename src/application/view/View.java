@@ -28,7 +28,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class View implements AbstractView, Serializable {
-	String name = new String();
+	private String name = new String();
+	private int choise = 0;
+
 	private objectType objectType;
 	private boolean syncd = false;
 	private boolean chooseP = false;
@@ -517,7 +519,7 @@ public class View implements AbstractView, Serializable {
 			employeeList.setDisable(false);
 			roleList.setDisable(true);
 			departmentList.setDisable(true);
-			this.name = employeeList.getValue();
+			choise = 1;
 
 		});
 		btForChange[1].setOnAction(e -> {
@@ -525,7 +527,7 @@ public class View implements AbstractView, Serializable {
 			getRoleList().setDisable(false);
 			employeeList.setDisable(true);
 			departmentList.setDisable(true);
-			this.name = roleList.getValue();
+			choise = 2;
 
 		});
 		btForChange[2].setOnAction(e -> {
@@ -533,7 +535,7 @@ public class View implements AbstractView, Serializable {
 			departmentList.setDisable(false);
 			employeeList.setDisable(true);
 			roleList.setDisable(true);
-			this.name = departmentList.getValue();
+			choise = 3;
 
 		});
 
@@ -541,6 +543,17 @@ public class View implements AbstractView, Serializable {
 		sp.setSpacing(20);
 		this.casualButton.setOnAction(e -> {
 			ChooseP();
+			switch (choise) {
+			case 1:
+				this.name = employeeList.getValue();
+				break;
+			case 2:
+				this.name = roleList.getValue();
+				break;
+			case 3:
+				this.name = departmentList.getValue();
+				break;
+			}
 			for (UIEventListener listener : listeners) {
 				try {
 					listener.choosePreference(choosePrefrenceNav(), hourChange, objectType, this.name);
