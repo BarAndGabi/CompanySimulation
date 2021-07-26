@@ -326,4 +326,35 @@ public class Company implements Serializable, CompanyInterface {
 
 	}
 
+	@Override
+	public String getSimulationResult(objectType o, String name) throws Exception {
+		this.runSimulation();
+		switch (o) {
+		case DEPARTMENT:
+			for (int i = 0; i < this.departments.size(); i++) {
+				if (this.departments.get(i).getName().equals(name)) {
+					return this.departments.get(i).getSimulationResults();
+
+				}
+				throw new cantFingObjectException();
+
+			}
+		case ROLE:
+			for (int i = 0; i < this.departments.size(); i++) {
+				if (this.roles.get(i).getjobTitle().equals(name)) {
+					return this.roles.get(i).getSimulationResults();
+				}
+				throw new cantFingObjectException();
+			}
+		case EMPLOYEE:
+			for (int i = 0; i < this.departments.size(); i++) {
+				if (this.employees.get(i).getName().equals(name)) {
+					return this.employees.get(i).getSimulationResults();
+				}
+				throw new cantFingObjectException();
+			}
+		}
+		return null;
+	}
+
 }

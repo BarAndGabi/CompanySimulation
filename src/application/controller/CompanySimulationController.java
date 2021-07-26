@@ -160,4 +160,14 @@ public class CompanySimulationController implements modelListener, UIEventListen
 		return this.Model.getToString(o, name);
 	}
 
+	@Override
+	public String getObjectResult(objectType o, String name) throws Exception {
+		return this.Model.getSimulationResult( o,  name);
+	}
+
+	@Override
+	public String getCompanyResult() {
+		return this.Model.getSimulationResults();
+	}
+
 }

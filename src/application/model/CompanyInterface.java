@@ -46,4 +46,6 @@ public interface CompanyInterface {
 	Department findDepartment(String name) throws cantFingObjectException;
 
 	public String getToString(objectType o, String name) throws Exception;
+
+	public String getSimulationResult(objectType o, String name) throws Exception;
 }
