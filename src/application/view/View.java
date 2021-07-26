@@ -540,6 +540,7 @@ public class View implements AbstractView, Serializable {
 		sp.getChildren().addAll(bp, workPreference(), OKBorderPane());
 		sp.setSpacing(20);
 		this.casualButton.setOnAction(e -> {
+			ChooseP();
 			for (UIEventListener listener : listeners) {
 				try {
 					listener.choosePreference(choosePrefrenceNav(), hourChange, objectType, this.name);
