@@ -85,28 +85,34 @@ public class View implements AbstractView, Serializable {
 
 	public void changePanels() {
 		getBt()[0].setOnAction(e -> {
+			getSp().getChildren().clear();
 			addDepartment();
 			setRdButtonSelected();
 		});
 		getBt()[1].setOnAction(e -> {
+			this.sp.getChildren().clear();
 			addRole();
 			setRdButtonSelected();
 			this.departmentList.setDisable(false);
 		});
 		getBt()[2].setOnAction(e -> {
+			this.sp.getChildren().clear();
 			addEmployee();
 			setRdButtonSelected();
 			this.roleList.setDisable(false);
 		});
 		getBt()[3].setOnAction(e -> {
+			getSp().getChildren().clear();
 			showObjects();
 		});
 
 		getBt()[4].setOnAction(e -> {
+			sp.getChildren().clear();
 			changePrefrence();
 			setRdButtonSelected();
 		});
 		getBt()[6].setOnAction(e -> {
+			sp.getChildren().clear();
 			this.save();
 		});
 		getBt()[7].setOnAction(e -> {
@@ -172,7 +178,6 @@ public class View implements AbstractView, Serializable {
 		hb.setAlignment(Pos.CENTER);
 		hb.setPadding(new Insets(20, 30, 40, 60));
 		sp.getChildren().addAll(hb, bp);
-
 		btForShow[0].setOnAction(e -> {
 			bp.setCenter(this.employeeList);
 		});
@@ -182,7 +187,7 @@ public class View implements AbstractView, Serializable {
 		btForShow[2].setOnAction(e -> {
 			bp.setCenter(this.departmentList);
 		});
-
+		sp.setAlignment(Pos.TOP_CENTER);
 		changePane.setLeft(sp);
 
 	}
@@ -204,7 +209,6 @@ public class View implements AbstractView, Serializable {
 		welcome.setFitWidth(200);
 		welcome.setPreserveRatio(true);
 		start.getChildren().addAll(l1, t, welcome);
-
 		return start;
 
 	}
@@ -274,7 +278,7 @@ public class View implements AbstractView, Serializable {
 
 	public void addRole() {
 		VBox enterName = new VBox();
-		getSp().getChildren().clear();
+		this.sp.getChildren().clear();
 		Label l1 = new Label("Enter Name: ");
 		getTf()[0].setText("Enter Job Description");
 		getTf()[0].setMaxSize(330, 100);
@@ -283,7 +287,7 @@ public class View implements AbstractView, Serializable {
 		});
 		enterName.getChildren().addAll(l1, getTf()[0]);
 		enterName.setSpacing(20);
-		sp.getChildren().add(enterName);
+		this.sp.getChildren().add(enterName);
 		HBox choosePreference = new HBox();
 		choosePreference.setPadding(new Insets(10));
 		Label l2 = new Label("Add if the Role can change it's preference");
@@ -293,7 +297,7 @@ public class View implements AbstractView, Serializable {
 		tg1.getToggles().addAll(getRd()[0], getRd()[1]);
 		choosePreference.getChildren().addAll(l2, getRd()[0], getRd()[1]);
 		choosePreference.setSpacing(20);
-		sp.getChildren().add(choosePreference);
+		this.sp.getChildren().add(choosePreference);
 		HBox syncAble = new HBox();
 		syncAble.setPadding(new Insets(10));
 		Label l4 = new Label("Add if the Role is SYNCED");
@@ -304,7 +308,7 @@ public class View implements AbstractView, Serializable {
 		tg2.getToggles().addAll(getRd()[2], getRd()[3]);
 		syncAble.getChildren().addAll(l4, getRd()[2], getRd()[3]);
 		syncAble.setSpacing(20);
-		sp.getChildren().add(syncAble);
+		this.sp.getChildren().add(syncAble);
 		HBox homeWorking = new HBox();
 		Label l5 = new Label("Add if the Role \ngives an option to work from home");
 		ToggleGroup tg3 = new ToggleGroup();
@@ -315,7 +319,7 @@ public class View implements AbstractView, Serializable {
 		homeWorking.setSpacing(20);
 		l5.setPadding(new Insets(10, 29, 0, 10));
 		homeWorking.setPadding(new Insets(5));
-		sp.getChildren().add(homeWorking);
+		this.sp.getChildren().add(homeWorking);
 		HBox addDepartment = new HBox();
 		Label l6 = new Label("Choose department: ");
 		VBox profit = new VBox();
@@ -328,13 +332,13 @@ public class View implements AbstractView, Serializable {
 		profit.getChildren().addAll(l7, getTf()[1]);
 		profit.setAlignment(Pos.CENTER_LEFT);
 		profit.setSpacing(10);
-		addDepartment.getChildren().addAll(l6, departmentList);
+		this.departmentList.setMaxWidth(Double.MAX_VALUE);
+		addDepartment.getChildren().addAll(l6, this.departmentList);
 		addDepartment.setSpacing(10);
 		addDepartment.setPadding(new Insets(15));
-		sp.getChildren().addAll(profit, addDepartment, workPreference(), OKBorderPane());
-		sp.setSpacing(10);
-		sp.setAlignment(Pos.CENTER_LEFT);
-		casualButton.setOnAction(e -> {
+		this.sp.getChildren().addAll(profit, addDepartment, workPreference(), OKBorderPane());
+		this.sp.setSpacing(10);
+		this.casualButton.setOnAction(e -> {
 			for (UIEventListener listener : listeners) {
 				ChooseP();
 				Preference p = new Preference(choosePrefrenceNav(), hourChange);
@@ -347,13 +351,13 @@ public class View implements AbstractView, Serializable {
 				}
 			}
 		});
-		changePane.setLeft(sp);
+		changePane.setLeft(this.sp);
 
 	}
 
 	public void addEmployee() {
 		VBox enterName = new VBox();
-		getSp().getChildren().clear();
+		this.sp.getChildren().clear();
 		Label l1 = new Label("Enter Name: ");
 		getTf()[0].setText("Enter employee name");
 		getTf()[0].setMaxSize(330, 100);
@@ -369,13 +373,13 @@ public class View implements AbstractView, Serializable {
 		Label l2 = new Label("Enter birth year: ");
 		enterName.getChildren().addAll(l1, getTf()[0], l2, getTf()[1]);
 		enterName.setSpacing(20);
-		getSp().getChildren().addAll(enterName, workPreference());
+		this.sp.getChildren().addAll(enterName, workPreference());
 		HBox addRole = new HBox();
 		Label l6 = new Label("Choose Role: ");
 		addRole.getChildren().addAll(l6, roleList);
 		addRole.setSpacing(10);
 		addRole.setPadding(new Insets(15));
-		getSp().getChildren().add(addRole);
+		this.sp.getChildren().add(addRole);
 		HBox choosePreference = new HBox();
 		choosePreference.setPadding(new Insets(10));
 		Label l3 = new Label("Add if the Employee can change it's preference");
@@ -403,7 +407,7 @@ public class View implements AbstractView, Serializable {
 		enterSalary.setSpacing(10);
 		enterSalary.setAlignment(Pos.CENTER);
 		Label enterSalaryText = new Label();
-		getSp().getChildren().add(chooseSalary);
+		this.sp.getChildren().add(chooseSalary);
 		enterSalaryText.setText("Add your salary for hour: ");
 		getTf()[2].setText("Add your salary for hour");
 		getTf()[2].setOnMouseClicked(e -> {
