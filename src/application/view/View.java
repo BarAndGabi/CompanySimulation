@@ -131,7 +131,6 @@ public class View implements AbstractView, Serializable {
 
 		getBt()[3].setOnAction(e -> {
 			this.sp.getChildren().clear();
-			changePrefrence();
 			this.employeeList.setOnAction(e1 -> {
 
 			});
@@ -141,7 +140,7 @@ public class View implements AbstractView, Serializable {
 			this.departmentList.setOnAction(e1 -> {
 
 			});
-
+			changePrefrence();
 			this.employeeList.setMaxWidth(100);
 			this.roleList.setMaxWidth(100);
 			this.departmentList.setMaxWidth(100);
@@ -152,8 +151,17 @@ public class View implements AbstractView, Serializable {
 		});
 		getBt()[5].setOnAction(e -> {
 			this.sp.getChildren().clear();
-			showResutls();
 			this.toStringForEach.setVisible(false);
+			this.employeeList.setOnAction(e1 -> {
+
+			});
+			this.roleList.setOnAction(e1 -> {
+
+			});
+			this.departmentList.setOnAction(e1 -> {
+
+			});
+			showResutls();
 			this.employeeList.setMaxWidth(Double.MAX_VALUE);
 			this.roleList.setMaxWidth(Double.MAX_VALUE);
 			this.departmentList.setMaxWidth(Double.MAX_VALUE);
@@ -256,15 +264,15 @@ public class View implements AbstractView, Serializable {
 		this.changePane.setLeft(sp);
 		this.departmentList.setOnAction(e -> {
 			try {
-			for (UIEventListener listener : listeners) {
+				for (UIEventListener listener : listeners) {
 					sp.getChildren().get(size - 1).setVisible(true);
 					String st = listener.getObjectToString(objectType.DEPARTMENT, departmentList.getValue());
 					text.setText(st);
 					toStringForEach.setContent(text);
 				}
-				} catch (Exception e1) {
-					this.exceptionAlert(e1);
-				}
+			} catch (Exception e1) {
+				this.exceptionAlert(e1);
+			}
 		});
 
 		this.roleList.setOnAction(e -> {
@@ -952,6 +960,7 @@ public class View implements AbstractView, Serializable {
 		this.departmentList.setOnAction(e -> {
 			for (UIEventListener listener : listeners) {
 				try {
+
 					sp.getChildren().get(size - 1).setVisible(true);
 					String st = listener.getObjectResult(objectType.DEPARTMENT, departmentList.getValue());
 					text.setText(st);
@@ -997,7 +1006,6 @@ public class View implements AbstractView, Serializable {
 		});
 		this.sp.setSpacing(10);
 		this.changePane.setLeft(sp);
-
 	}
 
 	public void ChooseP() {
