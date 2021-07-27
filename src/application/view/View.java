@@ -264,8 +264,8 @@ public class View implements AbstractView, Serializable {
 		this.changePane.setLeft(sp);
 		this.departmentList.setOnAction(e -> {
 			try {
+				sp.getChildren().get(size - 1).setVisible(true);
 				for (UIEventListener listener : listeners) {
-					sp.getChildren().get(size - 1).setVisible(true);
 					String st = listener.getObjectToString(objectType.DEPARTMENT, departmentList.getValue());
 					text.setText(st);
 					toStringForEach.setContent(text);
@@ -277,8 +277,8 @@ public class View implements AbstractView, Serializable {
 
 		this.roleList.setOnAction(e -> {
 			for (UIEventListener listener : listeners) {
+				this.sp.getChildren().get(size - 1).setVisible(true);
 				try {
-					this.sp.getChildren().get(size - 1).setVisible(true);
 					String st = listener.getObjectToString(objectType.ROLE, roleList.getValue());
 					text.setText(st);
 					this.toStringForEach.setContent(text);
@@ -290,8 +290,8 @@ public class View implements AbstractView, Serializable {
 		});
 		this.employeeList.setOnAction(e -> {
 			for (UIEventListener listener : listeners) {
+				this.sp.getChildren().get(size - 1).setVisible(true);
 				try {
-					this.sp.getChildren().get(size - 1).setVisible(true);
 					String st = listener.getObjectToString(objectType.EMPLOYEE, this.employeeList.getValue());
 					text.setText(st);
 					toStringForEach.setContent(text);
@@ -301,8 +301,8 @@ public class View implements AbstractView, Serializable {
 			}
 		});
 		btForShow[3].setOnAction(e -> {
+			this.sp.getChildren().get(size - 1).setVisible(true);
 			for (UIEventListener listener : listeners) {
-				this.sp.getChildren().get(size - 1).setVisible(true);
 				String st = listener.getCompanyToString();
 				text.setText(st);
 				toStringForEach.setContent(text);
@@ -539,8 +539,8 @@ public class View implements AbstractView, Serializable {
 		enterSalary.getChildren().addAll(enterSalaryText, getTf()[2]);
 		bp.setCenter(enterSalary);
 
-		rdForSalary[0].setOnAction(e -> {
-			if (rdForSalary[0].isSelected()) {
+		this.rdForSalary[0].setOnAction(e -> {
+			if (this.rdForSalary[0].isSelected()) {
 				enterSalary.getChildren().clear();
 				enterSalaryText.setText("Add your salary for hour: ");
 				getTf()[2].setText("Add your salary for hour");
@@ -551,8 +551,8 @@ public class View implements AbstractView, Serializable {
 				bp.setCenter(enterSalary);
 			}
 		});
-		rdForSalary[1].setOnAction(e -> {
-			if (rdForSalary[1].isSelected()) {
+		this.rdForSalary[1].setOnAction(e -> {
+			if (this.rdForSalary[1].isSelected()) {
 				enterSalary.getChildren().clear();
 				enterSalaryText.setText("Add your global salary ");
 				getTf()[2].setText("Add your global salary ");
@@ -565,7 +565,7 @@ public class View implements AbstractView, Serializable {
 
 			}
 		});
-		rdForSalary[2].setOnAction(e -> {
+		this.rdForSalary[2].setOnAction(e -> {
 			if (rdForSalary[2].isSelected()) {
 				enterSalary.getChildren().clear();
 				enterSalaryText.setText("Add your global salary ");
@@ -584,16 +584,16 @@ public class View implements AbstractView, Serializable {
 			for (UIEventListener listener : listeners) {
 				try {
 					Preference p = new Preference(choosePrefrenceNav(), hourChange);
-					if (rdForSalary[2].isSelected()) {
+					if (this.rdForSalary[2].isSelected()) {
 						listener.addEmployeeGlobalyPlusToModel(getTf()[0].getText(),
 								Integer.valueOf(getTf()[1].getText()), p, Integer.valueOf(getTf()[2].getText()),
 								this.roleList.getValue(), chooseP);
 					}
-					if (rdForSalary[1].isSelected()) {
+					if (this.rdForSalary[1].isSelected()) {
 						listener.addEmployeeGlobalyToModel(getTf()[0].getText(), Integer.valueOf(getTf()[1].getText()),
 								p, Integer.valueOf(getTf()[2].getText()), this.roleList.getValue(), chooseP);
 					}
-					if (rdForSalary[0].isSelected()) {
+					if (this.rdForSalary[0].isSelected()) {
 						listener.addEmployeeHourlyToModel(getTf()[0].getText(), Integer.valueOf(getTf()[1].getText()),
 								p, Integer.valueOf(getTf()[2].getText()), this.roleList.getValue(), chooseP);
 
@@ -922,6 +922,7 @@ public class View implements AbstractView, Serializable {
 	}
 
 	public void showResutls() {
+		this.toStringForEach.setVisible(false);
 		HBox hb = new HBox();
 		Label l1 = new Label("Choose which object result you wish to see");
 		HBox hb1 = new HBox(l1);
