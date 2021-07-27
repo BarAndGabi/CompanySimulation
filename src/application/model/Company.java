@@ -195,9 +195,9 @@ public class Company implements Serializable, CompanyInterface {
 
 	@Override
 	public void runSimulation() {
+		this.currentHourProfitForDay = 0;
+		this.currentMoneyProfitForDay = 0;
 		for (int i = 0; i < this.departments.size(); i++) {
-			this.currentHourProfitForDay = 0;
-			this.currentMoneyProfitForDay = 0;
 			this.departments.get(i).calcProfit();
 			this.currentHourProfitForDay += this.departments.get(i).getCurrentHourProfitForDay();
 			this.currentMoneyProfitForDay += this.departments.get(i).getCurrentMoneyProfitForDay();

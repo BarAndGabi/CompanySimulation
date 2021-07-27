@@ -130,7 +130,7 @@ public class Department implements Serializable, syncAble, choosePreference {
 		StringBuffer str = new StringBuffer(this.name + ": \n" + "hour profit for day: " + this.currentHourProfitForDay
 				+ "\nmoney profit for day: " + this.currentMoneyProfitForDay + "\n");
 		for (int i = 0; i < this.roles.size(); i++) {
-			str.append((i + 1) + ") " + this.roles.get(i).getSimulationResults());
+			str.append("---------" + (i + 1) + "---------\n" + this.roles.get(i).getSimulationResults());
 		}
 		return str.toString();
 
