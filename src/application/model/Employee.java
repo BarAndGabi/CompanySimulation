@@ -15,18 +15,23 @@ public class Employee extends Person implements Serializable, choosePreference {
 			throws Exception {
 		super(name, yearOfBirth);
 		this.employeeId = idSerialCounter++;
-		this.preference = preference;
-		this.role = role;
 		this.changePreference = changePreference;
+		if (this.changePreference)
+			this.preference = preference;
+		else
+			this.preference = new Preference(PreferenceType.REGULAR_START);
+		this.role = role;
 		this.currentHourProfitForDay = this.calcHoursProfit();
 		this.currentMoneyProfitForDay = this.calcMoueyProfit();
 
 	}
 
 	@Override
-	public void choosePreference(PreferenceType t, int change) {
-		this.preference = new Preference(t, change);
-
+	public void choosePreference(PreferenceType t, int change) throws Exception {
+		if (this.changePreference)
+			this.preference = new Preference(t, change);
+		else
+			throw new cantChangePreferenceException();
 	}
 
 	public Department getDepartment() {
@@ -165,10 +170,10 @@ public class Employee extends Person implements Serializable, choosePreference {
 
 	@Override
 	public String toString() {
-		return (this.name + ":" + "\n year of birth " + this.yearOfBirth + "\nid: " + this.employeeId + "\npreference :\n"
-				+ this.preference.toString() + "\nrole: " + this.role.getjobTitle() + "\ncan choose preference? : "
-				+ this.changePreference + "\nday's hours in value: " + this.currentHourProfitForDay
-				+ "\nday's hours in money value: " + this.currentMoneyProfitForDay);
+		return ("^^^^^^"+this.name +"^^^^^^\n"+ "year of birth " + this.yearOfBirth + "\nid: " + this.employeeId
+				+ "\npreference :\n" + this.preference.toString() + "\nrole: " + this.role.getjobTitle()
+				+ "\ncan choose preference? : " + this.changePreference + "\nday's hours in value: "
+				+ this.currentHourProfitForDay + "\nday's hours in money value: " + this.currentMoneyProfitForDay);
 	}
 
 	public String getSimulationResults() {

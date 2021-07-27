@@ -23,7 +23,10 @@ public class Role implements Serializable, syncAble, choosePreference {
 		this.profitPerHour = ProfitPerHour;
 		this.sync = sync;
 		this.changePreference = changePreference;
-		this.preference = preference;
+		if (this.changePreference)
+			this.preference = preference;
+		else
+			this.preference = new Preference(PreferenceType.REGULAR_START);
 		this.workFromHome = workFromHome;
 		this.currentHourProfitForDay = 0;
 		this.currentMoneyProfitForDay = 0;
@@ -39,9 +42,11 @@ public class Role implements Serializable, syncAble, choosePreference {
 	}
 
 	@Override
-	public void choosePreference(PreferenceType t, int change) {
-		this.preference = new Preference(t, change);
-
+	public void choosePreference(PreferenceType t, int change) throws Exception {
+		if (this.changePreference)
+			this.preference = new Preference(t, change);
+		else
+			throw new cantChangePreferenceException();
 	}
 
 	@Override
@@ -87,7 +92,7 @@ public class Role implements Serializable, syncAble, choosePreference {
 				+ "\nday's hours in money value: " + this.currentMoneyProfitForDay);
 		str.append("\nthe employees in this role are: \n");
 		for (int i = 0; i < this.Employees.size(); i++) {
-			str.append("---------------\n" + (i + 1) + ") " + this.Employees.get(i).toString() + "\n");
+			str.append(this.Employees.get(i).toString() + "\n---------------\n");
 		}
 
 		return str.toString();
@@ -134,7 +139,7 @@ public class Role implements Serializable, syncAble, choosePreference {
 
 	public String getSimulationResults() {
 		StringBuffer str = new StringBuffer(this.jobTitle + ": \n" + "hour profit for day: "
-				+ this.currentHourProfitForDay + "\nmoney profit for day: " + this.currentMoneyProfitForDay + "\n");
+				+ this.currentHourProfitForDay + "\nmoney profit for day: " + this.currentMoneyProfitForDay + "\nemployees: \n");
 		for (int i = 0; i < this.Employees.size(); i++) {
 			str.append((i + 1) + ") " + this.Employees.get(i).getSimulationResults());
 		}

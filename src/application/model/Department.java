@@ -16,15 +16,18 @@ public class Department implements Serializable, syncAble, choosePreference {
 		this.sync = sync;
 		this.roles = new ArrayList<Role>();
 		this.name = name;
-		this.preference = new Preference(p, hourChange);
 		this.changePreference = changePreference;
+		if (this.changePreference)
+			this.preference = new Preference(p, hourChange);
+		else
+			this.preference = new Preference(PreferenceType.REGULAR_START);
 		this.currentHourProfitForDay = 0;
 		this.currentMoneyProfitForDay = 0;
 	}
 
 	@Override
 	public void choosePreference(PreferenceType t, int change) throws Exception {
-		if (changePreference)
+		if (this.changePreference)
 			this.preference = new Preference(t, change);
 		else
 			throw new cantChangePreferenceException();
@@ -109,11 +112,11 @@ public class Department implements Serializable, syncAble, choosePreference {
 				+ "syncronized department ? : " + this.sync + "\ncan choose preference?  : " + this.changePreference
 				+ "\n preference : " + this.preference.toString() + "\nday's hours in value: "
 				+ this.currentHourProfitForDay + "\nday's hours in money value: " + this.currentMoneyProfitForDay);
-		str.append("\n\nthe roles in this department are: \n");
+		str.append("\nthe roles in this department are: \n");
 		for (int i = 0; i < this.roles.size(); i++) {
-			str.append("************************\n" + (i + 1) + ") " + this.roles.get(i).toString() + "\n");
+			str.append((i + 1) + ") " + this.roles.get(i).toString() + "\n************************\n");
 		}
-
+		str.append("\n");
 		return str.toString();
 
 	}
@@ -127,8 +130,8 @@ public class Department implements Serializable, syncAble, choosePreference {
 	}
 
 	public String getSimulationResults() {
-		StringBuffer str = new StringBuffer(this.name + ": \n" + "hour profit for day: " + this.currentHourProfitForDay
-				+ "\nmoney profit for day: " + this.currentMoneyProfitForDay + "\n");
+		StringBuffer str = new StringBuffer("+++++++"+this.name + "+++++++\n" + "hour profit for day: " + this.currentHourProfitForDay
+				+ "\nmoney profit for day: " + this.currentMoneyProfitForDay + "\nroles:\n");
 		for (int i = 0; i < this.roles.size(); i++) {
 			str.append("---------" + (i + 1) + "---------\n" + this.roles.get(i).getSimulationResults());
 		}

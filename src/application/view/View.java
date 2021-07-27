@@ -312,22 +312,24 @@ public class View implements AbstractView, Serializable {
 	}
 
 	public VBox enterToProgramm() {
-		Font font1 = new Font("SansSerif", 20);
-		Font font2 = new Font("ROMAN_BASELINE", 30);
+		Font font1 = new Font("SansSerif", 17.5);
+		Font font2 = new Font("ROMAN_BASELINE", 25);
 		VBox start = new VBox();
-		Label l1 = new Label("Welcome to CompaNyer");
+		Label l1 = new Label("Welcome to company simulation program");
 		l1.setFont(font2);
 		Text t = new Text(
-				"this program calculates\nthe efficiency of the workers \nbased on there work hours and prefernce");
+				"\nthis program calculates the efficiency of the workers, \nbased on their work hours and prefernce.\n");
 		t.setFont(font1);
-		start.setAlignment(Pos.CENTER);
 		ImageView welcome = new ImageView();
 		welcome.setImage(this.logo);
 		welcome.setX(1);
 		welcome.setY(1);
-		welcome.setFitWidth(200);
+		welcome.setFitWidth(275);
 		welcome.setPreserveRatio(true);
-		start.getChildren().addAll(l1, t, welcome);
+		start.getChildren().addAll(l1, t);
+		start.getChildren().add(welcome);
+		start.setAlignment(Pos.CENTER);
+
 		return start;
 
 	}

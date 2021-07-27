@@ -226,9 +226,9 @@ public class Company implements Serializable, CompanyInterface {
 
 		StringBuffer str = new StringBuffer(this.getClass().getSimpleName() + "simulation results: \n"
 				+ "hour profit for day: " + this.currentHourProfitForDay + "\nmoney profit for day: "
-				+ this.currentMoneyProfitForDay + "\n");
+				+ this.currentMoneyProfitForDay + "\ndepratments:\n");
 		for (int i = 0; i < this.departments.size(); i++) {
-			str.append("########-" + (i + 1) + "-########\n" + this.departments.get(i).getSimulationResults());
+			str.append( this.departments.get(i).getSimulationResults());
 		}
 		return str.toString();
 	}
@@ -255,7 +255,7 @@ public class Company implements Serializable, CompanyInterface {
 			}
 
 		case ROLE:
-			for (int i = 0; i < this.departments.size(); i++) {
+			for (int i = 0; i < this.roles.size(); i++) {
 				if (this.roles.get(i).getjobTitle().equals(name)) {
 					this.roles.get(i).choosePreference(p, hourChange);
 					break;
@@ -263,7 +263,7 @@ public class Company implements Serializable, CompanyInterface {
 			}
 
 		case EMPLOYEE:
-			for (int i = 0; i < this.departments.size(); i++) {
+			for (int i = 0; i < this.employees.size(); i++) {
 				if (this.employees.get(i).getName().equals(name)) {
 					this.employees.get(i).choosePreference(p, hourChange);
 					break;
