@@ -119,8 +119,8 @@ public class View implements AbstractView, Serializable {
 		});
 		getBt()[4].setOnAction(e -> {
 			getSp().getChildren().clear();
-			showObjects();
 			this.toStringForEach.setVisible(false);
+			showObjects();
 			this.employeeList.setMaxWidth(Double.MAX_VALUE);
 			this.roleList.setMaxWidth(Double.MAX_VALUE);
 			this.departmentList.setMaxWidth(Double.MAX_VALUE);
@@ -132,6 +132,16 @@ public class View implements AbstractView, Serializable {
 		getBt()[3].setOnAction(e -> {
 			this.sp.getChildren().clear();
 			changePrefrence();
+			this.employeeList.setOnAction(e1 -> {
+
+			});
+			this.roleList.setOnAction(e1 -> {
+
+			});
+			this.departmentList.setOnAction(e1 -> {
+
+			});
+
 			this.employeeList.setMaxWidth(100);
 			this.roleList.setMaxWidth(100);
 			this.departmentList.setMaxWidth(100);
@@ -245,16 +255,16 @@ public class View implements AbstractView, Serializable {
 		this.sp.setSpacing(10);
 		this.changePane.setLeft(sp);
 		this.departmentList.setOnAction(e -> {
+			try {
 			for (UIEventListener listener : listeners) {
-				try {
 					sp.getChildren().get(size - 1).setVisible(true);
 					String st = listener.getObjectToString(objectType.DEPARTMENT, departmentList.getValue());
 					text.setText(st);
 					toStringForEach.setContent(text);
+				}
 				} catch (Exception e1) {
 					this.exceptionAlert(e1);
 				}
-			}
 		});
 
 		this.roleList.setOnAction(e -> {
@@ -263,7 +273,7 @@ public class View implements AbstractView, Serializable {
 					this.sp.getChildren().get(size - 1).setVisible(true);
 					String st = listener.getObjectToString(objectType.ROLE, roleList.getValue());
 					text.setText(st);
-					toStringForEach.setContent(text);
+					this.toStringForEach.setContent(text);
 				} catch (Exception e1) {
 					this.exceptionAlert(e1);
 				}
@@ -789,10 +799,10 @@ public class View implements AbstractView, Serializable {
 	@Override
 	public void addEmployeeEvent(String name) {
 		this.employeeList.getItems().add(name);
-		/*
-		 * if (!(employeeList.getItems().isEmpty())) {
-		 * this.employeeList.setValue(this.employeeList.getItems().get(0)); }
-		 */
+
+		if (!(employeeList.getItems().isEmpty())) {
+			this.employeeList.setValue(this.employeeList.getItems().get(0));
+		}
 
 	}
 
@@ -802,16 +812,14 @@ public class View implements AbstractView, Serializable {
 		if (!(roleList.getItems().isEmpty())) {
 			this.roleList.setValue(this.roleList.getItems().get(0));
 		}
-
 	}
 
 	@Override
 	public void addDepartmentEvent(String name) {
 		this.departmentList.getItems().add(name);
-		/*
-		 * if (!(departmentList.getItems().isEmpty())) {
-		 * this.departmentList.setValue(this.departmentList.getItems().get(0)); }
-		 */
+		if (!(departmentList.getItems().isEmpty())) {
+			this.departmentList.setValue(this.departmentList.getItems().get(0));
+		}
 
 	}
 
@@ -820,11 +828,11 @@ public class View implements AbstractView, Serializable {
 	}
 
 	public void setRdButtonSelected() {
-		rd[0].setSelected(true);
-		rd[2].setSelected(true);
-		rd[4].setSelected(true);
-		rdForWorkPreference[2].setSelected(true);
-		rdForSalary[0].setSelected(true);
+		this.rd[0].setSelected(true);
+		this.rd[2].setSelected(true);
+		this.rd[4].setSelected(true);
+		this.rdForWorkPreference[2].setSelected(true);
+		this.rdForSalary[0].setSelected(true);
 
 	}
 
@@ -911,7 +919,7 @@ public class View implements AbstractView, Serializable {
 		HBox hb1 = new HBox(l1);
 		hb1.setAlignment(Pos.CENTER);
 		BorderPane bp = new BorderPane();
-		sp.getChildren().clear();
+		this.sp.getChildren().clear();
 		Button[] btForShow = { new Button("Employee"), new Button("Roles"), new Button("Department"), new Button() };
 		btForShow[3] = companyButton;
 		for (Button element : btForShow) {
@@ -921,7 +929,7 @@ public class View implements AbstractView, Serializable {
 		hb.setSpacing(20);
 		hb.setAlignment(Pos.CENTER);
 		hb.setPadding(new Insets(20, 30, 40, 60));
-		sp.getChildren().addAll(hb1, hb, bp);
+		this.sp.getChildren().addAll(hb1, hb, bp);
 		btForShow[0].setOnAction(e -> {
 			this.employeeList.setDisable(false);
 			bp.setCenter(this.employeeList);
@@ -934,13 +942,13 @@ public class View implements AbstractView, Serializable {
 			this.departmentList.setDisable(false);
 			bp.setCenter(this.departmentList);
 		});
-		sp.setAlignment(Pos.TOP_CENTER);
+		this.sp.setAlignment(Pos.TOP_CENTER);
 		Text text = new Text();
-		toStringForEach.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-		toStringForEach.setPadding(new Insets(20, 30, 40, 50));
-		sp.getChildren().add(toStringForEach);
+		this.toStringForEach.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		this.toStringForEach.setPadding(new Insets(20, 30, 40, 50));
+		this.sp.getChildren().add(toStringForEach);
 		int size = sp.getChildren().size();
-		sp.getChildren().get(size - 1).setVisible(false);
+		this.sp.getChildren().get(size - 1).setVisible(false);
 		this.departmentList.setOnAction(e -> {
 			for (UIEventListener listener : listeners) {
 				try {
@@ -970,10 +978,10 @@ public class View implements AbstractView, Serializable {
 		this.employeeList.setOnAction(e -> {
 			for (UIEventListener listener : listeners) {
 				try {
-					sp.getChildren().get(size - 1).setVisible(true);
+					this.sp.getChildren().get(size - 1).setVisible(true);
 					String st = listener.getObjectResult(objectType.EMPLOYEE, employeeList.getValue());
 					text.setText(st);
-					toStringForEach.setContent(text);
+					this.toStringForEach.setContent(text);
 				} catch (Exception e1) {
 					this.exceptionAlert(e1);
 				}
@@ -981,14 +989,14 @@ public class View implements AbstractView, Serializable {
 		});
 		btForShow[3].setOnAction(e -> {
 			for (UIEventListener listener : listeners) {
-				sp.getChildren().get(size - 1).setVisible(true);
+				this.sp.getChildren().get(size - 1).setVisible(true);
 				String st = listener.getCompanyResult();
 				text.setText(st);
-				toStringForEach.setContent(text);
+				this.toStringForEach.setContent(text);
 			}
 		});
-		sp.setSpacing(10);
-		changePane.setLeft(sp);
+		this.sp.setSpacing(10);
+		this.changePane.setLeft(sp);
 
 	}
 
