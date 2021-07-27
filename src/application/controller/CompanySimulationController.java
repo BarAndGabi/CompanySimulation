@@ -17,6 +17,7 @@ import application.model.PreferenceType;
 import application.model.Role;
 import application.model.cantFingObjectException;
 import application.model.objectType;
+import application.model.positiveException;
 import application.view.AbstractView;
 import application.view.View;
 
@@ -104,8 +105,11 @@ public class CompanySimulationController implements modelListener, UIEventListen
 	@Override
 	public void addEmployeeHourlyToModel(String name, int yearOfBirth, Preference preference, int salaryPerHour,
 			String jobTitle, boolean cP) throws Exception {
+		if (salaryPerHour > 0) {
 		Role r = this.findRole(jobTitle);
 		this.Model.addEmployeeHourly(name, yearOfBirth, preference, salaryPerHour, r, cP);
+	}else
+			throw new positiveException();
 
 	}
 
@@ -117,15 +121,21 @@ public class CompanySimulationController implements modelListener, UIEventListen
 	@Override
 	public void addEmployeeGlobalyToModel(String name, int yearOfBirth, Preference preference, int salaryPerMonth,
 			String jobTitle, boolean cP) throws Exception {
-		Role r = this.findRole(jobTitle);
-		this.Model.addEmployeeGlobaly(name, yearOfBirth, preference, salaryPerMonth, r, cP);
+		if (salaryPerMonth > 0) {
+			Role r = this.findRole(jobTitle);
+			this.Model.addEmployeeGlobaly(name, yearOfBirth, preference, salaryPerMonth, r, cP);
+		} else
+			throw new positiveException();
 	}
 
 	@Override
 	public void addEmployeeGlobalyPlusToModel(String name, int yearOfBirth, Preference preference, int salaryPerMonth,
 			String jobTitle, boolean cP) throws Exception {
-		Role r = this.findRole(jobTitle);
-		this.Model.addEmployeeGlobalyPlus(name, yearOfBirth, preference, salaryPerMonth, r, cP);
+		if (salaryPerMonth > 0) {
+			Role r = this.findRole(jobTitle);
+			this.Model.addEmployeeGlobalyPlus(name, yearOfBirth, preference, salaryPerMonth, r, cP);
+		} else
+			throw new positiveException();
 	}
 
 	@Override

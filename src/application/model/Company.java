@@ -72,7 +72,7 @@ public class Company implements Serializable, CompanyInterface {
 		if (salaryPerHour >= 0)
 			this.addEmployeeToDepartment(new EmployeeHourly(name, yearOfBirth, preference, salaryPerHour, role, cP));
 		else
-			throw new profitPositiveException();
+			throw new positiveException();
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class Company implements Serializable, CompanyInterface {
 		if (salaryPerMonth >= 0)
 			this.addEmployeeToDepartment(new EmployeeGlobaly(name, yearOfBirth, preference, salaryPerMonth, role, cP));
 		else
-			throw new profitPositiveException();
+			throw new positiveException();
 	}
 
 	@Override
@@ -91,7 +91,7 @@ public class Company implements Serializable, CompanyInterface {
 			this.addEmployeeToDepartment(
 					new EmployeeGlobalyPlus(name, yearOfBirth, preference, salaryPerMonth, role, cP));
 		else
-			throw new profitPositiveException();
+			throw new positiveException();
 
 	}
 
@@ -174,7 +174,7 @@ public class Company implements Serializable, CompanyInterface {
 					return r;
 				}
 			} else
-				throw new profitPositiveException();
+				throw new positiveException();
 		} else
 			throw new alreadyExistException();
 	}
