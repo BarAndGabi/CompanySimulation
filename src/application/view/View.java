@@ -32,7 +32,7 @@ import javafx.stage.Stage;
 public class View implements AbstractView, Serializable {
 	private String name = new String();
 	private int choise = 0;
-
+	private ScrollPane toStringForEach = new ScrollPane();
 	private objectType objectType;
 	private boolean syncd = false;
 	private boolean chooseP = false;
@@ -105,31 +105,36 @@ public class View implements AbstractView, Serializable {
 			addRole();
 			setRdButtonSelected();
 			this.departmentList.setDisable(false);
+			this.departmentList.setValue("");
+			this.departmentList.setMaxWidth(100);
 		});
 		getBt()[2].setOnAction(e -> {
 			this.sp.getChildren().clear();
 			addEmployee();
-			setRdButtonSelected();
 			this.roleList.setDisable(false);
+			this.roleList.setValue("");
+			this.roleList.setMaxWidth(100);
+			setRdButtonSelected();
+
 		});
 		getBt()[4].setOnAction(e -> {
 			getSp().getChildren().clear();
+			showObjects();
+			this.toStringForEach.setVisible(false);
 			this.employeeList.setMaxWidth(Double.MAX_VALUE);
 			this.roleList.setMaxWidth(Double.MAX_VALUE);
 			this.departmentList.setMaxWidth(Double.MAX_VALUE);
-			showObjects();
 			this.employeeList.setValue("");
 			this.roleList.setValue("");
 			this.departmentList.setValue("");
-
 		});
 
 		getBt()[3].setOnAction(e -> {
 			this.sp.getChildren().clear();
+			changePrefrence();
 			this.employeeList.setMaxWidth(100);
 			this.roleList.setMaxWidth(100);
 			this.departmentList.setMaxWidth(100);
-			changePrefrence();
 			this.employeeList.setValue("");
 			this.roleList.setValue("");
 			this.departmentList.setValue("");
@@ -137,10 +142,11 @@ public class View implements AbstractView, Serializable {
 		});
 		getBt()[5].setOnAction(e -> {
 			this.sp.getChildren().clear();
+			showResutls();
+			this.toStringForEach.setVisible(false);
 			this.employeeList.setMaxWidth(Double.MAX_VALUE);
 			this.roleList.setMaxWidth(Double.MAX_VALUE);
 			this.departmentList.setMaxWidth(Double.MAX_VALUE);
-			showResutls();
 			this.employeeList.setValue("");
 			this.roleList.setValue("");
 			this.departmentList.setValue("");
@@ -161,6 +167,7 @@ public class View implements AbstractView, Serializable {
 			try {
 				this.listeners.get(i).save();
 				this.loadSucssesAlert();
+				this.changePane.setLeft(enterToProgramm());
 			} catch (Exception e) {
 				this.exceptionAlert(e);
 			}
@@ -204,10 +211,10 @@ public class View implements AbstractView, Serializable {
 		BorderPane bp = new BorderPane();
 		Label l1 = new Label("Choose which object you want to show");
 		HBox hb1 = new HBox(l1);
-		sp.getChildren().clear();
+		this.sp.getChildren().clear();
 		hb1.setAlignment(Pos.CENTER);
 		Button[] btForShow = { new Button("Employee"), new Button("Roles"), new Button("Department"), new Button() };
-		btForShow[3] = companyButton;
+		btForShow[3] = this.companyButton;
 		for (Button element : btForShow) {
 			element.setMaxWidth(Double.MAX_VALUE);
 			hb.getChildren().add(element);
@@ -215,7 +222,7 @@ public class View implements AbstractView, Serializable {
 		hb.setSpacing(20);
 		hb.setAlignment(Pos.CENTER);
 		hb.setPadding(new Insets(20, 30, 40, 60));
-		sp.getChildren().addAll(hb1,hb, bp);
+		sp.getChildren().addAll(hb1, hb, bp);
 		btForShow[0].setOnAction(e -> {
 			this.employeeList.setDisable(false);
 			bp.setCenter(this.employeeList);
@@ -228,14 +235,15 @@ public class View implements AbstractView, Serializable {
 			this.departmentList.setDisable(false);
 			bp.setCenter(this.departmentList);
 		});
-		sp.setAlignment(Pos.TOP_CENTER);
-		ScrollPane toStringForEach = new ScrollPane();
+		this.sp.setAlignment(Pos.TOP_CENTER);
 		Text text = new Text();
 		toStringForEach.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		toStringForEach.setPadding(new Insets(20, 30, 40, 50));
-		sp.getChildren().add(toStringForEach);
+		this.sp.getChildren().add(toStringForEach);
 		int size = sp.getChildren().size();
-		sp.getChildren().get(size - 1).setVisible(false);
+		this.sp.getChildren().get(size - 1).setVisible(false);
+		this.sp.setSpacing(10);
+		this.changePane.setLeft(sp);
 		this.departmentList.setOnAction(e -> {
 			for (UIEventListener listener : listeners) {
 				try {
@@ -252,7 +260,7 @@ public class View implements AbstractView, Serializable {
 		this.roleList.setOnAction(e -> {
 			for (UIEventListener listener : listeners) {
 				try {
-					sp.getChildren().get(size - 1).setVisible(true);
+					this.sp.getChildren().get(size - 1).setVisible(true);
 					String st = listener.getObjectToString(objectType.ROLE, roleList.getValue());
 					text.setText(st);
 					toStringForEach.setContent(text);
@@ -265,8 +273,8 @@ public class View implements AbstractView, Serializable {
 		this.employeeList.setOnAction(e -> {
 			for (UIEventListener listener : listeners) {
 				try {
-					sp.getChildren().get(size - 1).setVisible(true);
-					String st = listener.getObjectToString(objectType.EMPLOYEE, employeeList.getValue());
+					this.sp.getChildren().get(size - 1).setVisible(true);
+					String st = listener.getObjectToString(objectType.EMPLOYEE, this.employeeList.getValue());
 					text.setText(st);
 					toStringForEach.setContent(text);
 				} catch (Exception e1) {
@@ -276,14 +284,12 @@ public class View implements AbstractView, Serializable {
 		});
 		btForShow[3].setOnAction(e -> {
 			for (UIEventListener listener : listeners) {
-				sp.getChildren().get(size - 1).setVisible(true);
+				this.sp.getChildren().get(size - 1).setVisible(true);
 				String st = listener.getCompanyToString();
 				text.setText(st);
 				toStringForEach.setContent(text);
 			}
 		});
-		sp.setSpacing(10);
-		changePane.setLeft(sp);
 
 	}
 
@@ -319,7 +325,7 @@ public class View implements AbstractView, Serializable {
 	public void addDepartment() {
 		VBox enterName = new VBox();
 		// name text box
-		sp.getChildren().clear();
+		this.sp.getChildren().clear();
 		Label l1 = new Label("Enter Name: ");
 		getTf()[0].setText("Enter Name Of the department");
 		getTf()[0].setMaxSize(330, 100);
@@ -329,7 +335,7 @@ public class View implements AbstractView, Serializable {
 		enterName.getChildren().addAll(l1, getTf()[0]);
 		enterName.setPadding(new Insets(15));
 		enterName.setSpacing(20);
-		sp.getChildren().add(enterName);
+		this.sp.getChildren().add(enterName);
 		// choose if it can have a preference
 		HBox choosePreference = new HBox();
 		choosePreference.setPadding(new Insets(10));
@@ -340,7 +346,7 @@ public class View implements AbstractView, Serializable {
 		tg1.getToggles().addAll(getRd()[0], getRd()[1]);
 		choosePreference.getChildren().addAll(l2, getRd()[0], getRd()[1]);
 		choosePreference.setSpacing(20);
-		sp.getChildren().add(choosePreference);
+		this.sp.getChildren().add(choosePreference);
 		// choose if the department is syncable
 		HBox syncAble = new HBox();
 		syncAble.setPadding(new Insets(10));
@@ -352,23 +358,23 @@ public class View implements AbstractView, Serializable {
 		tg2.getToggles().addAll(getRd()[2], getRd()[3]);
 		syncAble.getChildren().addAll(l4, getRd()[2], getRd()[3]);
 		syncAble.setSpacing(20);
-		sp.getChildren().add(syncAble);
-		sp.getChildren().addAll(workPreference(), OKBorderPane());
-		casualButton.setOnAction(e -> {
+		this.sp.getChildren().add(syncAble);
+		this.sp.getChildren().addAll(workPreference(), OKBorderPane());
+		this.sp.setSpacing(15);
+		this.changePane.setLeft(sp);
+		this.casualButton.setOnAction(e -> {
 			ChooseP();
 			for (UIEventListener listener : listeners) {
 				try {
 					listener.addDepartmentToModel(getTf()[0].getText(), syncd, chooseP, choosePrefrenceNav(),
 							hourChange);
 					this.loadSucssesAlert();
-
+					this.changePane.setLeft(enterToProgramm());
 				} catch (Exception e1) {
 					this.exceptionAlert(e1);
 				}
 			}
 		});
-		sp.setSpacing(15);
-		changePane.setLeft(sp);
 	}
 
 	public void addRole() {
@@ -435,20 +441,21 @@ public class View implements AbstractView, Serializable {
 		addDepartment.setPadding(new Insets(15));
 		this.sp.getChildren().addAll(profit, addDepartment, workPreference(), OKBorderPane());
 		this.sp.setSpacing(10);
+		this.changePane.setLeft(this.sp);
 		this.casualButton.setOnAction(e -> {
 			for (UIEventListener listener : listeners) {
-				ChooseP();
-				Preference p = new Preference(choosePrefrenceNav(), hourChange);
 				try {
+					ChooseP();
+					Preference p = new Preference(choosePrefrenceNav(), hourChange);
 					listener.addRoleToModel(Double.valueOf(getTf()[1].getText()), getTf()[0].getText(), syncd,
 							departmentList.getValue(), p, workHome, chooseP);
 					this.loadSucssesAlert();
+					this.changePane.setLeft(enterToProgramm());
 				} catch (Exception e1) {
 					this.exceptionAlert(e1);
 				}
 			}
 		});
-		changePane.setLeft(this.sp);
 
 	}
 
@@ -484,7 +491,7 @@ public class View implements AbstractView, Serializable {
 		getRd()[0].setText("Yes");// yes if the department can change preference
 		getRd()[1].setText("No");
 		tg1.getToggles().addAll(getRd()[0], getRd()[1]);
-		rd[0].setSelected(true);
+		this.rd[0].setSelected(true);
 		choosePreference.getChildren().addAll(l3, getRd()[0], getRd()[1]);
 		choosePreference.setSpacing(20);
 		getSp().getChildren().add(choosePreference);
@@ -496,7 +503,7 @@ public class View implements AbstractView, Serializable {
 			chooseSalary.getChildren().add(element);
 			tg2.getToggles().add(element);
 		}
-		rdForSalary[0].setSelected(true);
+		this.rdForSalary[0].setSelected(true);
 		chooseSalary.setAlignment(Pos.CENTER);
 		chooseSalary.setSpacing(8);
 		BorderPane bp = new BorderPane();
@@ -555,11 +562,10 @@ public class View implements AbstractView, Serializable {
 		bp.setPadding(new Insets(15));
 		getSp().getChildren().addAll(bp, OKBorderPane());
 		getSp().setSpacing(10);
-		casualButton.setOnAction(e -> {
+		this.casualButton.setOnAction(e -> {
 			for (UIEventListener listener : listeners) {
-				Preference p = new Preference(choosePrefrenceNav(), hourChange);
-
 				try {
+					Preference p = new Preference(choosePrefrenceNav(), hourChange);
 					if (rdForSalary[2].isSelected()) {
 						listener.addEmployeeGlobalyPlusToModel(getTf()[0].getText(),
 								Integer.valueOf(getTf()[1].getText()), p, Integer.valueOf(getTf()[2].getText()),
@@ -575,14 +581,14 @@ public class View implements AbstractView, Serializable {
 
 					}
 					this.loadSucssesAlert();
-
+					this.changePane.setLeft(enterToProgramm());
 				} catch (Exception e1) {
 					this.exceptionAlert(e1);
 				}
 
 			}
 		});
-		changePane.setLeft(getSp());
+		this.changePane.setLeft(getSp());
 	}
 
 	public void changePrefrence() {
@@ -614,31 +620,32 @@ public class View implements AbstractView, Serializable {
 		bp.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		btForChange[0].setOnAction(e -> {
 			this.objectType = objectType.EMPLOYEE;
-			employeeList.setDisable(false);
-			roleList.setDisable(true);
-			departmentList.setDisable(true);
-			choise = 1;
+			this.employeeList.setDisable(false);
+			this.roleList.setDisable(true);
+			this.departmentList.setDisable(true);
+			this.choise = 1;
 
 		});
 		btForChange[1].setOnAction(e -> {
 			this.objectType = objectType.ROLE;
 			getRoleList().setDisable(false);
-			employeeList.setDisable(true);
-			departmentList.setDisable(true);
-			choise = 2;
+			this.employeeList.setDisable(true);
+			this.departmentList.setDisable(true);
+			this.choise = 2;
 
 		});
 		btForChange[2].setOnAction(e -> {
 			this.objectType = objectType.DEPARTMENT;
-			departmentList.setDisable(false);
-			employeeList.setDisable(true);
-			roleList.setDisable(true);
-			choise = 3;
+			this.departmentList.setDisable(false);
+			this.employeeList.setDisable(true);
+			this.roleList.setDisable(true);
+			this.choise = 3;
 
 		});
 
-		sp.getChildren().addAll(bp, workPreference(), OKBorderPane());
-		sp.setSpacing(20);
+		this.sp.getChildren().addAll(bp, workPreference(), OKBorderPane());
+		this.sp.setSpacing(20);
+		this.changePane.setLeft(sp);
 		this.casualButton.setOnAction(e -> {
 			ChooseP();
 			switch (choise) {
@@ -656,12 +663,13 @@ public class View implements AbstractView, Serializable {
 				try {
 					listener.choosePreference(choosePrefrenceNav(), hourChange, objectType, this.name);
 					this.loadSucssesAlert();
+					this.changePane.setLeft(enterToProgramm());
 				} catch (Exception e1) {
 					this.exceptionAlert(e1);
 				}
+
 			}
 		});
-		changePane.setLeft(sp);
 	}
 
 //work preference change used in all of the screens above
@@ -781,9 +789,10 @@ public class View implements AbstractView, Serializable {
 	@Override
 	public void addEmployeeEvent(String name) {
 		this.employeeList.getItems().add(name);
-		if (!(employeeList.getItems().isEmpty())) {
-			this.employeeList.setValue(this.employeeList.getItems().get(0));
-		}
+		/*
+		 * if (!(employeeList.getItems().isEmpty())) {
+		 * this.employeeList.setValue(this.employeeList.getItems().get(0)); }
+		 */
 
 	}
 
@@ -793,14 +802,16 @@ public class View implements AbstractView, Serializable {
 		if (!(roleList.getItems().isEmpty())) {
 			this.roleList.setValue(this.roleList.getItems().get(0));
 		}
+
 	}
 
 	@Override
 	public void addDepartmentEvent(String name) {
 		this.departmentList.getItems().add(name);
-		if (!(departmentList.getItems().isEmpty())) {
-			this.departmentList.setValue(this.departmentList.getItems().get(0));
-		}
+		/*
+		 * if (!(departmentList.getItems().isEmpty())) {
+		 * this.departmentList.setValue(this.departmentList.getItems().get(0)); }
+		 */
 
 	}
 
@@ -924,7 +935,6 @@ public class View implements AbstractView, Serializable {
 			bp.setCenter(this.departmentList);
 		});
 		sp.setAlignment(Pos.TOP_CENTER);
-		ScrollPane toStringForEach = new ScrollPane();
 		Text text = new Text();
 		toStringForEach.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		toStringForEach.setPadding(new Insets(20, 30, 40, 50));
@@ -981,6 +991,7 @@ public class View implements AbstractView, Serializable {
 		changePane.setLeft(sp);
 
 	}
+
 	public void ChooseP() {
 		if (rdForWorkPreference[2].isSelected() || rdForWorkPreference[3].isSelected()) {
 			hourChange = 0;
