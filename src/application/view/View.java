@@ -20,6 +20,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -54,9 +55,11 @@ public class View implements AbstractView, Serializable {
 	private RadioButton[] rdForWorkPreference = { new RadioButton(), new RadioButton(), new RadioButton(),
 			new RadioButton() };
 	private Button[] bt = { new Button("Add Department"), new Button("Add Role"), new Button("Add Employee"),
-			new Button("Change Prefrence"), new Button("Show Objects Screen"), new Button("Show Simulations Results"),
-			new Button("Save"), new Button("Exit") };
+			new Button("Change Prefrence"), new Button("Show Objects"), new Button("Show Results"), new Button("Save"),
+			new Button("Exit") };
 	private VBox vBoxForButtons;
+	private VBox vBoxForButtonsDown;
+
 	private ComboBox<Integer> c1 = new ComboBox<Integer>();
 	private Image logo = new Image(getClass().getResourceAsStream("logo.png"));
 	private Stage s;
@@ -79,8 +82,9 @@ public class View implements AbstractView, Serializable {
 		changePane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		changePanels();
 		setvBox();
+		setvBoxDown();
 		setMainPane();
-		Scene s = new Scene(this.mainPane, 660, 600);
+		Scene s = new Scene(this.mainPane, 630, 700);
 		s.getStylesheets().addAll(this.getClass().getResource("application.css").toExternalForm());
 		theStage.setScene(s);
 		theStage.show();
@@ -88,6 +92,8 @@ public class View implements AbstractView, Serializable {
 		this.casualButton.setStyle(" -fx-background-color: #2E4980;\n" + "    -fx-background-radius: 30;\n"
 				+ "    -fx-background-insets: 0;\n" + "    -fx-text-fill: white;\n");
 		this.casualButton.setCursor(Cursor.HAND);
+		this.sp.setAlignment(Pos.CENTER);
+
 	}
 
 	public BorderPane getMainPane() {
@@ -185,7 +191,7 @@ public class View implements AbstractView, Serializable {
 			try {
 				this.listeners.get(i).save();
 				this.loadSucssesAlert();
-				this.changePane.setLeft(enterToProgramm());
+				this.changePane.setCenter(enterToProgramm());
 			} catch (Exception e) {
 				this.exceptionAlert(e);
 			}
@@ -194,8 +200,10 @@ public class View implements AbstractView, Serializable {
 
 	public void setMainPane() {
 		BorderPane mainPane = new BorderPane();
-		mainPane.setLeft(vBoxForButtons);
+		mainPane.setTop(vBoxForButtons);
 		mainPane.setCenter(changePane);
+		mainPane.setBottom(this.vBoxForButtonsDown);
+
 		this.mainPane = mainPane;
 	}
 
@@ -209,15 +217,37 @@ public class View implements AbstractView, Serializable {
 
 	public void setvBox() {
 		VBox vBox = new VBox();
+		ToolBar tb1 = new ToolBar();
+		tb1.setMaxWidth(Double.MAX_VALUE);
+
 		vBox.setAlignment(Pos.CENTER);
 		vBox.setPadding(new Insets(10));
-		for (Button element : bt) {
-			element.setMaxWidth(200);
-			vBox.getChildren().add(element);
+		for (int i = 0; i < 6; i++) {
+			this.bt[i].setMinWidth(Double.MIN_VALUE);
+			tb1.getItems().add(this.bt[i]);
 		}
+		vBox.getChildren().add(tb1);
 		vBox.setStyle("-fx-background-color: #1B4697");
-		vBox.setSpacing(20);
+		vBox.setSpacing(1);
 		this.vBoxForButtons = vBox;
+	}
+
+	public void setvBoxDown() {
+		VBox vBox = new VBox();
+		ToolBar tb2 = new ToolBar();
+		tb2.setMaxWidth(100);
+		vBox.setAlignment(Pos.CENTER_RIGHT);
+		vBox.setPadding(new Insets(10));
+
+		for (int i = 6; i < this.bt.length; i++) {
+			this.bt[i].setMinWidth(Double.MIN_VALUE);
+			tb2.getItems().add(this.bt[i]);
+		}
+		vBox.getChildren().add(tb2);
+
+		vBox.setStyle("-fx-background-color: #1B4697");
+		vBox.setSpacing(1);
+		this.vBoxForButtonsDown = vBox;
 	}
 
 	public BorderPane getChangePane() {
@@ -261,7 +291,7 @@ public class View implements AbstractView, Serializable {
 		int size = sp.getChildren().size();
 		this.sp.getChildren().get(size - 1).setVisible(false);
 		this.sp.setSpacing(10);
-		this.changePane.setLeft(sp);
+		this.changePane.setCenter(sp);
 		this.departmentList.setOnAction(e -> {
 			try {
 				sp.getChildren().get(size - 1).setVisible(true);
@@ -337,7 +367,7 @@ public class View implements AbstractView, Serializable {
 	public void setChangePane() {
 		BorderPane changePane = new BorderPane();
 		changePane.setPadding(new Insets(20));
-		changePane.setLeft(enterToProgramm());
+		changePane.setCenter(enterToProgramm());
 		this.changePane = changePane;
 	}
 
@@ -346,18 +376,20 @@ public class View implements AbstractView, Serializable {
 		VBox enterName = new VBox();
 		// name text box
 		this.sp.getChildren().clear();
-		Label l1 = new Label("Enter Name: ");
+		this.sp.setAlignment(Pos.TOP_CENTER);
 		getTf()[0].setText("Enter Name Of the department");
 		getTf()[0].setMaxSize(330, 100);
 		getTf()[0].setOnMouseClicked(e -> {
 			getTf()[0].clear();
 		});
-		enterName.getChildren().addAll(l1, getTf()[0]);
+		enterName.setAlignment(Pos.BASELINE_CENTER);
+		enterName.getChildren().addAll(getTf()[0]);
 		enterName.setPadding(new Insets(15));
 		enterName.setSpacing(20);
 		this.sp.getChildren().add(enterName);
 		// choose if it can have a preference
 		HBox choosePreference = new HBox();
+		choosePreference.setAlignment(Pos.CENTER);
 		choosePreference.setPadding(new Insets(10));
 		Label l2 = new Label("Add if the Department can change it's preference");
 		ToggleGroup tg1 = new ToggleGroup();
@@ -369,6 +401,7 @@ public class View implements AbstractView, Serializable {
 		this.sp.getChildren().add(choosePreference);
 		// choose if the department is syncable
 		HBox syncAble = new HBox();
+		syncAble.setAlignment(Pos.BASELINE_CENTER);
 		syncAble.setPadding(new Insets(10));
 		Label l4 = new Label("Add if the Department is SYNCED");
 		l4.setPadding(new Insets(0, 83, 40, 0));
@@ -381,7 +414,7 @@ public class View implements AbstractView, Serializable {
 		this.sp.getChildren().add(syncAble);
 		this.sp.getChildren().addAll(workPreference(), OKBorderPane());
 		this.sp.setSpacing(15);
-		this.changePane.setLeft(sp);
+		this.changePane.setCenter(sp);
 		this.casualButton.setOnAction(e -> {
 			ChooseP();
 			for (UIEventListener listener : listeners) {
@@ -389,7 +422,7 @@ public class View implements AbstractView, Serializable {
 					listener.addDepartmentToModel(getTf()[0].getText(), syncd, chooseP, choosePrefrenceNav(),
 							hourChange);
 					this.loadSucssesAlert();
-					this.changePane.setLeft(enterToProgramm());
+					this.changePane.setCenter(enterToProgramm());
 				} catch (Exception e1) {
 					this.exceptionAlert(e1);
 				}
@@ -401,6 +434,7 @@ public class View implements AbstractView, Serializable {
 		VBox enterName = new VBox();
 		enterName.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		this.sp.getChildren().clear();
+		this.sp.setAlignment(Pos.TOP_CENTER);
 		Label l1 = new Label("Enter Name: ");
 		getTf()[0].setText("Enter Job Description");
 		getTf()[0].setMaxSize(330, 100);
@@ -461,7 +495,7 @@ public class View implements AbstractView, Serializable {
 		addDepartment.setPadding(new Insets(15));
 		this.sp.getChildren().addAll(profit, addDepartment, workPreference(), OKBorderPane());
 		this.sp.setSpacing(10);
-		this.changePane.setLeft(this.sp);
+		this.changePane.setCenter(this.sp);
 		this.casualButton.setOnAction(e -> {
 			for (UIEventListener listener : listeners) {
 				try {
@@ -470,7 +504,7 @@ public class View implements AbstractView, Serializable {
 					listener.addRoleToModel(Double.valueOf(getTf()[1].getText()), getTf()[0].getText(), syncd,
 							departmentList.getValue(), p, workHome, chooseP);
 					this.loadSucssesAlert();
-					this.changePane.setLeft(enterToProgramm());
+					this.changePane.setCenter(enterToProgramm());
 				} catch (Exception e1) {
 					this.exceptionAlert(e1);
 				}
@@ -482,6 +516,8 @@ public class View implements AbstractView, Serializable {
 	public void addEmployee() {
 		VBox enterName = new VBox();
 		this.sp.getChildren().clear();
+		this.sp.setAlignment(Pos.TOP_CENTER);
+
 		Label l1 = new Label("Enter Name: ");
 		getTf()[0].setText("Enter employee name");
 		getTf()[0].setMaxSize(330, 100);
@@ -601,45 +637,50 @@ public class View implements AbstractView, Serializable {
 
 					}
 					this.loadSucssesAlert();
-					this.changePane.setLeft(enterToProgramm());
+					this.changePane.setCenter(enterToProgramm());
 				} catch (Exception e1) {
 					this.exceptionAlert(e1);
 				}
 
 			}
 		});
-		this.changePane.setLeft(getSp());
+		this.changePane.setCenter(getSp());
 	}
 
 	public void changePrefrence() {
 		getSp().getChildren().clear();
-		Label l1 = new Label("Choose the objectType to change\nthen choose from the list:\n \n\n");
-		Label l2 = new Label("\n ");
+		this.sp.setAlignment(Pos.TOP_CENTER);
+		Label l1 = new Label("Choose the objectType to change from above \nthen choose from the list below:\n \n\n");
 		BorderPane bp = new BorderPane();
-		VBox vb1 = new VBox();
 		VBox vb2 = new VBox();
-		vb1.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		ToolBar tb = new ToolBar();
+		tb.setAccessibleText("Choose the objectType to change from above \nthen choose from the list below:\n \n\n");
+		vb2.getChildren().add(l1);
+		bp.setAlignment(tb, Pos.CENTER);
+		tb.setMaxWidth(230);
 		vb2.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-		vb2.setAlignment(Pos.CENTER_LEFT);
-		vb1.getChildren().add(l1);
-		vb2.getChildren().add(l2);
+		vb2.setAlignment(Pos.CENTER);
 		Button[] btForChange = { new Button("Employees"), new Button("Roles"), new Button("Department") };
 		for (Button element : btForChange) {
 			element.setMaxWidth(Double.MAX_VALUE);
-			vb1.getChildren().add(element);
+			// vb1.getChildren().add(element);
+			tb.getItems().add(element);
 		}
-		vb1.setSpacing(10);
-		bp.setLeft(vb1);
+		bp.setTop(tb);
 		getEmployeeList().setDisable(true);
 		getRoleList().setDisable(true);
 		getDepartmentList().setDisable(true);
-		vb2.getChildren().addAll(employeeList, roleList, departmentList);
 		vb2.setSpacing(10);
-		vb2.setPadding(new Insets(30, 100, 60, 140));
+		vb2.setPadding(new Insets(1, 1, 1, 1));
 		bp.setCenter(vb2);
 		bp.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
 		btForChange[0].setOnAction(e -> {
 			this.objectType = objectType.EMPLOYEE;
+			vb2.getChildren().clear();
+			vb2.getChildren().add(l1);
+			this.employeeList.setMaxWidth(Double.MAX_VALUE);
+			vb2.getChildren().add(this.employeeList);
 			this.employeeList.setDisable(false);
 			this.roleList.setDisable(true);
 			this.departmentList.setDisable(true);
@@ -647,6 +688,10 @@ public class View implements AbstractView, Serializable {
 
 		});
 		btForChange[1].setOnAction(e -> {
+			vb2.getChildren().clear();
+			vb2.getChildren().add(l1);
+			vb2.getChildren().add(this.roleList);
+			this.roleList.setMaxWidth(Double.MAX_VALUE);
 			this.objectType = objectType.ROLE;
 			getRoleList().setDisable(false);
 			this.employeeList.setDisable(true);
@@ -655,6 +700,10 @@ public class View implements AbstractView, Serializable {
 
 		});
 		btForChange[2].setOnAction(e -> {
+			vb2.getChildren().clear();
+			vb2.getChildren().add(l1);
+			vb2.getChildren().add(this.departmentList);
+			this.departmentList.setMaxWidth(Double.MAX_VALUE);
 			this.objectType = objectType.DEPARTMENT;
 			this.departmentList.setDisable(false);
 			this.employeeList.setDisable(true);
@@ -665,7 +714,7 @@ public class View implements AbstractView, Serializable {
 
 		this.sp.getChildren().addAll(bp, workPreference(), OKBorderPane());
 		this.sp.setSpacing(20);
-		this.changePane.setLeft(sp);
+		this.changePane.setCenter(sp);
 		this.casualButton.setOnAction(e -> {
 			ChooseP();
 			switch (choise) {
@@ -683,7 +732,7 @@ public class View implements AbstractView, Serializable {
 				try {
 					listener.choosePreference(choosePrefrenceNav(), hourChange, objectType, this.name);
 					this.loadSucssesAlert();
-					this.changePane.setLeft(enterToProgramm());
+					this.changePane.setCenter(enterToProgramm());
 				} catch (Exception e1) {
 					this.exceptionAlert(e1);
 				}
@@ -706,6 +755,8 @@ public class View implements AbstractView, Serializable {
 			tg.getToggles().add(rdForWorkPreference[i]);
 
 		}
+		choosWorkMethod.setAlignment(Pos.CENTER_LEFT);
+
 		Label l3 = new Label("Choose work method: ");
 		l3.setPadding(new Insets(3));
 		bp.setTop(l3);
@@ -713,7 +764,8 @@ public class View implements AbstractView, Serializable {
 		choosWorkMethod.setSpacing(3);
 		choosWorkMethod.setPadding(new Insets(8));
 		HBox hb = new HBox();
-		hb.setSpacing(9);
+		hb.setAlignment(Pos.BASELINE_CENTER);
+		hb.setSpacing(1);
 		getRdForWorkPreference()[0].setOnAction(e -> {
 			hb.getChildren().clear();
 			Label l5 = new Label("how early would you like to be");
@@ -723,7 +775,7 @@ public class View implements AbstractView, Serializable {
 			}
 			getC1().setValue(1);
 			hb.getChildren().addAll(l5, getC1());
-			bp.setCenter(hb);
+			bp.setRight(hb);
 
 		});
 		getRdForWorkPreference()[1].setOnAction(e -> {
@@ -736,17 +788,17 @@ public class View implements AbstractView, Serializable {
 			getC1().setValue(1);
 			hb.getChildren().addAll(l5, getC1());
 			hb.setSpacing(15);
-			bp.setCenter(hb);
+			bp.setRight(hb);
 		});
 		getRdForWorkPreference()[2].setOnAction(e -> {
 			hb.getChildren().clear();
-			bp.setCenter(hb);
+			bp.setRight(hb);
 
 		});
 
 		getRdForWorkPreference()[3].setOnAction(e -> {
 			hb.getChildren().clear();
-			bp.setCenter(hb);
+			bp.setRight(hb);
 		});
 
 		return bp;
@@ -1008,7 +1060,7 @@ public class View implements AbstractView, Serializable {
 			}
 		});
 		this.sp.setSpacing(10);
-		this.changePane.setLeft(sp);
+		this.changePane.setCenter(sp);
 	}
 
 	public void ChooseP() {
