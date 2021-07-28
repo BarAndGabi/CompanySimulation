@@ -227,7 +227,7 @@ public class View implements AbstractView, Serializable {
 			tb1.getItems().add(this.bt[i]);
 		}
 		vBox.getChildren().add(tb1);
-		vBox.setStyle("-fx-background-color: #1B4697");
+		vBox.setStyle("-fx-background-color: #087DD4");
 		vBox.setSpacing(1);
 		this.vBoxForButtons = vBox;
 	}
@@ -245,7 +245,7 @@ public class View implements AbstractView, Serializable {
 		}
 		vBox.getChildren().add(tb2);
 
-		vBox.setStyle("-fx-background-color: #1B4697");
+		vBox.setStyle("-fx-background-color: #087DD4");
 		vBox.setSpacing(1);
 		this.vBoxForButtonsDown = vBox;
 	}
@@ -434,14 +434,12 @@ public class View implements AbstractView, Serializable {
 		VBox enterName = new VBox();
 		enterName.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		this.sp.getChildren().clear();
-		this.sp.setAlignment(Pos.TOP_CENTER);
-		Label l1 = new Label("Enter Name: ");
 		getTf()[0].setText("Enter Job Description");
 		getTf()[0].setMaxSize(330, 100);
 		getTf()[0].setOnMouseClicked(e -> {
 			getTf()[0].clear();
 		});
-		enterName.getChildren().addAll(l1, getTf()[0]);
+		enterName.getChildren().addAll(getTf()[0]);
 		enterName.setSpacing(20);
 		this.sp.getChildren().add(enterName);
 		HBox choosePreference = new HBox();
@@ -480,13 +478,12 @@ public class View implements AbstractView, Serializable {
 		HBox addDepartment = new HBox();
 		Label l6 = new Label("Choose department: ");
 		VBox profit = new VBox();
-		Label l7 = new Label("Enter Profit: ");
-		getTf()[1].setText("What is the profit for hour for this role");
+		getTf()[1].setText("Enter the profit for hour for this role");
 		getTf()[1].setMaxSize(330, 100);
 		getTf()[1].setOnMouseClicked(e -> {
 			getTf()[1].clear();
 		});
-		profit.getChildren().addAll(l7, getTf()[1]);
+		profit.getChildren().add(getTf()[1]);
 		profit.setAlignment(Pos.CENTER_LEFT);
 		profit.setSpacing(10);
 		this.departmentList.setMaxWidth(Double.MAX_VALUE);
@@ -495,6 +492,7 @@ public class View implements AbstractView, Serializable {
 		addDepartment.setPadding(new Insets(15));
 		this.sp.getChildren().addAll(profit, addDepartment, workPreference(), OKBorderPane());
 		this.sp.setSpacing(10);
+		this.sp.setAlignment(Pos.CENTER);
 		this.changePane.setCenter(this.sp);
 		this.casualButton.setOnAction(e -> {
 			for (UIEventListener listener : listeners) {
@@ -516,9 +514,8 @@ public class View implements AbstractView, Serializable {
 	public void addEmployee() {
 		VBox enterName = new VBox();
 		this.sp.getChildren().clear();
-		this.sp.setAlignment(Pos.TOP_CENTER);
+		this.sp.setAlignment(Pos.CENTER);
 
-		Label l1 = new Label("Enter Name: ");
 		getTf()[0].setText("Enter employee name");
 		getTf()[0].setMaxSize(330, 100);
 		getTf()[0].setOnMouseClicked(e -> {
@@ -530,8 +527,7 @@ public class View implements AbstractView, Serializable {
 			getTf()[1].clear();
 		});
 
-		Label l2 = new Label("Enter birth year: ");
-		enterName.getChildren().addAll(l1, getTf()[0], l2, getTf()[1]);
+		enterName.getChildren().addAll(getTf()[0], getTf()[1]);
 		enterName.setSpacing(20);
 		this.sp.getChildren().addAll(enterName, workPreference());
 		HBox addRole = new HBox();
@@ -560,16 +556,14 @@ public class View implements AbstractView, Serializable {
 			tg2.getToggles().add(element);
 		}
 		this.rdForSalary[0].setSelected(true);
-		chooseSalary.setAlignment(Pos.CENTER);
 		chooseSalary.setSpacing(8);
 		BorderPane bp = new BorderPane();
 		HBox enterSalary = new HBox();
 		enterSalary.setSpacing(10);
-		enterSalary.setAlignment(Pos.CENTER);
 		Label enterSalaryText = new Label();
 		this.sp.getChildren().add(chooseSalary);
 		enterSalaryText.setText("Add your salary for hour: ");
-		getTf()[2].setText("Add your salary for hour");
+		getTf()[2].setText("salary");
 		getTf()[2].setOnMouseClicked(e -> {
 			getTf()[2].clear();
 		});
@@ -581,7 +575,7 @@ public class View implements AbstractView, Serializable {
 			if (this.rdForSalary[0].isSelected()) {
 				enterSalary.getChildren().clear();
 				enterSalaryText.setText("Add your salary for hour: ");
-				getTf()[2].setText("Add your salary for hour");
+				getTf()[2].setText("salary");
 				getTf()[2].setOnMouseClicked(e1 -> {
 					getTf()[2].clear();
 				});
@@ -593,7 +587,7 @@ public class View implements AbstractView, Serializable {
 			if (this.rdForSalary[1].isSelected()) {
 				enterSalary.getChildren().clear();
 				enterSalaryText.setText("Add your global salary ");
-				getTf()[2].setText("Add your global salary ");
+				getTf()[2].setText("salary");
 				getTf()[2].setOnMouseClicked(e1 -> {
 					getTf()[2].clear();
 				});
@@ -930,7 +924,7 @@ public class View implements AbstractView, Serializable {
 		dialogPane.getStylesheets().addAll(this.getClass().getResource("application.css").toExternalForm());
 		alert.setTitle("Goodbye");
 		alert.setHeaderText("thank you for using our app");
-		alert.setContentText("Elections systems ©");
+		alert.setContentText("Simulation Systems ©");
 		((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(logo);
 		alert.showAndWait();
 		s.close();
