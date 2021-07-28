@@ -910,7 +910,7 @@ public class View implements AbstractView, Serializable {
 		dialogPane.getStylesheets().addAll(this.getClass().getResource("application.css").toExternalForm());
 		alert.setTitle("Goodbye");
 		alert.setTitle("Sucsses");
-		alert.setHeaderText("the object added sucssesfully");
+		alert.setHeaderText("It works !");
 		alert.setContentText("going back to menu");
 
 		((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(logo);
