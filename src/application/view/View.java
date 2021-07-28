@@ -864,7 +864,7 @@ public class View implements AbstractView, Serializable {
 		dialogPane.getStylesheets().addAll(this.getClass().getResource("application.css").toExternalForm());
 		alert.setTitle("Goodbye");
 		alert.setTitle("Sucsses");
-		alert.setHeaderText("the object added sucssesfully");
+		alert.setHeaderText("It works");
 		alert.setContentText("going back to menu");
 
 		((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(logo);
@@ -878,7 +878,7 @@ public class View implements AbstractView, Serializable {
 		dialogPane.getStylesheets().addAll(this.getClass().getResource("application.css").toExternalForm());
 		alert.setTitle("Goodbye");
 		alert.setHeaderText("thank you for using our app");
-		alert.setContentText("Elections systems ©");
+		alert.setContentText("company simulations ©");
 		((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(logo);
 		alert.showAndWait();
 		s.close();
