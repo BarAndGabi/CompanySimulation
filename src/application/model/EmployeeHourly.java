@@ -8,7 +8,7 @@ public class EmployeeHourly extends Employee {
 			throws Exception {
 		super(name, yearOfBirth, preference, role, cP);
 		this.salaryPerHour = salaryPerHour;
-
+		this.hourPerMonth = (int) (Math.random() * ((24 * 31) - 0)) + 0;
 	}
 
 	@Override
