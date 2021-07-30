@@ -9,7 +9,7 @@ import application.view.View;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class MainCompany extends Application {
+public class MainCompany1 extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		View View = new View(primaryStage);
