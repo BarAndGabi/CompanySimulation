@@ -526,15 +526,15 @@ public class View implements AbstractView, Serializable {
 		getTf()[1].setOnMouseClicked(e -> {
 			getTf()[1].clear();
 		});
-
+		this.roleList.setPrefWidth(Double.MAX_VALUE);
 		enterName.getChildren().addAll(getTf()[0], getTf()[1]);
 		enterName.setSpacing(20);
 		this.sp.getChildren().addAll(enterName, workPreference());
 		HBox addRole = new HBox();
-		Label l6 = new Label("Choose Role: ");
+		Label l6 = new Label("Choose Role:            ");
 		addRole.getChildren().addAll(l6, roleList);
 		addRole.setSpacing(10);
-		addRole.setPadding(new Insets(15));
+		addRole.setPadding(new Insets(20));
 		this.sp.getChildren().add(addRole);
 		HBox choosePreference = new HBox();
 		choosePreference.setPadding(new Insets(10));
