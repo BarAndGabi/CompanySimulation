@@ -23,10 +23,11 @@ public class Role implements Serializable, syncAble, choosePreference {
 		this.profitPerHour = ProfitPerHour;
 		this.sync = sync;
 		this.changePreference = changePreference;
-		if (this.changePreference)
+		if (this.changePreference) {
 			this.preference = preference;
-		else
+		} else {
 			this.preference = new Preference(PreferenceType.REGULAR_START);
+		}
 		this.workFromHome = workFromHome;
 		this.currentHourProfitForDay = 0;
 		this.currentMoneyProfitForDay = 0;
@@ -42,11 +43,12 @@ public class Role implements Serializable, syncAble, choosePreference {
 	}
 
 	@Override
-	public void choosePreference(PreferenceType t, int change) throws Exception {
-		if (this.changePreference)
-			this.preference = new Preference(t, change);
-		else
+	public void choosePreference(PreferenceType p, int change) throws Exception {
+		if (this.changePreference) {
+			this.preference = new Preference(p, change);
+		} else {
 			throw new cantChangePreferenceException();
+		}
 	}
 
 	@Override
@@ -56,13 +58,15 @@ public class Role implements Serializable, syncAble, choosePreference {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof Role))
+		if (!(obj instanceof Role)) {
 			return false;
+		}
 		Role temp = (Role) obj;
-		if (temp.getjobTitle() == this.jobTitle)
+		if (temp.getjobTitle() == this.jobTitle) {
 			return true;
-		else
+		} else {
 			return false;
+		}
 	}
 
 	public String getjobTitle() {
@@ -91,8 +95,8 @@ public class Role implements Serializable, syncAble, choosePreference {
 				+ this.department.getName() + "\nday's hours in value: " + this.currentHourProfitForDay
 				+ "\nday's hours in money value: " + this.currentMoneyProfitForDay);
 		str.append("\nthe employees in this role are: \n");
-		for (int i = 0; i < this.Employees.size(); i++) {
-			str.append(this.Employees.get(i).toString() + "\n---------------\n");
+		for (Employee element : this.Employees) {
+			str.append(element.toString() + "\n---------------\n");
 		}
 
 		return str.toString();
@@ -100,40 +104,42 @@ public class Role implements Serializable, syncAble, choosePreference {
 	}
 
 	public void calcProfit() {
-		if (this.changePreference)
-			if (this.sync)
+		if (this.changePreference) {
+			if (this.sync) {
 				this.calcProfitWithPreference();
-			else
+			} else {
 				this.calcProfitNoPreference();
-		else
+			}
+		} else {
 			this.calcProfitNoPreference();
+		}
 
 	}
 
 	private void calcProfitNoPreference() {
 		this.currentHourProfitForDay = 0;
 		this.currentMoneyProfitForDay = 0;
-		for (int i = 0; i < this.Employees.size(); i++) {
-			this.currentHourProfitForDay += this.Employees.get(i).calcHoursProfit();
-			this.currentMoneyProfitForDay += this.Employees.get(i).calcMoueyProfit();
+		for (Employee element : this.Employees) {
+			this.currentHourProfitForDay += element.calcHoursProfit();
+			this.currentMoneyProfitForDay += element.calcMoueyProfit();
 		}
 	}
 
 	private void calcProfitWithPreference() {
 		this.currentHourProfitForDay = 0;
 		this.currentMoneyProfitForDay = 0;
-		for (int i = 0; i < this.Employees.size(); i++) {
-			this.currentHourProfitForDay += this.Employees.get(i).calcHoursProfit(this.preference);
-			this.currentMoneyProfitForDay += this.Employees.get(i).calcMoueyProfit(this.preference);
+		for (Employee element : this.Employees) {
+			this.currentHourProfitForDay += element.calcHoursProfit(this.preference);
+			this.currentMoneyProfitForDay += element.calcMoueyProfit(this.preference);
 		}
 	}
 
 	public void calcProfit(Preference p) {
 		this.currentHourProfitForDay = 0;
 		this.currentMoneyProfitForDay = 0;
-		for (int i = 0; i < this.Employees.size(); i++) {
-			this.currentHourProfitForDay += this.Employees.get(i).calcHoursProfit(p);
-			this.currentMoneyProfitForDay += this.Employees.get(i).calcMoueyProfit(p);
+		for (Employee element : this.Employees) {
+			this.currentHourProfitForDay += element.calcHoursProfit(p);
+			this.currentMoneyProfitForDay += element.calcMoueyProfit(p);
 		}
 	}
 

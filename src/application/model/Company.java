@@ -40,58 +40,61 @@ public class Company implements Serializable, CompanyInterface {
 	@Override
 	public void addHardCoded() throws Exception {
 		Preference p1 = new Preference(PreferenceType.REGULAR_START, 0);
-		Preference p2 = new Preference(PreferenceType.LATE_START, 2);
+		Preference p2 = new Preference(PreferenceType.LATE_START, 6);
 		Preference p3 = new Preference(PreferenceType.EARLY_START, 3);
 		Preference p4 = new Preference(PreferenceType.HOME, 0);
-		Department logistic = this.addDepartment("logistic", false, true, PreferenceType.REGULAR_START, 0);
-		Department cars = this.addDepartment("cars", false, false, PreferenceType.EARLY_START, 6);
-		Department mangment = this.addDepartment("mangment", true, true, PreferenceType.EARLY_START, 3);
-		Department wizards = this.addDepartment("wizards", false, true, PreferenceType.LATE_START, 3);
-		Role cleaner = this.addRole(35.5, "cleaner", true, logistic, p2, true, true);
-		Role carSalesMan = this.addRole(34, "car sales man", true, cars, p3, true, true);
-		Role fileOrganizer = this.addRole(25, "file organizer", false, mangment, p2, true, true);
-		Role harryPotter = this.addRole(60, "harryPotter", false, wizards, p4, true, true);
-		EmployeeGlobaly yossi = new EmployeeGlobaly("yossi", 2002, p3, 7500, fileOrganizer, true);
+		Department logistic = this.addDepartment("Logistic", false, true, PreferenceType.REGULAR_START, 0);
+		Department cars = this.addDepartment("Cars", false, false, PreferenceType.EARLY_START, 6);
+		Department Hogwars = this.addDepartment("Hogwars", true, true, PreferenceType.EARLY_START, 2);
+		Department Ninjas = this.addDepartment("Ninjas", false, true, PreferenceType.LATE_START, 7);
+		Role cleaner = this.addRole(35.5, "Cleaner", true, logistic, p2, true, true);
+		Role Princess = this.addRole(34, "Pirncess", true, cars, p3, true, true);
+		Role fileOrganizer = this.addRole(25, "file organizer", false, Hogwars, p2, true, true);
+		Role harryPotter = this.addRole(60, "harryPotter", false, Ninjas, p4, true, true);
+		EmployeeGlobaly galya = new EmployeeGlobaly("galya", 2002, p3, 7500, fileOrganizer, true);
 		EmployeeGlobaly bar = new EmployeeGlobaly("bar", 1996, p1, 11000, cleaner, true);
 		EmployeeGlobalyPlus itay = new EmployeeGlobalyPlus("itay", 2000, p1, 23000, harryPotter, false);
 		EmployeeGlobalyPlus ofir = new EmployeeGlobalyPlus("ofir", 1983, p4, 16000, fileOrganizer, true);
-		EmployeeHourly mor = new EmployeeHourly("mor", 2002, p2, 55, carSalesMan, true);
-		EmployeeHourly yotam = new EmployeeHourly("yotam", 2002, p2, 31, harryPotter, false);
-		this.addEmployeeToDepartment(yossi);
+		EmployeeHourly shani = new EmployeeHourly("shani", 2002, p2, 55, Princess, true);
+		EmployeeHourly ella = new EmployeeHourly("ellas", 2002, p2, 31, harryPotter, false);
+		this.addEmployeeToDepartment(galya);
 		this.addEmployeeToDepartment(bar);
 		this.addEmployeeToDepartment(itay);
 		this.addEmployeeToDepartment(ofir);
-		this.addEmployeeToDepartment(mor);
-		this.addEmployeeToDepartment(yotam);
+		this.addEmployeeToDepartment(shani);
+		this.addEmployeeToDepartment(ella);
 
 	}
 
 	@Override
 	public void addEmployeeHourly(String name, int yearOfBirth, Preference preference, int salaryPerHour, Role role,
 			boolean cP) throws Exception {
-		if (salaryPerHour >= 0)
+		if (salaryPerHour >= 0) {
 			this.addEmployeeToDepartment(new EmployeeHourly(name, yearOfBirth, preference, salaryPerHour, role, cP));
-		else
+		} else {
 			throw new positiveException();
+		}
 	}
 
 	@Override
 	public void addEmployeeGlobaly(String name, int yearOfBirth, Preference preference, int salaryPerMonth, Role role,
 			boolean cP) throws Exception {
-		if (salaryPerMonth >= 0)
+		if (salaryPerMonth >= 0) {
 			this.addEmployeeToDepartment(new EmployeeGlobaly(name, yearOfBirth, preference, salaryPerMonth, role, cP));
-		else
+		} else {
 			throw new positiveException();
+		}
 	}
 
 	@Override
 	public void addEmployeeGlobalyPlus(String name, int yearOfBirth, Preference preference, int salaryPerMonth,
 			Role role, boolean cP) throws Exception {
-		if (salaryPerMonth >= 0)
+		if (salaryPerMonth >= 0) {
 			this.addEmployeeToDepartment(
 					new EmployeeGlobalyPlus(name, yearOfBirth, preference, salaryPerMonth, role, cP));
-		else
+		} else {
 			throw new positiveException();
+		}
 
 	}
 
@@ -102,15 +105,17 @@ public class Company implements Serializable, CompanyInterface {
 			this.employees.add(a);
 			this.fireAddEmployeeEvent(a);
 			this.runSimulation();
-		} else
+		} else {
 			throw new alreadyExistException();
+		}
 
 	}
 
 	private boolean employeeNotExist(String name) {
-		for (int i = 0; i < this.employees.size(); i++) {
-			if (this.employees.get(i).getName().equals(name))
+		for (Employee element : this.employees) {
+			if (element.getName().equals(name)) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -131,29 +136,32 @@ public class Company implements Serializable, CompanyInterface {
 			throws Exception {
 		if (this.departmentNotExist(name)) {
 			Department d = new Department(name, sync, p, hourChange, chooseP);
-			for (int i = 0; i < this.departments.size(); i++) {
-				if (this.departments.get(i).equals(d))
+			for (Department element : this.departments) {
+				if (element.equals(d)) {
 					throw new alreadyExistException();
+				}
 			}
 			this.departments.add(d);
 			this.fireAddDepartmentEvent(d);
 			this.runSimulation();
 			return d;
-		} else
+		} else {
 			throw new alreadyExistException();
+		}
 	}
 
 	private boolean departmentNotExist(String name) {
-		for (int i = 0; i < this.departments.size(); i++) {
-			if (this.departments.get(i).getName().equals(name))
+		for (Department element : this.departments) {
+			if (element.getName().equals(name)) {
 				return false;
+			}
 		}
 		return true;
 	}
 
 	private void fireAddDepartmentEvent(Department d) {
-		for (int i = 0; i < this.listeners.size(); i++) {
-			this.listeners.get(i).createAddDepartmentEvent(d);
+		for (modelListener element : this.listeners) {
+			element.createAddDepartmentEvent(d);
 		}
 	}
 
@@ -162,9 +170,9 @@ public class Company implements Serializable, CompanyInterface {
 			boolean workFromHome, boolean b) throws Exception {
 		if (this.roleNotExist(jobTitle)) {
 			if (ProfitPerHour >= 0) {
-				if ((preference.getPreferenceType() == PreferenceType.HOME) && (!workFromHome))
+				if ((preference.getPreferenceType() == PreferenceType.HOME) && (!workFromHome)) {
 					throw new homeException();
-				else {
+				} else {
 					Role r = new Role(ProfitPerHour, jobTitle, sync, d, preference, workFromHome, b);
 					int index = this.findDepartment(d);
 					this.departments.get(index).addRole(r);
@@ -173,16 +181,19 @@ public class Company implements Serializable, CompanyInterface {
 					this.runSimulation();
 					return r;
 				}
-			} else
+			} else {
 				throw new positiveException();
-		} else
+			}
+		} else {
 			throw new alreadyExistException();
+		}
 	}
 
 	private boolean roleNotExist(String jobTitle) {
-		for (int i = 0; i < this.departments.size(); i++) {
-			if (this.departments.get(i).getName().equals(jobTitle))
+		for (Department element : this.departments) {
+			if (element.getName().equals(jobTitle)) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -197,10 +208,10 @@ public class Company implements Serializable, CompanyInterface {
 	public void runSimulation() {
 		this.currentHourProfitForDay = 0;
 		this.currentMoneyProfitForDay = 0;
-		for (int i = 0; i < this.departments.size(); i++) {
-			this.departments.get(i).calcProfit();
-			this.currentHourProfitForDay += this.departments.get(i).getCurrentHourProfitForDay();
-			this.currentMoneyProfitForDay += this.departments.get(i).getCurrentMoneyProfitForDay();
+		for (Department element : this.departments) {
+			element.calcProfit();
+			this.currentHourProfitForDay += element.getCurrentHourProfitForDay();
+			this.currentMoneyProfitForDay += element.getCurrentMoneyProfitForDay();
 		}
 	}
 
@@ -227,8 +238,8 @@ public class Company implements Serializable, CompanyInterface {
 		StringBuffer str = new StringBuffer(this.getClass().getSimpleName() + "simulation results: \n"
 				+ "hour profit for day: " + this.currentHourProfitForDay + "\nmoney profit for day: "
 				+ this.currentMoneyProfitForDay + "\ndepratments:\n");
-		for (int i = 0; i < this.departments.size(); i++) {
-			str.append( this.departments.get(i).getSimulationResults());
+		for (Department element : this.departments) {
+			str.append( element.getSimulationResults());
 		}
 		return str.toString();
 	}
@@ -246,26 +257,26 @@ public class Company implements Serializable, CompanyInterface {
 	public void changePrefernce(String name, objectType o, PreferenceType p, int hourChange) throws Exception {
 		switch (o) {
 		case DEPARTMENT:
-			for (int i = 0; i < this.departments.size(); i++) {
-				if (this.departments.get(i).getName().equals(name)) {
-					this.departments.get(i).choosePreference(p, hourChange);
+			for (Department element : this.departments) {
+				if (element.getName().equals(name)) {
+					element.choosePreference(p, hourChange);
 					break;
 				}
 
 			}
 
 		case ROLE:
-			for (int i = 0; i < this.roles.size(); i++) {
-				if (this.roles.get(i).getjobTitle().equals(name)) {
-					this.roles.get(i).choosePreference(p, hourChange);
+			for (Role element : this.roles) {
+				if (element.getjobTitle().equals(name)) {
+					element.choosePreference(p, hourChange);
 					break;
 				}
 			}
 
 		case EMPLOYEE:
-			for (int i = 0; i < this.employees.size(); i++) {
-				if (this.employees.get(i).getName().equals(name)) {
-					this.employees.get(i).choosePreference(p, hourChange);
+			for (Employee element : this.employees) {
+				if (element.getName().equals(name)) {
+					element.choosePreference(p, hourChange);
 					break;
 				}
 
@@ -277,41 +288,48 @@ public class Company implements Serializable, CompanyInterface {
 
 	@Override
 	public Role findRole(String jobTitle) throws cantFingObjectException {
-		for (int i = 0; i < this.roles.size(); i++)
-			if (jobTitle.equals(this.roles.get(i).getjobTitle()))
-				return this.roles.get(i);
+		for (Role element : this.roles) {
+			if (jobTitle.equals(element.getjobTitle())) {
+				return element;
+			}
+		}
 		throw new cantFingObjectException();
 	}
 
 	@Override
 	public ArrayList<String> getEmployeesNames(ArrayList<String> temp) {
-		for (int i = 0; i < this.employees.size(); i++)
+		for (int i = 0; i < this.employees.size(); i++) {
 			temp.add(this.employees.get(i).name);
+		}
 		return temp;
 
 	}
 
 	@Override
 	public ArrayList<String> getRolesNames(ArrayList<String> temp) {
-		for (int i = 0; i < this.roles.size(); i++)
+		for (int i = 0; i < this.roles.size(); i++) {
 			temp.add(this.roles.get(i).getjobTitle());
+		}
 		return temp;
 
 	}
 
 	@Override
 	public ArrayList<String> getDepartmentNames(ArrayList<String> temp) {
-		for (int i = 0; i < this.departments.size(); i++)
+		for (int i = 0; i < this.departments.size(); i++) {
 			temp.add(this.departments.get(i).getName());
+		}
 		return temp;
 
 	}
 
 	@Override
 	public Department findDepartment(String name) throws cantFingObjectException {
-		for (int i = 0; i < this.departments.size(); i++)
-			if (name.equals(this.departments.get(i).getName()))
-				return this.departments.get(i);
+		for (Department element : this.departments) {
+			if (name.equals(element.getName())) {
+				return element;
+			}
+		}
 		throw new cantFingObjectException();
 	}
 
@@ -319,23 +337,23 @@ public class Company implements Serializable, CompanyInterface {
 	public String getToString(objectType o, String name) throws Exception {
 		switch (o) {
 		case DEPARTMENT:
-			for (int i = 0; i < this.departments.size(); i++) {
-				if (this.departments.get(i).getName().equals(name)) {
-					return this.departments.get(i).toString();
+			for (Department element : this.departments) {
+				if (element.getName().equals(name)) {
+					return element.toString();
 
 				}
 
 			}
 		case ROLE:
-			for (int i = 0; i < this.roles.size(); i++) {
-				if (this.roles.get(i).getjobTitle().equals(name)) {
-					return this.roles.get(i).toString();
+			for (Role element : this.roles) {
+				if (element.getjobTitle().equals(name)) {
+					return element.toString();
 				}
 			}
 		case EMPLOYEE:
-			for (int i = 0; i < this.employees.size(); i++) {
-				if (this.employees.get(i).getName().equals(name)) {
-					return this.employees.get(i).toString();
+			for (Employee element : this.employees) {
+				if (element.getName().equals(name)) {
+					return element.toString();
 				}
 			}
 		}
@@ -348,23 +366,22 @@ public class Company implements Serializable, CompanyInterface {
 		this.runSimulation();
 		switch (o) {
 		case DEPARTMENT:
-			for (int i = 0; i < this.departments.size(); i++) {
-				if (this.departments.get(i).getName().equals(name)) {
-					return this.departments.get(i).getSimulationResults();
-
+			for (Department element : this.departments) {
+				if (element.getName().equals(name)) {
+					return element.getSimulationResults();
 				}
 
 			}
 		case ROLE:
-			for (int i = 0; i < this.roles.size(); i++) {
-				if (this.roles.get(i).getjobTitle().equals(name)) {
-					return this.roles.get(i).getSimulationResults();
+			for (Role element : this.roles) {
+				if (element.getjobTitle().equals(name)) {
+					return element.getSimulationResults();
 				}
 			}
 		case EMPLOYEE:
-			for (int i = 0; i < this.employees.size(); i++) {
-				if (this.employees.get(i).getName().equals(name)) {
-					return this.employees.get(i).getSimulationResults();
+			for (Employee element : this.employees) {
+				if (element.getName().equals(name)) {
+					return element.getSimulationResults();
 				}
 			}
 		}

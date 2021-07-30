@@ -16,10 +16,11 @@ public class Employee extends Person implements Serializable, choosePreference {
 		super(name, yearOfBirth);
 		this.employeeId = idSerialCounter++;
 		this.changePreference = changePreference;
-		if (this.changePreference)
+		if (this.changePreference) {
 			this.preference = preference;
-		else
+		} else {
 			this.preference = new Preference(PreferenceType.REGULAR_START);
+		}
 		this.role = role;
 		this.currentHourProfitForDay = this.calcHoursProfit();
 		this.currentMoneyProfitForDay = this.calcMoueyProfit();
@@ -28,10 +29,11 @@ public class Employee extends Person implements Serializable, choosePreference {
 
 	@Override
 	public void choosePreference(PreferenceType t, int change) throws Exception {
-		if (this.changePreference)
+		if (this.changePreference) {
 			this.preference = new Preference(t, change);
-		else
+		} else {
 			throw new cantChangePreferenceException();
+		}
 	}
 
 	public Department getDepartment() {
@@ -61,18 +63,20 @@ public class Employee extends Person implements Serializable, choosePreference {
 				profit = (1.2 * currentHourChange) + (1 * (8 - currentHourChange));
 				break;
 			case HOME:
-				if (this.role.getWorkFromHome())
+				if (this.role.getWorkFromHome()) {
 					profit = 1.1 * 8;
-				else
+				} else {
 					profit = 8;
+				}
 				break;
 			case REGULAR_START:
 				profit = 8;
 				break;
 
 			}
-		} else
+		} else {
 			profit = 8;
+		}
 		this.currentHourProfitForDay = profit;
 		this.currentMoneyProfitForDay = this.currentHourProfitForDay * this.role.getProfitPerHour();
 		return profit;
@@ -92,13 +96,15 @@ public class Employee extends Person implements Serializable, choosePreference {
 		double profit = 0;
 		if (this.canChoosePreference()) {
 			if (p.getPreferenceType() == PreferenceType.HOME) {
-				if (this.preference.getPreferenceType() == PreferenceType.HOME)
-					if (this.role.getWorkFromHome())
+				if (this.preference.getPreferenceType() == PreferenceType.HOME) {
+					if (this.role.getWorkFromHome()) {
 						profit = 8 * 1.1;
-					else
+					} else {
 						profit = 8;
-				else
+					}
+				} else {
 					profit = 8 * 1;
+				}
 			} else {
 				if (this.preference.getPreferenceType() == PreferenceType.HOME) {
 					profit = 8;
@@ -112,26 +118,29 @@ public class Employee extends Person implements Serializable, choosePreference {
 					for (int currentHour = start; currentHour < end; currentHour++) {
 						if (currentHour != randomLunchBreak) {
 							if (currentHour < 8) {
-								if (employeeStart <= currentHour)
+								if (employeeStart <= currentHour) {
 									profit += 1.2;
-								else
+								} else {
 									profit += 0.8;
+								}
 
 							} else if (currentHour >= 8 && currentHour < 17) {
 								profit++;
 
 							} else if (currentHour > 17) {
-								if (employeeEnd <= currentHour)
+								if (employeeEnd <= currentHour) {
 									profit += 0.8;
-								else
+								} else {
 									profit += 1.2;
+								}
 							}
 						}
 					}
 				}
 			}
-		} else
+		} else {
 			profit = 8;
+		}
 		this.currentHourProfitForDay = profit;
 		this.currentMoneyProfitForDay = this.currentHourProfitForDay * this.role.getProfitPerHour();
 		return profit;
@@ -154,13 +163,15 @@ public class Employee extends Person implements Serializable, choosePreference {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof Employee))
+		if (!(obj instanceof Employee)) {
 			return false;
+		}
 		Employee temp = (Employee) obj;
-		if (temp.getEmployeeId() == this.employeeId)
+		if (temp.getEmployeeId() == this.employeeId) {
 			return true;
-		else
+		} else {
 			return false;
+		}
 	}
 
 	@Override
@@ -170,7 +181,8 @@ public class Employee extends Person implements Serializable, choosePreference {
 
 	@Override
 	public String toString() {
-		return ("^^^^^^"+this.name +"^^^^^^\n"+ "year of birth " + this.yearOfBirth + "\nid: " + this.employeeId
+		return ("---------------" + this.name + "---------------\n" + "year of birth " + this.yearOfBirth + "\nid: "
+				+ this.employeeId
 				+ "\npreference :\n" + this.preference.toString() + "\nrole: " + this.role.getjobTitle()
 				+ "\ncan choose preference? : " + this.changePreference + "\nday's hours in value: "
 				+ this.currentHourProfitForDay + "\nday's hours in money value: " + this.currentMoneyProfitForDay);
